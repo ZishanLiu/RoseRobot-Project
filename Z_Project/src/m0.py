@@ -32,6 +32,9 @@ class DataContainer(object, metaclass=rb.__FreezeClass__):
         """ Initializes instance variables (fields). """
         # Add     self.FOO = BLAH     here as needed.
         # Choose meaningful names!
+        self.demo = 'demo'
+
+
 
 
 def main():
@@ -39,7 +42,11 @@ def main():
     print('----------------------------------------------')
     print('Integration Testing of the INTEGRATED PROGRAM:')
     print('----------------------------------------------')
-
+    my_dc = DataContainer
+    root = tkinter()
+    m1.my_frame(root, my_dc)
+    m2.my_frame(root, my_dc)
+    m3.my_frame(root, my_dc)
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
