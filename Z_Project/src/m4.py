@@ -4,7 +4,7 @@ The Python Capstone Project.
 CSSE 120 - Introduction to Software Development.
 Team members: PUT-YOUR-NAMES_HERE (all of them).
 
-The primary author of this module is: PUT-YOUR-NAME-HERE.
+The primary author of this module is: lyum.
 """
 # TODO: Put the names of ALL team members in the above where indicated.
 #       Put YOUR NAME in the above where indicated.
