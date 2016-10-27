@@ -44,7 +44,7 @@ def main():
     print('----------------------------------------------')
     print('Integration Testing of the INTEGRATED PROGRAM:')
     print('----------------------------------------------')
-    my_dc = DataContainer
+    my_dc = DataContainer()
     root = tkinter.Tk()
     m1.my_frame(root, my_dc)
     m2.my_frame(root, my_dc)
