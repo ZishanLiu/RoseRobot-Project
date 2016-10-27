@@ -53,9 +53,9 @@ def my_frame(root, dc):
     print_stuff_button = ttk.Button(frame1, text='Print stuff')
     print_stuff_button['command'] = (lambda:do_stuff('leo'))
     print_stuff_button.grid()
+
 def do_stuff(dc):
-    dc.robot = 'sb'
-    print(dc, dc.robot)
+    print(dc)
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
