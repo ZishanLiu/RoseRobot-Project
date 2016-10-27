@@ -51,6 +51,8 @@ def main():
     m3.my_frame(root, my_dc)
     m4.my_frame(root, my_dc)
 
+    root.mainloop()
+
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
 # imported by another module), then call the 'main' function.
