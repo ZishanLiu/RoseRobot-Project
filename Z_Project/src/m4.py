@@ -16,9 +16,19 @@ import m3
 
 import tkinter
 from tkinter import ttk
-import rosebot.standard_rosebot as rb
+import rosebot.faux_rosebot as rb
+import time
 
-
+def main():
+    print('hello')
+    robot = rb.RoseBot()
+    robot.connector.connect(4)
+    robot.led.turn_on()
+    for i in range(20):
+        robot.led.turn_off()
+        time.sleep(0.1)
+        robot.led.turn_on()
+        time.sleep(0.1)
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
@@ -35,10 +45,20 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
+    print('leo')
+    print(dc.robot)
+    frame1 = ttk.Frame(root, padding=10)
+    frame1.grid()
+
+    print_stuff_button = ttk.Button(frame1, text='Print stuff')
+    print_stuff_button['command'] = (lambda:do_stuff('leo'))
+    print_stuff_button.grid()
+def do_stuff(dc):
+    print('leo', dc.robot)
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
 # imported by another module), then call the 'main' function.
 # ----------------------------------------------------------------------
 if __name__ == '__main__':
-    m0.main()
+    main()
