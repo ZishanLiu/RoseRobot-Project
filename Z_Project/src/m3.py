@@ -35,6 +35,8 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
+    print('Song')
+    print(dc.robot)
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
