@@ -49,7 +49,7 @@ def my_frame(root, dc):
     """
 
     print('Zishan')
-    dc.robot = 'Stupid Robot'
+
     print(dc.robot)
 
 # ----------------------------------------------------------------------
