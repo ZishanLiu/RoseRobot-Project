@@ -51,7 +51,7 @@ def my_frame(root, dc):
     frame1.grid()
 
     print_stuff_button = ttk.Button(frame1, text='Print stuff')
-    print_stuff_button['command'] = (lambda:do_stuff('leo'))
+    print_stuff_button['command'] = (lambda:do_stuff(leo))
     print_stuff_button.grid()
 def do_stuff(dc):
     print('leo', dc.robot)
