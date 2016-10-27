@@ -43,7 +43,7 @@ def main():
     print('Integration Testing of the INTEGRATED PROGRAM:')
     print('----------------------------------------------')
     my_dc = DataContainer
-    root = tkinter()
+    root = tkinter.Tk()
     m1.my_frame(root, my_dc)
     m2.my_frame(root, my_dc)
     m3.my_frame(root, my_dc)
