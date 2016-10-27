@@ -55,7 +55,7 @@ def my_frame(root, dc):
     print_stuff_button.grid()
 
 def do_stuff(dc):
-    print(dc)
+    print('wit is sb')
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
