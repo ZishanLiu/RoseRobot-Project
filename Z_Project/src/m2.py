@@ -16,8 +16,20 @@ import m4
 
 import tkinter
 from tkinter import ttk
-import rosebot.standard_rosebot as rb
+import rosebot.faux_rosebot as rb
+import time
 
+def main():
+    print('Hello!')
+
+    robot = rb.RoseBot()
+    robot.connector.connect(4)
+    robot.led.turn_on()
+    for _ in range(10):
+        robot.led.turn_off()
+        time.sleep(0.1)
+        robot.led.turn_on()
+        time.sleep(0.1)
 
 def my_frame(root, dc):
     """
@@ -36,9 +48,11 @@ def my_frame(root, dc):
       :type dc:   m0.DataContainer
     """
 
+    print('Zishan')
+
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
 # imported by another module), then call the 'main' function.
 # ----------------------------------------------------------------------
 if __name__ == '__main__':
-    m0.main()
+    main()
