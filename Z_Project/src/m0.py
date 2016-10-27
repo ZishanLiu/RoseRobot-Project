@@ -47,6 +47,7 @@ def main():
     m1.my_frame(root, my_dc)
     m2.my_frame(root, my_dc)
     m3.my_frame(root, my_dc)
+    m4.my_frame(root, my_dc)
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
