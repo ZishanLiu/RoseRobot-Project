@@ -37,6 +37,7 @@ def my_frame(root, dc):
     """
     print('hello')
     print('666')
+    print(dc.robot)
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
 # imported by another module), then call the 'main' function.
