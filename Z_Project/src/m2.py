@@ -49,6 +49,8 @@ def my_frame(root, dc):
     """
 
     print('Zishan')
+    dc.robot = 'Stupid Robot'
+    print(dc.robot)
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
