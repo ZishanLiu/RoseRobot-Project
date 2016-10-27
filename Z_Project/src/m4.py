@@ -45,8 +45,10 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
+    dc.robot = 'closer'
     print('leo')
     print(dc.robot)
+
     frame1 = ttk.Frame(root, padding=10)
     frame1.grid()
 
