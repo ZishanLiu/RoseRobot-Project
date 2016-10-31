@@ -57,7 +57,7 @@ def my_frame(root, dc):
     print_stuff_button.grid()
 
 def do_stuff(dc):
-    print('wit is not a sb')
+    print('wwwwwwwit')
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
