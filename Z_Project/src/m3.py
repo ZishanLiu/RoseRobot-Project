@@ -17,7 +17,25 @@ import m4
 import tkinter
 from tkinter import ttk
 import rosebot.standard_rosebot as rb
+import time
+def main():
+    print('Hello!')
 
+    robot = rb.RoseBot()
+    robot.connector.connect(4)
+    robot.led.turn_on()
+    for k in range(10):
+        robot.led.turn_off()
+        time.sleep(0.1)
+        robot.led.turn_on()
+        time.sleep(0.1)
+        '''
+        my_dc=m0.DataContainer()
+        root=tkinter.Tk()
+        my_dc.robot=robot
+        my_frame(root, my_dc)
+        root.mainloop()
+        ''''
 
 def my_frame(root, dc):
     """
@@ -37,10 +55,15 @@ def my_frame(root, dc):
     """
     print('Song')
     print(dc.robot)
-
+    
+    noteslist=[]
+    for k in range(7):
+        rb.RoseBot.buzzer.play_tone(self, tone)
+    
+    
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
 # imported by another module), then call the 'main' function.
 # ----------------------------------------------------------------------
 if __name__ == '__main__':
-    m0.main()
+   main()
