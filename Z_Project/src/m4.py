@@ -45,19 +45,16 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
-    dc.robot = 'closer'
-    print('leo')
-    print(dc.robot)
 
-    frame1 = ttk.Frame(root, padding=10)
-    frame1.grid()
 
-    print_stuff_button = ttk.Button(frame1, text='Print stuff')
-    print_stuff_button['command'] = (lambda:do_stuff('leo'))
-    print_stuff_button.grid()
+    robot = rb.RoseBot()
+    robot.connector.connect(4)
 
-def do_stuff(dc):
-    print('wwwwwwwit')
+
+
+
+
+
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
