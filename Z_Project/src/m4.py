@@ -71,19 +71,19 @@ def speed(entry, dc):
 
 def bumpleft(dc):
     dc.robot = rb.RoseBot()
-    dc.robot.sensor_reader.left_bump_sensor.connected()
+    dc.robot.sensor_reader.left_bump_sensor.connector.connect(5)
     if dc.robot.is_pressed() is True:
         dc.robot.drive_pwm(0, 0)
 
 def bumpright(dc):
     dc.robot = rb.RoseBot()
-    dc.robot.sensor_reader.right_bump_sensor.connected()
+    dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
     if dc.robot.is_pressed() is True:
         dc.robot.drive_pwm(0, 0)
 
 def bumpboth(dc):
     dc.robot = rb.RoseBot()
-    dc.robot.sensor_reader.right_bump_sensor.connected()
+    dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
     dc.robot.sensor_reader.left_bump_sensor.connected()
     if dc.robot.is_pressed() is True:
         dc.robot.drive_pwm(0, 0)
