@@ -41,6 +41,7 @@ def my_frame(root, dc):
       :type dc:   m0.DataContainer
     """
     frame = ttk.Frame(root, padding=10)
+    frame.grid()
     speedbutton = ttk.Button(frame, text='speed')
     speedbutton['command'] = (lambda:speed(speedentry, dc))
 
@@ -99,4 +100,4 @@ def my_frame(root, dc):
 # imported by another module), then call the 'main' function.
 # ----------------------------------------------------------------------
 if __name__ == '__main__':
-    m0.main()
+    main()
