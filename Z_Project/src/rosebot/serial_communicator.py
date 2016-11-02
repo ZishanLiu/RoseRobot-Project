@@ -17,7 +17,7 @@ class SerialCommunicator(rosebot.communicator.Communicator):
                  connect=True,
                  wait_for_acknowledgement=True,
                  send_acknowledgement=False,
-                 is_debug=True):
+                 is_debug=False):
         # TODO Allow search for port.
         self.port = port
 
