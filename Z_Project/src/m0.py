@@ -15,7 +15,7 @@ import m4
 
 import tkinter
 from tkinter import ttk
-import rosebot.standard_rosebot as rb
+import rosebot.faux_rosebot as rb
 
 # ----------------------------------------------------------------------
 # TODO: TEAM-PROGRAM this module so that it runs your entire program,
@@ -33,7 +33,7 @@ class DataContainer(object, metaclass=rb.__FreezeClass__):
         # Add     self.FOO = BLAH     here as needed.
         # Choose meaningful names!
         self.demo = 'demo'
-        self.robot = rb.rosebot()
+        self.robot = rb.RoseBot()
 
 
 
