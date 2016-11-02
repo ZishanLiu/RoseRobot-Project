@@ -41,14 +41,11 @@ def my_frame(root, dc):
       :type dc:   m0.DataContainer
     """
 
-    my_dc = m0.DataContainer()
-    root = tkinter.Tk()
-#     robot = rb.RoseBot()
-#     my_dc.robot = robot
-    my_frame(root, my_dc)
-    root.mainloop()
 
-    root = tkinter.Tk()
+
+
+
+
 
     main_frame = ttk.Frame(root, padding=20)
     main_frame.grid(row=1, column=4)
@@ -77,7 +74,7 @@ def my_frame(root, dc):
     root.bind_all('<Key-space>', lambda event: spin(event))
 
 
-    root.mainloop()
+
 
 
     def pressed_a_key(event):
