@@ -20,16 +20,8 @@ import rosebot.faux_rosebot as rb
 import time
 
 def main():
-    print('Hello!')
-
     robot = rb.RoseBot()
     robot.connector.connect(4)
-    robot.led.turn_on()
-    for _ in range(10):
-        robot.led.turn_off()
-        time.sleep(0.1)
-        robot.led.turn_on()
-        time.sleep(0.1)
 
 def my_frame(root, dc):
     """
@@ -47,11 +39,25 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
+    def turn_left():
+        dc.robot.motor_controller.drive_pwm(0, 100)
 
-    print('Zishan')
+    def turn_right():
+        dc.robot.motor_controller.drive_pwm(100, 0)
 
-    dc.robot = 'Stupid Robot'
-    print(dc.robot)
+    main_frame = ttk.Frame(root, padding=20)
+    main_frame.grid()
+
+    left_button = ttk.Button(main_frame, text='Spin_Left')
+    left_button['command'] = lambda: turn_left()
+    left_button.grid()
+
+    right_button = ttk.Button(main_frame, text='Spin_Right')
+    right_button['command'] = lambda: turn_right()
+    right_button.grid()
+
+    root.mainloop()
+
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
 # imported by another module), then call the 'main' function.
