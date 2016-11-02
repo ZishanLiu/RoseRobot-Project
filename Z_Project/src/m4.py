@@ -42,6 +42,7 @@ def my_frame(root, dc):
     """
     frame = ttk.Frame(root, padding=10)
     frame.grid()
+
     speedbutton = ttk.Button(frame, text='speed')
     speedbutton['command'] = (lambda:speed(speedentry, dc))
 
