@@ -16,12 +16,8 @@ import m4
 
 import tkinter
 from tkinter import ttk
-import rosebot.faux_rosebot as rb
+import rosebot.standard_rosebot as rb
 import time
-
-def main():
-    robot = rb.RoseBot()
-    robot.connector.connect(4)
 
 def my_frame(root, dc):
     """
@@ -42,7 +38,7 @@ def my_frame(root, dc):
 
 
     main_frame = ttk.Frame(root, padding=20)
-    main_frame.grid()
+    main_frame.grid(row=1, column=2)
 
     left_button = ttk.Button(main_frame, text='Spin Left')
     left_button['command'] = lambda: turn_left()
@@ -52,48 +48,50 @@ def my_frame(root, dc):
     right_button['command'] = lambda: turn_right()
     right_button.grid()
 
-    entry_box = ttk.Entry(main_frame, text='Speed')
-    entry_box.grid()
+    dc.entry_box = ttk.Entry(main_frame, text='Speed')
+    dc.entry_box.grid()
 
     forward_button = ttk.Button(main_frame, text='move forward')
-    forward_button['command'] = lambda: move_forward(entry_box)
+    forward_button['command'] = (lambda: move_forward(dc))
     forward_button.grid()
 
     backward_button = ttk.Button(main_frame, text='move backward')
-    backward_button['command'] = lambda: move_backward(entry_box)
+    backward_button['command'] = lambda: move_backward(dc)
     backward_button.grid()
 
     print_entry = ttk.Button(main_frame, text=' Go! ')
-    print_entry['command'] = (lambda: move_forward(entry_box))
+    print_entry['command'] = (lambda: move_forward(dc))
     print_entry.grid()
 
     stop_button = ttk.Button(main_frame, text='stop')
-    stop_button['command'] = lambda: stop()
+    stop_button['command'] = lambda: stop(dc)
     stop_button.grid()
 
 
-    def move_forward(entry_box):
-        contents_of_entry_box = float(entry_box.get())
-        dc.robot.motor_controller.drive_pwm(contents_of_entry_box, contents_of_entry_box)
+def move_forward(dc):
+    a = dc.entry_box.get()
+    n = int(a)
+    dc.robot.motor_controller.drive_pwm(n, n)
 
-    def turn_left():
-        dc.robot.motor_controller.drive_pwm(0, 100)
 
-    def turn_right():
-        dc.robot.motor_controller.drive_pwm(100, 0)
+def turn_left(dc):
+    dc.robot.motor_controller.drive_pwm(0, 100)
 
-    def move_backward(entry_box):
-        contents_of_entry_box = float(entry_box.get())
-        dc.robot.motor_controller.drive_pwm(-contents_of_entry_box, -contents_of_entry_box)
+def turn_right(dc):
+    dc.robot.motor_controller.drive_pwm(100, 0)
 
-    def stop():
-        dc.robot.motor_controller.drive_pwm(0, 0)
+def move_backward(dc):
+    a = dc.entry_box.get()
+    m = int(a)
+    dc.robot.motor_controller.drive_pwm(-m, -m)
 
-    root.mainloop()
+def stop(dc):
+    dc.robot.motor_controller.drive_pwm(0, 0)
+
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
 # imported by another module), then call the 'main' function.
 # ----------------------------------------------------------------------
 if __name__ == '__main__':
-    main()
+    m0.main()
