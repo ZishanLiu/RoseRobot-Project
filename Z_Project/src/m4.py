@@ -19,11 +19,6 @@ from tkinter import ttk
 import rosebot.standard_rosebot as rb
 import time
 
-def main():
-    robot = rb.RoseBot()
-    robot.connector.connect(5)
-
-
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
