@@ -1,6 +1,5 @@
 import rosebot.communicator
 import rosebot.command
-import sys
 import serial
 import time
 
@@ -10,101 +9,72 @@ class SerialCommunicator(rosebot.communicator.Communicator):
 
     BAUDRATE = 57600  # 57600  # Serial can go at 115200, but wifly only 57600
     READ_TIMEOUT = None  # in seconds. None means never timeout.
-    SECONDS_AFTER_CONNECTING = 5  # TODO Tune this.
-    TIME_BETWEEN_SENDS = 0.05  # TODO Tune this.
+    SECONDS_AFTER_CONNECTING = 1  # TODO Tune this.
+    TIME_BETWEEN_SENDS = 0.005  # TODO Tune this.
 
-    def __init__(self, port, connect=False, simulate=False,
-                 acknowledge=True):
-        # TODO Allow the port to be specified via connect, too.
+    def __init__(self,
+                 port,
+                 connect=True,
+                 wait_for_acknowledgement=True,
+                 send_acknowledgement=False,
+                 is_debug=True):
         # TODO Allow search for port.
         self.port = port
-        self.simulate = simulate
-        self.acknowledge = acknowledge
 
-        self.is_connected = False
-        if connect:
-            self.connect()
+        super().__init__(connect=connect,
+                         wait_for_acknowledgement=wait_for_acknowledgement,
+                         send_acknowledgement=send_acknowledgement,
+                         is_debug=is_debug)
 
     # TODO implement a __repr__ and/or __str__
 
-    def connect(self, simulate=False):
-        if simulate or self.simulate:
-            self.reader_writer = sys.stdout
-        else:
-            try:
-                # TODO Confirm that the remaining parameters in the
-                # following statement are not going to change no matter
-                # what hardware we use (within reason).
-                # Otherwise, make variables herein for those parameters.
-                self.reader_writer = \
-                serial.Serial(self.port,
-                              baudrate=SerialCommunicator.BAUDRATE,
-                              timeout=SerialCommunicator.READ_TIMEOUT)
-                time.sleep(SerialCommunicator.SECONDS_AFTER_CONNECTING)
-            except:
-                # TODO Add error-handling.
-                raise
+    def establish_connection(self):
+        try:
+            # TODO Confirm that the remaining parameters in the
+            # following statement are not going to change no matter
+            # what hardware we use (within reason).
+            # Otherwise, make variables herein for those parameters.
+            self.serial_connection = \
+            serial.Serial(self.port,
+                          baudrate=SerialCommunicator.BAUDRATE,
+                          timeout=SerialCommunicator.READ_TIMEOUT)
+            time.sleep(SerialCommunicator.SECONDS_AFTER_CONNECTING)
+        except:
+            # TODO Add error-handling, or leave to caller (as currently)
+            raise
 
-        self.is_connected = True
+        # WORKAROUND for now:  Send *HELLO**OPEN* as wireless does.
+        self.send_bytes(bytearray([42, 72, 69, 76, 76, 79, 42,
+                                   42, 79, 80, 72, 78, 42]))
 
     def disconnect(self):
-        # TODO Does this need to do anything?
-        pass
+        self.serial_connection.close()
 
-    def send_message(self, message):
+    def send_bytes(self, bytes_to_send):
         """
         Sends the given message to the Arduino.
         Returns the number of bytes actually sent.
           :type message: bytes or bytearray
           :rtype int
         """
-        if self.simulate:
-            new_message = ''
-            for byte in message:
-                new_message = new_message + hex(byte) + ' '
-            message = new_message + '\n'
+        return self.serial_connection.write(bytes_to_send)
 
-#         print(message)  # TODO Make happen only in DEBUG mode
+#         # TODO Calulate the following.
+#         time_since_previous_send = 0
+#         first_sleep = max(0, SerialCommunicator.TIME_BETWEEN_SENDS
+#                           - time_since_previous_send)
+#
+#         # TODO The following does writes one byte at a time,
+#         # with a short pause after each.  Would it be more
+#         # or less reliable to do a single multi-byte write?
+#
+#         for byte in message:
+#             time.sleep(SerialCommunicator.TIME_BETWEEN_SENDS)
+#             total_bytes_sent += self.serial_connection.write([byte_or_character])
+#
+#         return total_bytes_sent
 
-        # TODO Calulate the following.
-        time_since_previous_send = 0
-        first_sleep = max(0, SerialCommunicator.TIME_BETWEEN_SENDS
-                          - time_since_previous_send)
-
-        # TODO The following does writes one byte at a time,
-        # with a short pause in between each.  Would it be more
-        # or less reliable to do a single multi-byte write?
-
-        total_bytes_sent = 0
-        # Send the first byte of the message:
-        time.sleep(first_sleep)
-        total_bytes_sent += self.write_byte(message[0])
-
-        # Send the rest of the message:
-        for byte in message[1:]:
-            time.sleep(SerialCommunicator.TIME_BETWEEN_SENDS)
-            total_bytes_sent += self.write_byte(byte)
-
-        # TODO Make the acknowledgement less hard-coded
-        #   and better at error detection and handling.
-        # TODO Allow for different encodings?
-        # FIXME The ValueError below does not seem to fire
-        #   when running from the unittest.  Why?
-        if self.acknowledge:
-            ack = self.receive_message(4)
-#             for k in range(4):
-#                 print(str(ack[k]), end=' ')
-#             print()
-            # TODO Check the acknowledge
-#             if ...
-#                 msg = 'Wrong acknowledgement.\n'
-#                 msg += 'Expected: ackX  where X is a digit.\n'
-# #                 msg += 'Got: ' + ack
-#                 raise ValueError(msg)
-
-        return total_bytes_sent
-
-    def receive_message(self, length_of_message_in_bytes=1):
+    def receive_bytes(self, length_of_message_in_bytes=1):
         """
         Receives from the Arduino the given number of bytes.
         Returns a byte (integer between 0 and 255) if the given
@@ -116,24 +86,11 @@ class SerialCommunicator(rosebot.communicator.Communicator):
         which was set when this object was constructed.
           :rtype byte or bytearray
         """
-        if self.simulate:
-            print('Receiving messages is unimplemented in the simulator')
-            return
-        # TODO Should this be a loop with a sleep?  I think not, but ...
-        # TODO Deal with timeouts other than None.
-        bytes_object = self.reader_writer.read(length_of_message_in_bytes)
+        bytes_object = self.serial_connection.read(length_of_message_in_bytes)
         if len(bytes_object) == 1:
-#             print('Returning a single byte')
             return int(bytes_object[0])
         else:
             return bytes_object
-
-    def write_byte(self, byte_or_character):
-        if self.simulate:
-            self.reader_writer.write(byte_or_character)
-            return 1
-        else:
-            return self.reader_writer.write([byte_or_character])
 
 
 ########################################################################
@@ -142,12 +99,13 @@ class SerialCommunicator(rosebot.communicator.Communicator):
 
 def main():
     port = '/dev/cu.usbserial-A9048GND'
-    sc = SerialCommunicator(port, connect=True, simulate=False)
-    test_send_command(sc)
+    sc = SerialCommunicator(port)
+#     test_send_command(sc)
     test_send_message(sc)
     test_receive_message(sc)
-    test_receive_command(sc)
-    test_analog_receive(sc)
+#     test_receive_command(sc)
+#     test_analog_receive(sc)
+    sc.disconnect()
 
 
 def test_send_message(sc):

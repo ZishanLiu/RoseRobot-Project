@@ -49,7 +49,7 @@ class Command(object):
         self.command_number = command_number
         self.pin_number = pin_number
 
-    # TODO implement a __repr__ and/or __str__
+    # TODO: implement a __repr__ and/or __str__
 
     def to_bytes(self, data=None):
         """
@@ -63,7 +63,7 @@ class Command(object):
                -- bytes as bytes
                -- strings as sequences of characters (left to right??)
                -- 16-bit ints as 2 bytes (big-endian??)
-               -- TODO floats et al.  Is there a library for this?
+               -- TODO: floats et al.  Is there a library for this?
         """
         command_number_byte = self._enum_to_value(self.command_number)
         signal_number_byte = self._enum_to_value(self.pin_number)
@@ -77,14 +77,14 @@ class Command(object):
         else:
             byte_array.append(0)  # Any byte would be fine here
 
-        # FIXME  for now, assume data is a small integer
+        # FIXME: for now, assume data is a small integer
         # (that fits into a single byte).
         if data is not None:
             byte_array.append(data)
         else:
             byte_array.append(0)  # Any byte would be fine here
 
-        # FIXME  Need error-handling with good messages here
+        # FIXME: Need error-handling with good messages here
         # and elsewhere.
         return bytes(byte_array)
 
@@ -119,9 +119,9 @@ class SensorCommand(Command):
         """
         Returns the CommandData that the given bytes object encodes.
         """
-        # TODO Implement CommandData so that we can encode data
+        # TODO: Implement CommandData so that we can encode data
         #   received if we want to.
-        # TODO Different Commands may return different types
+        # TODO: Different Commands may return different types
         #       of CommandData, I think.
         #       For now, just pass along whatever the message contains.
         return byte_received

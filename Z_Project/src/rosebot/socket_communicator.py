@@ -4,48 +4,53 @@ import socket
 class SocketCommunicator(rosebot.communicator.Communicator):
     """Uses a socket to send and receive messages to/from the robot
     """
-    def __init__(self, rnum=-1):
-        """
-        Does whatever initialization is needed.
-        May call  connect  below to establish the actual connection.
-        """
-        self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.rnum = rnum
+    def __init__(self,
+                 address,
+                 connect=True,
+                 wait_for_acknowledgement=True,
+                 send_acknowledgement=False,
+                 is_debug=True):
+        self.address = address
+        self.read_buffer_size = 4096
+        self.bytes_read_but_not_yet_returned = bytearray()
 
-    def connect(self, addr=-1):
-        """
-        Does whatever is needed to establish a connection
-        to the Arduino.
-        """
-        if addr != -1:
-            self.rnum = addr
-        addr = "r" + str(self.rnum) + ".wlan.rose-hulman.edu"
+        super().__init__(connect=connect,
+                         wait_for_acknowledgement=wait_for_acknowledgement,
+                         send_acknowledgement=send_acknowledgement,
+                         is_debug=is_debug)
+
+    # TODO implement a __repr__ and/or __str__
+
+    def establish_connection(self):
         try:
-            self.connection.connect((addr, 2000))
+            print(self.address)
+            self.socket_connection = socket.socket(socket.AF_INET,
+                                                   socket.SOCK_STREAM)
+            self.socket_connection.connect((self.address, 2000))
         except:
-            raise "Could not connect to robot " + str(addr)
+            raise  # TODO Error handling.
+
+        # At this point, the wifly sends to the Arduino:
+        #  *HELLO**OPEN*
+        # I don't know why.  To deal with it, the Communicator
+        # will send a Startup Sequence.
+        # FIXME  Investigate this!
 
     def disconnect(self):
         """ Does whatever is needed to close the connection cleanly. """
-        return self.connection.shutdown(socket.SHUT_RDWR)
+        return self.socket_connection.shutdown(socket.SHUT_RDWR)
 
-    def send_message(self, message):
+    def send_bytes(self, bytes_to_send):
         """
         Sends the given message to the Arduino.
         Returns the number of bytes actually sent.
           :type message: bytes or bytearray
           :rtype int
         """
-        attempts = 3
-        while(attempts > 0):
-            try:
-                self.connection.sendall(message)
-                return True
-            except:
-                self.connect()
-        return False
+        self.socket_connection.sendall(bytes_to_send)
+        return len(bytes_to_send)
 
-    def receive_message(self, length_of_message_in_bytes=1):
+    def receive_bytes(self, number_of_bytes_to_return=1):
         """
         Receives from the Arduino the given number of bytes.
         Returns a byte (integer between 0 and 255) if the given
@@ -57,4 +62,25 @@ class SocketCommunicator(rosebot.communicator.Communicator):
         which was set when this object was constructed.
           :rtype byte or bytearray
         """
-        return self.connection.recv(length_of_message_in_bytes)
+        num_bytes = number_of_bytes_to_return
+        while True:
+            if self.is_debug:
+                print('bytes in buffer:',
+                      self.bytes_read_but_not_yet_returned)
+            if len(self.bytes_read_but_not_yet_returned) >= num_bytes:
+                result = self.bytes_read_but_not_yet_returned[:num_bytes]
+                self.bytes_read_but_not_yet_returned = self.bytes_read_but_not_yet_returned[num_bytes:]
+                break
+
+            bytes_read = self.socket_connection.recv(self.read_buffer_size)
+            if self.is_debug:
+                print('bytes read:', bytes_read)
+            self.bytes_read_but_not_yet_returned += bytes_read
+
+        if self.is_debug:
+            print('result:', result)
+
+        if len(result) == 1:
+            return int(result[0])
+        else:
+            return result

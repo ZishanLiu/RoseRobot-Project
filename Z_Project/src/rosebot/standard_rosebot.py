@@ -107,7 +107,7 @@ class Connector(object):
     def __init__(self):
         self._communicator = None  # Set when CONNECT runs.
 
-    def connect(self, port=None, robot_number=None, simulate=False):
+    def connect(self, port=None, robot_number=None):
         """
         What comes in:  ONE of the following:
             -- port           -> Wired connection via that port
@@ -134,45 +134,70 @@ class Connector(object):
         # TODO Do error-handling in the following.
 
         if port is not None:
-            # Wired connection.
-            self.port = (port if type(port) is str else
-                         'com' + str(port))
-            self.connection_type = ConnectionType.wired
-            self._communicator = (rosebot.serial_communicator.
-                                  SerialCommunicator(self.port,
-                                                     connect=True))
-
+            self.connect_wired(port)
         elif robot_number is not None:
-            # Wireless connection.
-            # TODO Fix this to match whatever Valerie does
-            self.robot_number = (robot_number
-                                 if type(robot_number) is int else
-                                 int(robot_number.
-                                     replace('r0', '').
-                                     replace('r', '')))
-            self.connection_type = ConnectionType.wireless
-            self._communicator = (rosebot.socket_communicator.
-                                  SocketCommunicator(self.robot_number,
-                                                     connect=True))
+            self.connect_wireless(robot_number)
         else:
-            pass  # TODO Deal with this case.
+            print('Connection FAILED:')
+            print('You must specify either a PORT or a ROBOT-NUMBER.')
 
-        print('Connected!  Robot is ready to run!')
+    def connect_wired(self, port):
+        # port can be specified as shown by the following examples:
+        #   Integer: 4 -> 'COM4'
+        #   String that represents an integer:  '4' -> 'COM4'
+        #   Any other string: port is that string
+        try:
+            self.port = 'COM' + str(int(port))
+        except:
+            self.port = port
 
-    def connect_wired(self, port=None):
-        pass
-        # TODO or delete
+        self.connection_type = ConnectionType.wired
+        self._communicator = (rosebot.serial_communicator.
+                              SerialCommunicator(self.port,
+                                                 connect=True))
 
-    def connect_wireless(self, robot_number=None):
-        pass
-        # TODO or delete
+        print('Connected (wired) to port: {}.'.format(self.port))
+
+    def connect_wireless(self, robot_address):
+        # address can be specified as shown by the following examples:
+        #   Integer: 4  -> 'r04.wlan.rose-hulman.edu'
+        #   Integer: 18 -> 'r18.wlan.rose-hulman.edu'
+        #   String that represents an integer:  as above.
+        #   'r' followed by string that represents an integer: as above.
+        #   Any other string: address is that string
+        suffix = '.wlan.rose-hulman.edu'
+
+        robot_number = None
+        if type(robot_address) is int:
+            robot_number = robot_address
+        else:
+            try:
+                if robot_address.lower().startswith('r'):
+                    robot_number = int(robot_address[1:])
+                else:
+                    robot_number = int(robot_address)
+            except:
+                pass
+
+        if robot_number:
+            prefix = 'r0' if robot_number < 10 else 'r'
+            self.address = prefix + str(robot_number) + suffix
+        else:
+            self.address = robot_address
+
+        self.connection_type = ConnectionType.wireless
+        self._communicator = (rosebot.socket_communicator.
+                              SocketCommunicator(self.address,
+                                                 connect=True))
+        print('Connected (wireless) to address: {}.'.
+              format(self.address))
 
     def disconnect(self):
         """
         Disconnects gracefully from the RoseBot.
         The program keeps running.
         """
-        # TODO or delete
+        self._communicator.disconnect()
 
     def _send_command(self, command, data):
         """ Private method to send commands to the robot. """

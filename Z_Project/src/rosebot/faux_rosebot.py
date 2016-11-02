@@ -4,7 +4,7 @@ when robot commands are given.  As such, it exposes the API and
 can be useful for including mock code in GUI code.
 """
 
-# The next is just for an Enum. TODO  All enums to a module.
+# The next is just for an Enum. TODO: All enums to a module.
 from rosebot.command import SIGNAL
 
 import sys
@@ -12,7 +12,7 @@ from enum import Enum, unique
 import random
 
 
-# TODO  Maybe just use Position for this:
+# TODO: Maybe just use Position for this:
 @unique
 class MOTORS_ENCODERS(Enum):
     left_wheel = 1
