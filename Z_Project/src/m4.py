@@ -20,15 +20,11 @@ import rosebot.faux_rosebot as rb
 import time
 
 def main():
-    print('hello')
-    robot = rb.RoseBot()
-    robot.connector.connect(4)
-    robot.led.turn_on()
-    for i in range(20):
-        robot.led.turn_off()
-        time.sleep(0.1)
-        robot.led.turn_on()
-        time.sleep(0.1)
+
+    dc = m0.DataContainer
+    root = tkinter.Tk()
+    my_frame(root, dc)
+    root.mainloop()
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
@@ -47,8 +43,14 @@ def my_frame(root, dc):
     """
 
 
-    robot = rb.RoseBot()
-    robot.connector.connect(4)
+    frame = ttk.Frame(root, padding=10)
+    speedbutton = ttk.Button(frame, text='speed')
+    speedbutton.grid()
+
+    speedentry = ttk.Entry(frame)
+    speedentry.grid()
+
+
 
 
 
