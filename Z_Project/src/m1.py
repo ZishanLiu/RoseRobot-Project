@@ -78,7 +78,7 @@ def my_frame(root, dc):
     root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
 
 
-    root.bind_all('<Key-L>', lambda event: go_left(event, dc))
+    root.bind_all('<Key-l>', lambda event: go_left(event, dc))
     root.bind_all('<Key-R>', lambda event: go_right(event, dc))
     root.bind_all('<Key-r>', lambda event: go_right(event, dc))
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
