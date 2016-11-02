@@ -41,11 +41,11 @@ def my_frame(root, dc):
     main_frame.grid(row=1, column=2)
 
     left_button = ttk.Button(main_frame, text='Spin Left')
-    left_button['command'] = lambda: turn_left()
+    left_button['command'] = lambda: turn_left(dc)
     left_button.grid()
 
     right_button = ttk.Button(main_frame, text='Spin Right')
-    right_button['command'] = lambda: turn_right()
+    right_button['command'] = lambda: turn_right(dc)
     right_button.grid()
 
     dc.entry_box = ttk.Entry(main_frame, text='Speed')
