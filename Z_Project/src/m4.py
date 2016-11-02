@@ -50,7 +50,7 @@ def my_frame(root, dc):
     bumpleftbutton = ttk.Button(frame, text='bumpleft')
     bumpleftbutton['command'] = (lambda:bumpleft)
     bumprightbutton = ttk.Button(frame, text='bumpright')
-    bumpleftbutton['command'] = (lambda:bumpright)
+    bumprightbutton['command'] = (lambda:bumpright)
     bumpbothbutton = ttk.Button(frame, text='bumpboth')
     bumpbothbutton['command'] = (lambda:bumpboth)
 
