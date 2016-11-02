@@ -41,14 +41,44 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
-
-
     frame = ttk.Frame(root, padding=10)
     speedbutton = ttk.Button(frame, text='speed')
-    speedbutton.grid()
+    speedbutton['command'] = (lambda:speed())
 
     speedentry = ttk.Entry(frame)
-    speedentry.grid()
+
+    bumpleftbutton = ttk.Button(frame, text='bumpleft')
+    bumpleftbutton['command'] = (lambda:bumpleft)
+    bumprightbutton = ttk.Button(frame, text='bumpright')
+    bumpleftbutton['command'] = (lambda:bumpright)
+    bumpbothbutton = ttk.Button(frame, text='bumpboth')
+    bumpbothbutton['command'] = (lambda:bumpboth)
+
+
+
+
+    def speed():
+        speed = speedentry.get()
+        dc.robot.drive_pwm(speed, speed)
+
+    def bumpleft():
+        dc.robot.sensor_reader.left_bump_sensor.connected()
+        if dc.robot.is_pressed() is True:
+            dc.robot.drive_pwm(0, 0)
+
+    def bumpright():
+        dc.robot.sensor_reader.right_bump_sensor.connected()
+        if dc.robot.is_pressed() is True:
+            dc.robot.drive_pwm(0, 0)
+
+    def bumpboth():
+        dc.robot.sensor_reader.right_bump_sensor.connected()
+        dc.robot.sensor_reader.left_bump_sensor.connected()
+        if dc.robot.is_pressed() is True:
+            dc.robot.drive_pwm(0, 0)
+
+
+
 
 
 
