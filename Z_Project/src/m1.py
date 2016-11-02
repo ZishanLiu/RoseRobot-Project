@@ -23,7 +23,7 @@ import rosebot.standard_rosebot as rb
 
 def main():
     robot = rb.RoseBot()
-    robot.connector.connect(4)
+    robot.connector.connect(5)
 
 
 def my_frame(root, dc):
@@ -89,11 +89,11 @@ def my_frame(root, dc):
 
     def connect(dc):
         dc.robot = rb.RoseBot()
-        dc.robot.connector.connect(4)
+        dc.robot.connector.connect(5)
         print('robot connected', dc.robot)
     def disconnect(dc):
         dc.robot = rb.RoseBot()
-        dc.robot.connector.disconnect(4)
+        dc.robot.connector.disconnect(5)
         print('robot disconnected', dc.robot)
 
     def pressed_a_key(event):
