@@ -20,8 +20,10 @@ import rosebot.standard_rosebot as rb
 import time
 
 def main():
+    robot = rb.RoseBot()
+    robot.connector.connect(5)
 
-    
+
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
@@ -60,30 +62,30 @@ def my_frame(root, dc):
 
 
 
-def speed(entry, dc):
-    dc.robot = rb.RoseBot()
-    myentry = entry.get()
-    speed = myentry
-    dc.robot.drive_pwm(speed, speed)
+    def speed(entry, dc):
+        dc.robot = rb.RoseBot()
+        myentry = entry.get()
+        speed = myentry
+        dc.robot.drive_pwm(speed, speed)
 
-def bumpleft(dc):
-    dc.robot = rb.RoseBot()
-    dc.robot.sensor_reader.left_bump_sensor.connector.connect(5)
-    if dc.robot.is_pressed() is True:
-        dc.robot.drive_pwm(0, 0)
+    def bumpleft(dc):
+        dc.robot = rb.RoseBot()
+        dc.robot.sensor_reader.left_bump_sensor.connector.connect(5)
+        if dc.robot.is_pressed() is True:
+            dc.robot.drive_pwm(0, 0)
 
-def bumpright(dc):
-    dc.robot = rb.RoseBot()
-    dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
-    if dc.robot.is_pressed() is True:
-        dc.robot.drive_pwm(0, 0)
+    def bumpright(dc):
+        dc.robot = rb.RoseBot()
+        dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
+        if dc.robot.is_pressed() is True:
+            dc.robot.drive_pwm(0, 0)
 
-def bumpboth(dc):
-    dc.robot = rb.RoseBot()
-    dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
-    dc.robot.sensor_reader.left_bump_sensor.connected()
-    if dc.robot.is_pressed() is True:
-        dc.robot.drive_pwm(0, 0)
+    def bumpboth(dc):
+        dc.robot = rb.RoseBot()
+        dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
+        dc.robot.sensor_reader.left_bump_sensor.connected()
+        if dc.robot.is_pressed() is True:
+            dc.robot.drive_pwm(0, 0)
 
 
 
