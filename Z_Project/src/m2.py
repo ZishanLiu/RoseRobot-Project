@@ -44,13 +44,33 @@ def my_frame(root, dc):
     main_frame = ttk.Frame(root, padding=20)
     main_frame.grid()
 
-    left_button = ttk.Button(main_frame, text='Spin_Left')
+    left_button = ttk.Button(main_frame, text='Spin Left')
     left_button['command'] = lambda: turn_left()
     left_button.grid()
 
-    right_button = ttk.Button(main_frame, text='Spin_Right')
+    right_button = ttk.Button(main_frame, text='Spin Right')
     right_button['command'] = lambda: turn_right()
     right_button.grid()
+
+    entry_box = ttk.Entry(main_frame, text='Speed')
+    entry_box.grid()
+
+    forward_button = ttk.Button(main_frame, text='move forward')
+    forward_button['command'] = lambda: move_forward(entry_box)
+    forward_button.grid()
+
+    backward_button = ttk.Button(main_frame, text='move backward')
+    backward_button['command'] = lambda: move_backward(entry_box)
+    backward_button.grid()
+
+    print_entry = ttk.Button(main_frame, text=' Go! ')
+    print_entry['command'] = (lambda: move_forward(entry_box))
+    print_entry.grid()
+
+
+    def move_forward(entry_box):
+        contents_of_entry_box = entry_box.get()
+        dc.robot.motor_controller.drive_pwm(contents_of_entry_box, contents_of_entry_box)
 
     def turn_left():
         dc.robot.motor_controller.drive_pwm(0, 100)
@@ -58,7 +78,9 @@ def my_frame(root, dc):
     def turn_right():
         dc.robot.motor_controller.drive_pwm(100, 0)
 
-
+    def move_backward(entry_box):
+        contents_of_entry_box = float(entry_box.get())
+        dc.robot.motor_controller.drive_pwm(-contents_of_entry_box, -contents_of_entry_box)
 
     root.mainloop()
 
