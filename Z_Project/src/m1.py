@@ -16,8 +16,8 @@ import m4
 
 import tkinter
 from tkinter import ttk
-# import rosebot.standard_rosebot as rb
-import rosebot.faux_rosebot as rb
+import rosebot.standard_rosebot as rb
+# import rosebot.faux_rosebot as rb
 
 
 
