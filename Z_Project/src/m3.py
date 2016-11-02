@@ -9,33 +9,19 @@ The primary author of this module is: PUT-YOUR-NAME-HERE.
 # TODO: Put the names of ALL team members in the above where indicated.
 #       Put YOUR NAME in the above where indicated.
 
-import m0
-import m1
-import m2
-import m4
 
-import tkinter
-from tkinter import ttk
-import rosebot.standard_rosebot as rb
 import time
-def main():
-    print('Hello!')
+import random
 
-    robot = rb.RoseBot()
-    robot.connector.connect(4)
-    robot.led.turn_on()
-    for k in range(10):
-        robot.led.turn_off()
-        time.sleep(0.1)
-        robot.led.turn_on()
-        time.sleep(0.1)
+def main():
+
         '''
         my_dc=m0.DataContainer()
         root=tkinter.Tk()
         my_dc.robot=robot
         my_frame(root, my_dc)
         root.mainloop()
-        ''''
+        '''
 
 def my_frame(root, dc):
     """
@@ -54,13 +40,26 @@ def my_frame(root, dc):
       :type dc:   m0.DataContainer
     """
     print('Song')
-    print(dc.robot)
-    
-    noteslist=[]
-    for k in range(7):
-        rb.RoseBot.buzzer.play_tone(self, tone)
-    
-    
+    print()
+    N = int(input('N:'))
+    Time = float(input("Length of Time:"))
+    frequencies = [262, 294, 330, 349, 392, 440, 494]
+    notes = []
+
+    for k in range(N):
+        randomnumber = int(random.randrange(7))
+        notes = notes + [frequencies[randomnumber]]
+
+    for k in range(N):
+        print(notes[k])
+        dc.robot.buzzer.play_tone(notes[k])
+        time.sleep(Time)
+        dc.robot.buzzer.stop()
+
+
+
+
+
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
 # imported by another module), then call the 'main' function.
