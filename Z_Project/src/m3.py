@@ -13,7 +13,8 @@ The primary author of this module is: PUT-YOUR-NAME-HERE.
 import time
 import random
 import m0
-
+import tkinter
+from tkinter import ttk
 
 def my_frame(root, dc):
     """
@@ -36,6 +37,7 @@ def my_frame(root, dc):
     N = int(input('N:'))
     Time1 = float(input("Length of Time(min):"))
     Time2 = float(input("Length of Time(max):"))
+
     frequencies = [262, 294, 330, 349, 392, 440, 494]
     notes = []
 
