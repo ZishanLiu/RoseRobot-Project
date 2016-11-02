@@ -101,4 +101,4 @@ def my_frame(root, dc):
 # imported by another module), then call the 'main' function.
 # ----------------------------------------------------------------------
 if __name__ == '__main__':
-    main()
+    m0.main()
