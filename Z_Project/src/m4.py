@@ -21,10 +21,7 @@ import time
 
 def main():
 
-    dc = m0.DataContainer
-    root = tkinter.Tk()
-    my_frame(root, dc)
-    root.mainloop()
+    
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
