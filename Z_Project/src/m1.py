@@ -16,8 +16,8 @@ import m4
 
 import tkinter
 from tkinter import ttk
-# import rosebot.standard_rosebot as rb
-import rosebot.faux_rosebot as rb
+import rosebot.standard_rosebot as rb
+# import rosebot.faux_rosebot as rb
 
 
 
@@ -51,7 +51,7 @@ def my_frame(root, dc):
     root = tkinter.Tk()
 
     main_frame = ttk.Frame(root, padding=20)
-    main_frame.grid()
+    main_frame.grid(row=1, column=4)
 
     left_button = ttk.Button(main_frame, text='Left')
     left_button.grid()
