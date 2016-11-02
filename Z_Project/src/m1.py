@@ -19,13 +19,6 @@ from tkinter import ttk
 import rosebot.standard_rosebot as rb
 # import rosebot.faux_rosebot as rb
 
-
-
-def main():
-    robot = rb.RoseBot()
-    robot.connector.connect(5)
-
-
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
@@ -43,14 +36,8 @@ def my_frame(root, dc):
       :type dc:   m0.DataContainer
     """
 
-
-
-
-
-
-
     main_frame = ttk.Frame(root, padding=20)
-    main_frame.grid(row=1, column=4)
+    main_frame.grid(row=1, column=1)
 
     left_button = ttk.Button(main_frame, text='Left')
     left_button.grid()
@@ -69,38 +56,31 @@ def my_frame(root, dc):
     connect_button['command'] = lambda: connect(dc)
     disconnect_button['command'] = lambda:disconnect(dc)
 
-#     left_button['command'] = lambda: go_left_button()
-#     right_button['command'] = lambda: go_right()
-#     spin_button['command'] = lambda: spin()
-
-
-    root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
-    root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
-
-
-    root.bind_all('<Key-l>', lambda event: go_left(event, dc))
-    root.bind_all('<Key-R>', lambda event: go_right(event, dc))
-    root.bind_all('<Key-f>', lambda event: go_forward(event, dc))
-    root.bind_all('<Key-r>', lambda event: go_right(event, dc))
-    root.bind_all('<Key-space>', lambda event: spin(event, dc))
-
-
-
-
+# #     left_button['command'] = lambda: go_left_button()
+# #     right_button['command'] = lambda: go_right()
+# #     spin_button['command'] = lambda: spin()
+#
+#
+#     root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
+#     root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
+#
+#
+#     root.bind_all('<Key-l>', lambda event: go_left(event, dc))
+#     root.bind_all('<Key-R>', lambda event: go_right(event, dc))
+#     root.bind_all('<Key-f>', lambda event: go_forward(event, dc))
+#     root.bind_all('<Key-r>', lambda event: go_right(event, dc))
+#     root.bind_all('<Key-space>', lambda event: spin(event, dc))
 
     def connect(dc):
-        dc.robot = rb.RoseBot()
-        dc.robot.connector.connect(5)
+        dc.robot.connector.connect(6)
         print('robot connected', dc.robot)
     def disconnect(dc):
-        dc.robot = rb.RoseBot()
-        dc.robot.connector.disconnect(5)
+        dc.robot.connector.disconnect(6)
         print('robot disconnected', dc.robot)
 
     def pressed_a_key(event):
 
         print('You pressed the', event.keysym, 'key')
-
 
     def released_a_key(event):
         print('You released the', event.keysym, 'key')
@@ -136,11 +116,6 @@ def my_frame(root, dc):
         else:
             print('You pressed the ' + event.keysym + ' key: ', end='')
         print('Spin!')
-
-
-
-    root.mainloop()
-
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
