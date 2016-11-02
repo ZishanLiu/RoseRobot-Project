@@ -69,19 +69,19 @@ def my_frame(root, dc):
     connect_button['command'] = lambda: connect(dc)
     disconnect_button['command'] = lambda:disconnect(dc)
 
-    left_button['command'] = lambda: go_left_button()
-    right_button['command'] = lambda: go_right()
-    spin_button['command'] = lambda: spin()
+#     left_button['command'] = lambda: go_left_button()
+#     right_button['command'] = lambda: go_right()
+#     spin_button['command'] = lambda: spin()
 
 
     root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
     root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
 
 
-    root.bind_all('<Key-L>', lambda event: go_left(event))
-    root.bind_all('<Key-R>', lambda event: go_right(event))
-    root.bind_all('<Key-r>', lambda event: go_right(event))
-    root.bind_all('<Key-space>', lambda event: spin(event))
+    root.bind_all('<Key-L>', lambda event: go_left(event, dc))
+    root.bind_all('<Key-R>', lambda event: go_right(event, dc))
+    root.bind_all('<Key-r>', lambda event: go_right(event, dc))
+    root.bind_all('<Key-space>', lambda event: spin(event, dc))
 
 
 
