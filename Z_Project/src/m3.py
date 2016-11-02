@@ -42,7 +42,8 @@ def my_frame(root, dc):
     print('Song')
     print()
     N = int(input('N:'))
-    Time = float(input("Length of Time:"))
+    Time1 = float(input("Length of Time(min):"))
+    Time2 = float(input("Length of Time(max):"))
     frequencies = [262, 294, 330, 349, 392, 440, 494]
     notes = []
 
@@ -53,8 +54,11 @@ def my_frame(root, dc):
     for k in range(N):
         print(notes[k])
         dc.robot.buzzer.play_tone(notes[k])
+        Time = Time1 + (Time2 - Time1) * (random.random())
+        print(Time)
         time.sleep(Time)
         dc.robot.buzzer.stop()
+
 
 
 
