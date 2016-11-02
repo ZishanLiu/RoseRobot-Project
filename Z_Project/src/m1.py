@@ -16,14 +16,16 @@ import m4
 
 import tkinter
 from tkinter import ttk
-import rosebot.standard_rosebot as rb
-# import rosebot.faux_rosebot as rb
+# import rosebot.standard_rosebot as rb
+import rosebot.faux_rosebot as rb
 
 
 
 def main():
     robot = rb.RoseBot()
     robot.connector.connect(4)
+
+
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
@@ -59,6 +61,14 @@ def my_frame(root, dc):
     spin_button = ttk.Button(main_frame, text='Spin')
     spin_button.grid()
 
+    connect_button = ttk.Button(main_frame, text='Connect')
+    connect_button.grid()
+    disconnect_button = ttk.Button(main_frame, text='disconnect')
+    disconnect_button.grid()
+
+    connect_button['command'] = lambda: connect(dc)
+    disconnect_button['command'] = lambda:disconnect(dc)
+
     left_button['command'] = lambda: go_left_button()
     right_button['command'] = lambda: go_right()
     spin_button['command'] = lambda: spin()
@@ -76,6 +86,15 @@ def my_frame(root, dc):
 
 
 
+
+    def connect(dc):
+        dc.robot = rb.RoseBot()
+        dc.robot.connector.connect(4)
+        print('robot connected', dc.robot)
+    def disconnect(dc):
+        dc.robot = rb.RoseBot()
+        dc.robot.connector.disconnect(4)
+        print('robot disconnected', dc.robot)
 
     def pressed_a_key(event):
 
