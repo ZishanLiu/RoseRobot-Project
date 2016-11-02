@@ -16,7 +16,7 @@ import m3
 
 import tkinter
 from tkinter import ttk
-import rosebot.standard_rosebot as rb
+import rosebot.faux_rosebot as rb
 import time
 
 def my_frame(root, dc):
@@ -60,25 +60,25 @@ def my_frame(root, dc):
 
 
 def speed(dc):
-    myentry = dc.entry.get()
-    speed = myentry
-    dc.robot.drive_pwm(speed, speed)
+    myentry = dc.speedentry.get()
+    speed = int(myentry)
+    dc.robot.motor_controller.drive_pwm(speed, speed)
 
 def bumpleft(dc):
-    dc.robot.sensor_reader.left_bump_sensor.connector.connect(5)
-    if dc.robot.is_pressed() is True:
-        dc.robot.drive_pwm(0, 0)
+    dc.robot.sensor_reader.left_bump_sensor.connector.connect(6)
+    if dc.robot.sensor_reader.left_bump_sensor.is_pressed != 0:
+        dc.robot.motor_controller.stop()
 
 def bumpright(dc):
-    dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
-    if dc.robot.is_pressed() is True:
-        dc.robot.drive_pwm(0, 0)
+    dc.robot.sensor_reader.right_bump_sensor.connector.connect(6)
+    if dc.robot.sensor_reader.right_bump_sensor.is_pressed != 0 :
+        dc.robot.motor_controller.stop()
 
 def bumpboth(dc):
-    dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
-    dc.robot.sensor_reader.left_bump_sensor.connected()
-    if dc.robot.is_pressed() is True:
-        dc.robot.drive_pwm(0, 0)
+    dc.robot.sensor_reader.left_bump_sensor.connector.connect(6)
+    dc.robot.sensor_reader.right_bump_sensor.connector.connect(6)
+    if dc.robot.sensor_reader.left_bump_sensor.is_pressed != 0 or dc.robot.sensor_reader.right_bump_sensor.connector.connect(6) != 0:
+        dc.robot.motor_controller.stop()
 
 
 
