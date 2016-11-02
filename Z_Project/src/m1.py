@@ -43,8 +43,8 @@ def my_frame(root, dc):
 
     my_dc = m0.DataContainer()
     root = tkinter.Tk()
-    robot = rb.RoseBot()
-    my_dc.robot = robot
+#     robot = rb.RoseBot()
+#     my_dc.robot = robot
     my_frame(root, my_dc)
     root.mainloop()
 
@@ -126,4 +126,4 @@ def my_frame(root, dc):
 # imported by another module), then call the 'main' function.
 # ----------------------------------------------------------------------
 if __name__ == '__main__':
-    main()
+    m0.main()
