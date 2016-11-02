@@ -41,30 +41,30 @@ def my_frame(root, dc):
       :type dc:   m0.DataContainer
     """
 
-#     my_dc = m0.DataContainer()
-#     root = tkinter.Tk()
-#     robot = rb.RoseBot()
-#     my_dc.robot = robot
-#     my_frame(root, my_dc)
-#     root.mainloop()
-#
-#     root = tkinter.Tk()
+    my_dc = m0.DataContainer()
+    root = tkinter.Tk()
+    robot = rb.RoseBot()
+    my_dc.robot = robot
+    my_frame(root, my_dc)
+    root.mainloop()
 
-#     main_frame = ttk.Frame(root, padding=20)
-#     main_frame.grid()
+    root = tkinter.Tk()
 
-#     left_button = ttk.Button(main_frame, text='Left')
-#     left_button.grid()
-#
-#     right_button = ttk.Button(main_frame, text='Right')
-#     right_button.grid()
-#
-#     spin_button = ttk.Button(main_frame, text='Spin')
-#     spin_button.grid()
-#
-#     left_button['command'] = lambda: go_left_button()
-#     right_button['command'] = lambda: go_right()
-#     spin_button['command'] = lambda: spin()
+    main_frame = ttk.Frame(root, padding=20)
+    main_frame.grid()
+
+    left_button = ttk.Button(main_frame, text='Left')
+    left_button.grid()
+
+    right_button = ttk.Button(main_frame, text='Right')
+    right_button.grid()
+
+    spin_button = ttk.Button(main_frame, text='Spin')
+    spin_button.grid()
+
+    left_button['command'] = lambda: go_left_button()
+    right_button['command'] = lambda: go_right()
+    spin_button['command'] = lambda: spin()
 
 
     root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
@@ -95,9 +95,9 @@ def my_frame(root, dc):
         dc.robot.motor_controller.drive_pwm(0, 100)
 
 
-# def go_left_button():
-#     print('You clicked the Left button: ', end='')
-#     print('Go left!')
+    def go_left_button():
+        print('You clicked the Left button: ', end='')
+        print('Go left!')
 
 
     def go_right(event, dc):
@@ -118,7 +118,7 @@ def my_frame(root, dc):
 
 
 
-#     root.mainloop()
+    root.mainloop()
 
 
 # ----------------------------------------------------------------------
