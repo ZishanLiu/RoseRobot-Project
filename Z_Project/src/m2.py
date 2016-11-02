@@ -39,11 +39,7 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
-    def turn_left():
-        dc.robot.motor_controller.drive_pwm(0, 100)
 
-    def turn_right():
-        dc.robot.motor_controller.drive_pwm(100, 0)
 
     main_frame = ttk.Frame(root, padding=20)
     main_frame.grid()
@@ -55,6 +51,14 @@ def my_frame(root, dc):
     right_button = ttk.Button(main_frame, text='Spin_Right')
     right_button['command'] = lambda: turn_right()
     right_button.grid()
+
+    def turn_left():
+        dc.robot.motor_controller.drive_pwm(0, 100)
+
+    def turn_right():
+        dc.robot.motor_controller.drive_pwm(100, 0)
+
+
 
     root.mainloop()
 
