@@ -39,9 +39,9 @@ def my_frame(root, dc):
     frame.grid()
 
     speedbutton = ttk.Button(frame, text='speed')
-    speedbutton['command'] = (lambda:speed(speedentry, dc))
+    speedbutton['command'] = (lambda:speed(dc))
 
-    speedentry = ttk.Entry(frame)
+    dc.speedentry = ttk.Entry(frame)
 
     bumpleftbutton = ttk.Button(frame, text='bumpleft')
     bumpleftbutton['command'] = (lambda:bumpleft(dc))
@@ -51,7 +51,7 @@ def my_frame(root, dc):
     bumpbothbutton['command'] = (lambda:bumpboth(dc))
 
     speedbutton.grid()
-    speedentry.grid()
+    dc.speedentry.grid()
     bumpbothbutton.grid()
     bumpleftbutton.grid()
     bumprightbutton.grid()
@@ -59,30 +59,26 @@ def my_frame(root, dc):
 
 
 
-    def speed(entry, dc):
-        dc.robot = rb.RoseBot()
-        myentry = entry.get()
-        speed = myentry
-        dc.robot.drive_pwm(speed, speed)
+def speed(dc):
+    myentry = dc.entry.get()
+    speed = myentry
+    dc.robot.drive_pwm(speed, speed)
 
-    def bumpleft(dc):
-        dc.robot = rb.RoseBot()
-        dc.robot.sensor_reader.left_bump_sensor.connector.connect(5)
-        if dc.robot.is_pressed() is True:
-            dc.robot.drive_pwm(0, 0)
+def bumpleft(dc):
+    dc.robot.sensor_reader.left_bump_sensor.connector.connect(5)
+    if dc.robot.is_pressed() is True:
+        dc.robot.drive_pwm(0, 0)
 
-    def bumpright(dc):
-        dc.robot = rb.RoseBot()
-        dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
-        if dc.robot.is_pressed() is True:
-            dc.robot.drive_pwm(0, 0)
+def bumpright(dc):
+    dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
+    if dc.robot.is_pressed() is True:
+        dc.robot.drive_pwm(0, 0)
 
-    def bumpboth(dc):
-        dc.robot = rb.RoseBot()
-        dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
-        dc.robot.sensor_reader.left_bump_sensor.connected()
-        if dc.robot.is_pressed() is True:
-            dc.robot.drive_pwm(0, 0)
+def bumpboth(dc):
+    dc.robot.sensor_reader.right_bump_sensor.connector.connect(5)
+    dc.robot.sensor_reader.left_bump_sensor.connected()
+    if dc.robot.is_pressed() is True:
+        dc.robot.drive_pwm(0, 0)
 
 
 
