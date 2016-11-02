@@ -73,7 +73,7 @@ def my_frame(root, dc):
 
 
     def move_forward(entry_box):
-        contents_of_entry_box = entry_box.get()
+        contents_of_entry_box = float(entry_box.get())
         dc.robot.motor_controller.drive_pwm(contents_of_entry_box, contents_of_entry_box)
 
     def turn_left():
