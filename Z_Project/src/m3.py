@@ -12,16 +12,8 @@ The primary author of this module is: PUT-YOUR-NAME-HERE.
 
 import time
 import random
+import m0
 
-def main():
-
-        '''
-        my_dc=m0.DataContainer()
-        root=tkinter.Tk()
-        my_dc.robot=robot
-        my_frame(root, my_dc)
-        root.mainloop()
-        '''
 
 def my_frame(root, dc):
     """
@@ -70,4 +62,4 @@ def my_frame(root, dc):
 # imported by another module), then call the 'main' function.
 # ----------------------------------------------------------------------
 if __name__ == '__main__':
-   main()
+   m0.main()
