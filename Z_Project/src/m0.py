@@ -33,7 +33,7 @@ class DataContainer(object, metaclass=rb.__FreezeClass__):
         # Add     self.FOO = BLAH     here as needed.
         # Choose meaningful names!
         self.demo = 'demo'
-        self.robot = None
+        self.robot = rb.rosebot()
 
 
 
