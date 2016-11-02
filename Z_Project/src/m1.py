@@ -80,6 +80,7 @@ def my_frame(root, dc):
 
     root.bind_all('<Key-l>', lambda event: go_left(event, dc))
     root.bind_all('<Key-R>', lambda event: go_right(event, dc))
+    root.bind_all('<Key-f>', lambda event: go_forward(event, dc))
     root.bind_all('<Key-r>', lambda event: go_right(event, dc))
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
 
@@ -109,6 +110,10 @@ def my_frame(root, dc):
         print('You pressed the ' + event.keysym + ' key: ', end='')
         print('Go left!')
         dc.robot.motor_controller.drive_pwm(0, 100)
+
+    def go_forward(entry_box, dc):
+#         contents_of_entry_box = entry_box.get()
+        dc.robot.motor_controller.drive_pwm(0, 10)
 
 
     def go_left_button():
