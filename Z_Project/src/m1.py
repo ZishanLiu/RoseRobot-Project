@@ -20,6 +20,10 @@ from tkinter import ttk
 import rosebot.faux_rosebot as rb
 
 
+
+def main():
+    robot = rb.RoseBot()
+    robot.connector.connect(4)
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
@@ -36,17 +40,15 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
-    print('hello')
-    print('666')
-    print(dc.robot)
-    my_dc = m0.DataContainer()
-    root = tkinter.Tk()
-    robot = rb.RoseBot()
-    my_dc.robot = robot
-    my_frame(root, my_dc)
-    root.mainloop()
-def main():
-    root = tkinter.Tk()
+
+#     my_dc = m0.DataContainer()
+#     root = tkinter.Tk()
+#     robot = rb.RoseBot()
+#     my_dc.robot = robot
+#     my_frame(root, my_dc)
+#     root.mainloop()
+#
+#     root = tkinter.Tk()
 
 #     main_frame = ttk.Frame(root, padding=20)
 #     main_frame.grid()
@@ -74,22 +76,23 @@ def main():
     root.bind_all('<Key-r>', lambda event: go_right(event))
     root.bind_all('<Key-space>', lambda event: spin(event))
 
+
     root.mainloop()
 
 
-def pressed_a_key(event):
+    def pressed_a_key(event):
 
-    print('You pressed the', event.keysym, 'key')
-
-
-def released_a_key(event):
-    print('You released the', event.keysym, 'key')
+        print('You pressed the', event.keysym, 'key')
 
 
-def go_left(event, dc):
-    print('You pressed the ' + event.keysym + ' key: ', end='')
-    print('Go left!')
-    dc.robot.motor_controller.drive_pwm(0, 100)
+    def released_a_key(event):
+        print('You released the', event.keysym, 'key')
+
+
+    def go_left(event, dc):
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Go left!')
+        dc.robot.motor_controller.drive_pwm(0, 100)
 
 
 # def go_left_button():
@@ -97,21 +100,25 @@ def go_left(event, dc):
 #     print('Go left!')
 
 
-def go_right(event, dc):
+    def go_right(event, dc):
 #     if event == None:
 #         print('Button press: ', end='')
 #     else:
-    print('You pressed the ' + event.keysym + ' key: ', end='')
-    print('Go right!')
-    dc.robot.motor_controller.drive_pwm(100, 0)
-
-
-def spin(event=None):
-    if event == None:
-        print('Button press: ', end='')
-    else:
         print('You pressed the ' + event.keysym + ' key: ', end='')
-    print('Spin!')
+        print('Go right!')
+        dc.robot.motor_controller.drive_pwm(100, 0)
+
+
+    def spin(event=None):
+        if event == None:
+            print('Button press: ', end='')
+        else:
+            print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Spin!')
+
+
+
+#     root.mainloop()
 
 
 # ----------------------------------------------------------------------
