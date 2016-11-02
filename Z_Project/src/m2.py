@@ -67,6 +67,10 @@ def my_frame(root, dc):
     print_entry['command'] = (lambda: move_forward(entry_box))
     print_entry.grid()
 
+    stop_button = ttk.Button(main_frame, text='stop')
+    stop_button['command'] = lambda: stop()
+    stop_button.grid()
+
 
     def move_forward(entry_box):
         contents_of_entry_box = entry_box.get()
@@ -81,6 +85,9 @@ def my_frame(root, dc):
     def move_backward(entry_box):
         contents_of_entry_box = float(entry_box.get())
         dc.robot.motor_controller.drive_pwm(-contents_of_entry_box, -contents_of_entry_box)
+
+    def stop():
+        dc.robot.motor_controller.drive_pwm(0, 0)
 
     root.mainloop()
 
