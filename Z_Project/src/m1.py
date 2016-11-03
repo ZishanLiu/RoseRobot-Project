@@ -19,6 +19,13 @@ from tkinter import ttk
 import rosebot.standard_rosebot as rb
 # import rosebot.faux_rosebot as rb
 
+
+
+def main():
+    robot = rb.RoseBot()
+    robot.connector.connect(6)
+
+
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
@@ -37,9 +44,22 @@ def my_frame(root, dc):
     """
 
 
+
+
+
+
+
     main_frame = ttk.Frame(root, padding=20)
     main_frame.grid(row=1, column=4)
 
+#     left_button = ttk.Button(main_frame, text='Left')
+#     left_button.grid()
+#
+#     right_button = ttk.Button(main_frame, text='Right')
+#     right_button.grid()
+#
+#     spin_button = ttk.Button(main_frame, text='Spin')
+#     spin_button.grid()
 
     connect_button = ttk.Button(main_frame, text='Connect')
     connect_button.grid()
@@ -49,16 +69,81 @@ def my_frame(root, dc):
     connect_button['command'] = lambda: connect(dc)
     disconnect_button['command'] = lambda:disconnect(dc)
 
+#     left_button['command'] = lambda: go_left_button()
+#     right_button['command'] = lambda: go_right()
+#     spin_button['command'] = lambda: spin()
 
 
-def connect(dc):
-    dc.robot = rb.RoseBot()
-    dc.robot.connector.connect(7)
-    print('robot connected', dc.robot)
-def disconnect(dc):
-    dc.robot = rb.RoseBot()
-    dc.robot.connector.disconnect()
-    print('robot disconnected', dc.robot)
+    root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
+    root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
+
+
+    root.bind_all('<Key-l>', lambda event: go_left(event, dc))
+    root.bind_all('<Key-r>', lambda event: go_right(event, dc))
+    root.bind_all('<Key-f>', lambda event: go_forward(event, dc))
+    root.bind_all('<Key-s>', lambda event: stop(event, dc))
+    root.bind_all('<Key-space>', lambda event: spin(event, dc))
+
+
+
+
+
+
+    def connect(dc):
+        dc.robot = rb.RoseBot()
+        dc.robot.connector.connect(7)
+        print('robot connected', dc.robot)
+    def disconnect(dc):
+        dc.robot = rb.RoseBot()
+        dc.robot.connector.disconnect(7)
+        print('robot disconnected', dc.robot)
+
+    def pressed_a_key(event):
+
+        print('You pressed the', event.keysym, 'key')
+
+
+    def released_a_key(event):
+        print('You released the', event.keysym, 'key')
+
+
+    def go_left(event, dc):
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Go left!')
+        dc.robot.motor_controller.drive_pwm(0, 50)
+
+    def go_forward(entry_box, dc):
+#         contents_of_entry_box = entry_box.get()
+        dc.robot.motor_controller.drive_pwm(50, 50)
+
+
+    def go_left_button():
+        print('You clicked the Left button: ', end='')
+        print('Go left!')
+
+
+    def go_right(event, dc):
+#     if event == None:
+#         print('Button press: ', end='')
+#     else:
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Go right!')
+        dc.robot.motor_controller.drive_pwm(50, 0)
+
+
+    def spin(event=None):
+        if event == None:
+            print('Button press: ', end='')
+        else:
+            print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Spin!')
+    def stop(event, dc):
+        dc.robot.motor_controller.stop()
+
+
+
+
+    root.mainloop()
 
 
 # ----------------------------------------------------------------------
