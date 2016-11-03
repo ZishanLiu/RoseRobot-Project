@@ -80,7 +80,7 @@ def my_frame(root, dc):
     root.bind_all('<Key-d>', lambda event: go_right(event, dc))
     root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
     root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
-    root.bind_all('<Key-enter>', lambda event: stop(event, dc))
+    root.bind_all('<Key-p>', lambda event: stop(event, dc))
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
 
 
