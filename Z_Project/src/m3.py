@@ -32,19 +32,28 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
+    main_frame = ttk.Frame(root, padding=20)
+    main_frame.grid(row=1, column=0)
     print('Song')
     print()
-    N = int(input('N:'))
-    Time1 = float(input("Length of Time(min):"))
-    Time2 = float(input("Length of Time(max):"))
+    dc.entry_box1 = ttk.Entry(main_frame, text='Number of Notes')
+    dc.entry_box1.grid()
+    dc.entry_box2 = ttk.Entry(main_frame, text='length of Time')
+    dc.entry_box2.grid()
+    button1 = ttk.Button(main_frame, text='Make Sound')
+    button1['command'] = lambda: songs_playing(dc)
+    button1.grid()
 
-    frequencies = [262, 294, 330, 349, 392, 440, 494]
+def songs_playing(dc):
+
     notes = []
+    N = int(dc.entry_box1.get())
+    Time1 = int(dc.entry_box2.get())
+    Time2 = Time1
 
     for k in range(N):
-        randomnumber = int(random.randrange(7))
-        notes = notes + [frequencies[randomnumber]]
-
+        randomnumber = int(random.randrange(256))
+        notes = notes + [randomnumber]
     for k in range(N):
         print(notes[k])
         dc.robot.buzzer.play_tone(notes[k])
@@ -52,8 +61,6 @@ def my_frame(root, dc):
         print(Time)
         time.sleep(Time)
         dc.robot.buzzer.stop()
-
-
 
 
 
