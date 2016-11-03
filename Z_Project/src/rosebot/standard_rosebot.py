@@ -106,6 +106,8 @@ class Connector(object):
     """
     def __init__(self):
         self._communicator = None  # Set when CONNECT runs.
+        self.port = None
+        self.address = None
 
     def connect(self, port=None, robot_number=None):
         """
@@ -199,6 +201,12 @@ class Connector(object):
         The program keeps running.
         """
         self._communicator.disconnect()
+        if self.port:
+            print('Disconnected from wired connection on', self.port)
+        elif self.address:
+            print('Disconnected from wireless address', self.address)
+        else:
+            pass  # Should not happen.  TODO Add error handling
 
     def _send_command(self, command, data):
         """ Private method to send commands to the robot. """
