@@ -23,7 +23,7 @@ import rosebot.standard_rosebot as rb
 
 def main():
     robot = rb.RoseBot()
-    robot.connector.connect(5)
+    robot.connector.connect(6)
 
 
 def my_frame(root, dc):
@@ -90,11 +90,11 @@ def my_frame(root, dc):
 
     def connect(dc):
         dc.robot = rb.RoseBot()
-        dc.robot.connector.connect(6)
+        dc.robot.connector.connect(7)
         print('robot connected', dc.robot)
     def disconnect(dc):
         dc.robot = rb.RoseBot()
-        dc.robot.connector.disconnect(6)
+        dc.robot.connector.disconnect(7)
         print('robot disconnected', dc.robot)
 
     def pressed_a_key(event):
@@ -109,11 +109,11 @@ def my_frame(root, dc):
     def go_left(event, dc):
         print('You pressed the ' + event.keysym + ' key: ', end='')
         print('Go left!')
-        dc.robot.motor_controller.drive_pwm(0, 100)
+        dc.robot.motor_controller.drive_pwm(0, 30)
 
     def go_forward(entry_box, dc):
 #         contents_of_entry_box = entry_box.get()
-        dc.robot.motor_controller.drive_pwm(0, 100)
+        dc.robot.motor_controller.drive_pwm(30, 30)
 
 
     def go_left_button():
@@ -127,7 +127,7 @@ def my_frame(root, dc):
 #     else:
         print('You pressed the ' + event.keysym + ' key: ', end='')
         print('Go right!')
-        dc.robot.motor_controller.drive_pwm(100, 0)
+        dc.robot.motor_controller.drive_pwm(30, 0)
 
 
     def spin(event=None):
