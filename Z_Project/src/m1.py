@@ -76,10 +76,11 @@ def my_frame(root, dc):
     root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
 
 
-    root.bind_all('<Key-l>', lambda event: go_left(event, dc))
-    root.bind_all('<Key-r>', lambda event: go_right(event, dc))
-    root.bind_all('<Key-f>', lambda event: go_forward(event, dc))
-    root.bind_all('<Key-s>', lambda event: stop(event, dc))
+    root.bind_all('<Key-a>', lambda event: go_left(event, dc))
+    root.bind_all('<Key-d>', lambda event: go_right(event, dc))
+    root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
+    root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
+    root.bind_all('<Key-enter>', lambda event: stop(event, dc))
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
 
 
@@ -131,6 +132,8 @@ def go_right(event, dc):
 
 def spin(event, dc):
     dc.robot.motor_controller.drive_pwm(30, 50)
+def go_backward(event, dc):
+    dc.robot.motor_controller.drive_pwm(-40, -40)
 
 def stop(event, dc):
     dc.robot.motor_controller.stop()
