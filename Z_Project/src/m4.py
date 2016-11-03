@@ -43,6 +43,9 @@ def my_frame(root, dc):
 
     dc.speedentry = ttk.Entry(frame)
     dc.darkness = ttk.Entry(frame)
+    dc.distanceleft = ttk.Entry(frame)
+    dc.distanceright = ttk.Entry(frame)
+    dc.distancemiddle = ttk.Entry(frame)
 
 
     bumpleftbutton = ttk.Button(frame, text='bumpleft')
@@ -57,6 +60,14 @@ def my_frame(root, dc):
     reflectancerightbutton['command'] = (lambda:reflectanceright(dc))
     reflectancemiddlebutton = ttk.Button(frame, text='reflectancemiddle')
     reflectancemiddlebutton['command'] = (lambda:reflectancemiddle(dc))
+    proximityleftbutton = ttk.Button(frame, text='proximityleft')
+    proximityleftbutton['command'] = (lambda:proximityleft(dc))
+    proximityrightbutton = ttk.Button(frame, text='proximityright')
+    proximityrightbutton['command'] = (lambda:proximityright(dc))
+    proximitymiddlebutton = ttk.Button(frame, text='proximitymiddle')
+    proximitymiddlebutton['command'] = (lambda:proximitymiddle(dc))
+
+
 
     speedbutton.grid()
     dc.speedentry.grid()
@@ -67,6 +78,12 @@ def my_frame(root, dc):
     reflectanceleftbutton.grid()
     reflectancemiddlebutton.grid()
     reflectancerightbutton.grid()
+    dc.distanceleft.grid()
+    proximityleftbutton.grid()
+    dc.distanceright.grid()
+    proximityrightbutton.grid()
+    dc.distancemiddle.grid()
+    proximitymiddlebutton.grid()
 
 def speed(dc):
     myentry = dc.speedentry.get()
@@ -115,6 +132,28 @@ def reflectancemiddle(dc):
         if dc.robot.sensor_reader.middle_reflectance_sensor.read() > darknessthreshhold:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
+def proximityleft(dc):
+    distance = dc.distanceleft.get()
+    d = int(distance)
+    while True:
+        if dc.robot.sensor_reader.left_proximity_sensor.read() > d:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+def proximityright(dc):
+    distance1 = dc.distanceright.get()
+    d1 = int(distance1)
+    while True:
+        if dc.robot.sensor_reader.right_proximity_sensor.read() > d1:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+def proximitymiddle(dc):
+    distance2 = dc.distancemiddle.get()
+    d2 = int(distance2)
+    while True:
+        if dc.robot.sensor_reader.middle_proximity_sensor.read() > d2:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+
 
 
 
