@@ -42,6 +42,8 @@ def my_frame(root, dc):
     speedbutton['command'] = (lambda:speed(dc))
 
     dc.speedentry = ttk.Entry(frame)
+    dc.darkness = ttk.Entry(frame)
+
 
     bumpleftbutton = ttk.Button(frame, text='bumpleft')
     bumpleftbutton['command'] = (lambda:bumpleft(dc))
@@ -49,15 +51,22 @@ def my_frame(root, dc):
     bumprightbutton['command'] = (lambda:bumpright(dc))
     bumpbothbutton = ttk.Button(frame, text='bumpboth')
     bumpbothbutton['command'] = (lambda:bumpboth(dc))
+    reflectanceleftbutton = ttk.Button(frame, text='reflectanceleft')
+    reflectanceleftbutton['command'] = (lambda:reflectanceleft(dc))
+    reflectancerightbutton = ttk.Button(frame, text='reflectanceright')
+    reflectancerightbutton['command'] = (lambda:reflectanceright(dc))
+    reflectancemiddlebutton = ttk.Button(frame, text='reflectancemiddle')
+    reflectancemiddlebutton['command'] = (lambda:reflectancemiddle(dc))
 
     speedbutton.grid()
     dc.speedentry.grid()
     bumpbothbutton.grid()
     bumpleftbutton.grid()
     bumprightbutton.grid()
-
-
-
+    dc.darkness.grid()
+    reflectanceleftbutton.grid()
+    reflectancemiddlebutton.grid()
+    reflectancerightbutton.grid()
 
 def speed(dc):
     myentry = dc.speedentry.get()
@@ -77,7 +86,6 @@ def bumpright(dc):
             break
 
 def bumpboth(dc):
-    print(dc.robot.sensor_reader.left_bump_sensor.read())
     while True:
         if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
             dc.robot.motor_controller.drive_pwm(0, 0)
@@ -85,6 +93,36 @@ def bumpboth(dc):
         elif dc.robot.sensor_reader.right_bump_sensor.read() == 0:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
+def reflectanceleft(dc):
+    dark = dc.darkness.get()
+    darknessthreshhold = int(dark)
+    while True:
+        if dc.robot.sensor_reader.left_reflectance_sensor.read() > darknessthreshhold:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+def reflectanceright(dc):
+    dark = dc.darkness.get()
+    darknessthreshhold = int(dark)
+    while True:
+        if dc.robot.sensor_reader.right_reflectance_sensor.read() > darknessthreshhold:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+def reflectancemiddle(dc):
+    dark = dc.darkness.get()
+    darknessthreshhold = int(dark)
+    print(dc.robot.sensor_reader.middle_reflectance_sensor.read())
+    while True:
+        if dc.robot.sensor_reader.middle_reflectance_sensor.read() > darknessthreshhold:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+
+
+
+
+
+
+
+
 
 
 
