@@ -48,8 +48,8 @@ def my_frame(root, dc):
     right_button['command'] = lambda: turn_right(dc)
     right_button.grid()
 
-    dc.entry_box = ttk.Entry(main_frame, text='Speed')
-    dc.entry_box.grid()
+    dc.entry_box1 = ttk.Entry(main_frame, text='Speed')
+    dc.entry_box1.grid()
 
     forward_button = ttk.Button(main_frame, text='move forward')
     forward_button['command'] = (lambda: move_forward(dc))
@@ -58,6 +58,9 @@ def my_frame(root, dc):
     backward_button = ttk.Button(main_frame, text='move backward')
     backward_button['command'] = lambda: move_backward(dc)
     backward_button.grid()
+
+    dc.entry_box2 = ttk.Entry(main_frame, text='Distance')
+    dc.entry_box2.grid()
 
     print_entry = ttk.Button(main_frame, text=' Go! ')
     print_entry['command'] = (lambda: move_forward(dc))
@@ -68,11 +71,12 @@ def my_frame(root, dc):
     stop_button.grid()
 
 
+
+
 def move_forward(dc):
-    a = dc.entry_box.get()
+    a = dc.entry_box1.get()
     n = int(a)
     dc.robot.motor_controller.drive_pwm(n, n)
-
 
 def turn_left(dc):
     dc.robot.motor_controller.drive_pwm(0, 100)
@@ -81,7 +85,7 @@ def turn_right(dc):
     dc.robot.motor_controller.drive_pwm(100, 0)
 
 def move_backward(dc):
-    a = dc.entry_box.get()
+    a = dc.entry_box1.get()
     m = int(a)
     dc.robot.motor_controller.drive_pwm(-m, -m)
 
