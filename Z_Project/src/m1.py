@@ -89,7 +89,7 @@ def my_frame(root, dc):
 
 def connect(dc):
 
-    dc.robot.connector.connect(4)
+    dc.robot.connector.connect(7)
     print('robot connected', dc.robot)
 def disconnect(dc):
 
