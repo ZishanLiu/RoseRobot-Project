@@ -48,11 +48,11 @@ def songs_playing(dc):
 
     notes = []
     N = int(dc.entry_box1.get())
-    Time1 = float(dc.entry_box2.get())
+    Time1 = int(dc.entry_box2.get())
     Time2 = Time1
 
     for k in range(N):
-        randomnumber = float(random.randrange(1, 256))
+        randomnumber = int(random.randrange(1, 256))
         notes = notes + [randomnumber]
     for k in range(N):
         print(notes[k])
