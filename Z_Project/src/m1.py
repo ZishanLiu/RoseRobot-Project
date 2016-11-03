@@ -96,44 +96,44 @@ def disconnect(dc):
     dc.robot.connector.disconnect()
     print('robot disconnected', dc.robot)
 
-    def pressed_a_key(event):
+def pressed_a_key(event):
 
-        print('You pressed the', event.keysym, 'key')
-
-
-    def released_a_key(event):
-        print('You released the', event.keysym, 'key')
+    print('You pressed the', event.keysym, 'key')
 
 
-    def go_left(event, dc):
-        print('You pressed the ' + event.keysym + ' key: ', end='')
-        print('Go left!')
-        dc.robot.motor_controller.drive_pwm(0, 50)
+def released_a_key(event):
+    print('You released the', event.keysym, 'key')
 
-    def go_forward(entry_box, dc):
+
+def go_left(event, dc):
+    print('You pressed the ' + event.keysym + ' key: ', end='')
+    print('Go left!')
+    dc.robot.motor_controller.drive_pwm(0, 50)
+
+def go_forward(entry_box, dc):
 #         contents_of_entry_box = entry_box.get()
-        dc.robot.motor_controller.drive_pwm(50, 50)
+    dc.robot.motor_controller.drive_pwm(50, 50)
 
 
-    def go_left_button():
-        print('You clicked the Left button: ', end='')
-        print('Go left!')
+def go_left_button():
+    print('You clicked the Left button: ', end='')
+    print('Go left!')
 
 
-    def go_right(event, dc):
+def go_right(event, dc):
 #     if event == None:
 #         print('Button press: ', end='')
 #     else:
-        print('You pressed the ' + event.keysym + ' key: ', end='')
-        print('Go right!')
-        dc.robot.motor_controller.drive_pwm(50, 0)
+    print('You pressed the ' + event.keysym + ' key: ', end='')
+    print('Go right!')
+    dc.robot.motor_controller.drive_pwm(50, 0)
 
 
-    def spin(event, dc):
-        dc.robot.motor_controller.drive_pwm(30, 50)
+def spin(event, dc):
+    dc.robot.motor_controller.drive_pwm(30, 50)
 
-    def stop(event, dc):
-        dc.robot.motor_controller.stop()
+def stop(event, dc):
+    dc.robot.motor_controller.stop()
 
 
 
