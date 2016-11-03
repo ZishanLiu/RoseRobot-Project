@@ -21,9 +21,7 @@ import rosebot.standard_rosebot as rb
 
 
 
-def main():
-    robot = rb.RoseBot()
-    robot.connector.connect(6)
+
 
 
 def my_frame(root, dc):
@@ -143,7 +141,7 @@ def my_frame(root, dc):
 
 
 
-    root.mainloop()
+
 
 
 # ----------------------------------------------------------------------
