@@ -52,7 +52,7 @@ def songs_playing(dc):
     Time2 = Time1
 
     for k in range(N):
-        randomnumber = int(random.randrange(256))
+        randomnumber = int(random.randrange(1, 256))
         notes = notes + [randomnumber]
     for k in range(N):
         print(notes[k])
