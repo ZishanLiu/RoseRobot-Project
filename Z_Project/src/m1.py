@@ -87,14 +87,14 @@ def my_frame(root, dc):
 
 
 
-    def connect(dc):
-        dc.robot = rb.RoseBot()
-        dc.robot.connector.connect(4)
-        print('robot connected', dc.robot)
-    def disconnect(dc):
-        dc.robot = rb.RoseBot()
-        dc.robot.connector.disconnect()
-        print('robot disconnected', dc.robot)
+def connect(dc):
+
+    dc.robot.connector.connect(4)
+    print('robot connected', dc.robot)
+def disconnect(dc):
+
+    dc.robot.connector.disconnect()
+    print('robot disconnected', dc.robot)
 
     def pressed_a_key(event):
 
@@ -129,12 +129,9 @@ def my_frame(root, dc):
         dc.robot.motor_controller.drive_pwm(50, 0)
 
 
-    def spin(event=None):
-        if event == None:
-            print('Button press: ', end='')
-        else:
-            print('You pressed the ' + event.keysym + ' key: ', end='')
-        print('Spin!')
+    def spin(event, dc):
+        dc.robot.motor_controller.drive_pwm(30, 50)
+
     def stop(event, dc):
         dc.robot.motor_controller.stop()
 
