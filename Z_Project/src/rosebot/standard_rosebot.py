@@ -186,6 +186,7 @@ class Connector(object):
             self.address = robot_address
 
         self.connection_type = ConnectionType.wireless
+        print('Making a socket communicator')
         self._communicator = (rosebot.socket_communicator.
                               SocketCommunicator(self.address,
                                                  connect=True))

@@ -43,9 +43,10 @@ class SerialCommunicator(rosebot.communicator.Communicator):
             # TODO Add error-handling, or leave to caller (as currently)
             raise
 
+        print('Connected wired to', self.port)
         # WORKAROUND for now:  Send *HELLO**OPEN* as wireless does.
-        self.send_bytes(bytearray([42, 72, 69, 76, 76, 79, 42,
-                                   42, 79, 80, 72, 78, 42]))
+#         self.send_bytes(bytearray([42, 72, 69, 76, 76, 79, 42,
+#                                    42, 79, 80, 72, 78, 42]))
 
     def disconnect(self):
         self.serial_connection.close()

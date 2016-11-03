@@ -1,5 +1,6 @@
 import rosebot.communicator
 import socket
+import time
 
 class SocketCommunicator(rosebot.communicator.Communicator):
     """Uses a socket to send and receive messages to/from the robot
@@ -9,7 +10,7 @@ class SocketCommunicator(rosebot.communicator.Communicator):
                  connect=True,
                  wait_for_acknowledgement=True,
                  send_acknowledgement=False,
-                 is_debug=True):
+                 is_debug=False):
         self.address = address
         self.read_buffer_size = 4096
         self.bytes_read_but_not_yet_returned = bytearray()
@@ -30,11 +31,46 @@ class SocketCommunicator(rosebot.communicator.Communicator):
         except:
             raise  # TODO Error handling.
 
+        time.sleep(1)
+        bytes_read = self.socket_connection.recv(self.read_buffer_size)
+        print('Initial bytes read:', bytes_read)
+
         # At this point, the wifly sends to the Arduino:
-        #  *HELLO**OPEN*
-        # I don't know why.  To deal with it, the Communicator
-        # will send a Startup Sequence.
-        # FIXME  Investigate this!
+        #  *HELLO* followed (possibly) by other bytes.
+        # The Arduino will "eat" those bytes immediately,
+        # without echoing them, so that when this Python
+        # program sends a command the Arduino is ready for it.
+
+        # The following is previous attempts to address
+        # the above issue.  Will delete when we have
+        # a tested approach that works.
+
+#         print('Reading the preliminary 13 bytes:')
+#         for _ in range(13):
+#             byte_received = self.receive_bytes(1)
+#             time.sleep(0.1)
+#             print(byte_received, chr(byte_received))
+#         print('Done reading the preliminary 13 bytes.')
+#
+#         # Send 255s repeatedly until get 3 254s in a row.
+#         print('Starting 255s and 254s')
+#         count = 0
+#         bytes_read = bytearray()
+#         while True:
+#             if count >= 3:
+#                 break
+#             bytes_read = (bytes_read
+#                           + self.socket_connection.recv(self.read_buffer_size))
+#
+#             if len(bytes_read) == 0:
+#                 print('Sending 255 after 1 second.')
+#                 time.sleep(1)
+#                 self.send_bytes(bytearray([255]))
+#             else:
+#                 print('Read:', bytes_read)
+#                 if 254 in bytes_read:
+#                     break
+#                 bytes_read = bytearray()
 
     def disconnect(self):
         """ Does whatever is needed to close the connection cleanly. """

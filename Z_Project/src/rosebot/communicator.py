@@ -41,6 +41,9 @@ class Communicator(abc.ABC):
             self.connect()
         self.is_connected = True
 
+#         self.send_startup_sequence()
+#         self.receive_startup_sequence()
+
     def connect(self):
         """
         Does whatever is needed to establish a connection to the
@@ -52,14 +55,39 @@ class Communicator(abc.ABC):
         except:
             raise  # TODO Error handing
 
-        self.send_startup_sequence()
-
     def send_startup_sequence(self):
-        # FIXME Don't bury this in the code here.
-        pass
-#         time.sleep(1)
-#         for _ in range(3):
-#             self.send_message(bytearray([255]));
+        """ Current implementation: send 255 3 times. """
+        # Sleep a bit in hopes to make this FOLLOW the
+        # *HELLO**DONE* of the socket connection.
+        if self.is_debug:
+            print('SENDING startup sequence in 2 seconds:')
+
+        time.sleep(2)
+        for _ in range(20):
+            self.send_message(bytearray([255]))
+            time.sleep(0.1)
+
+
+        if self.is_debug:
+            print('Done SENDING startup sequence.')
+
+    def receive_startup_sequence(self):
+        """ Read until we get 254 three times in a row. """
+        if self.is_debug:
+            print('Waiting to RECEIVE startiup sequence...')
+
+        count = 0
+        while True:
+            if count >= 3:
+                break
+            byte_read = self.receive_message(1)
+            if byte_read == 254:
+                count = count + 1
+            else:
+                count = 0
+
+        if self.is_debug:
+            print('Done RECEIVING startup sequence.')
 
     def send_command(self, command, data=None):
         """
