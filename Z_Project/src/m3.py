@@ -34,8 +34,8 @@ def my_frame(root, dc):
     """
     main_frame = ttk.Frame(root, padding=20)
     main_frame.grid(row=1, column=0)
-    print('Song')
-    print()
+
+
     dc.entry_box1 = ttk.Entry(main_frame, text='Number of Notes')
     dc.entry_box1.grid()
     dc.entry_box2 = ttk.Entry(main_frame, text='length of Time')
