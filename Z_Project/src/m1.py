@@ -89,11 +89,11 @@ def my_frame(root, dc):
 
     def connect(dc):
         dc.robot = rb.RoseBot()
-        dc.robot.connector.connect(7)
+        dc.robot.connector.connect(4)
         print('robot connected', dc.robot)
     def disconnect(dc):
         dc.robot = rb.RoseBot()
-        dc.robot.connector.disconnect(7)
+        dc.robot.connector.disconnect()
         print('robot disconnected', dc.robot)
 
     def pressed_a_key(event):
