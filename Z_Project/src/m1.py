@@ -71,12 +71,13 @@ def my_frame(root, dc):
 #     root.bind_all('<Key-r>', lambda event: go_right(event, dc))
 #     root.bind_all('<Key-space>', lambda event: spin(event, dc))
 
-    def connect(dc):
-        dc.robot.connector.connect(6)
-        print('robot connected', dc.robot)
-    def disconnect(dc):
-        dc.robot.connector.disconnect(6)
-        print('robot disconnected', dc.robot)
+def connect(dc):
+    dc.robot.connector.connect(6)
+    print('robot connected', dc.robot)
+
+def disconnect(dc):
+    dc.robot.connector.disconnect()
+    print('robot disconnected', dc.robot)
 
     def pressed_a_key(event):
 
