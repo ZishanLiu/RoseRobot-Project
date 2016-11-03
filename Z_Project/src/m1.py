@@ -74,8 +74,6 @@ def my_frame(root, dc):
 
     root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
     root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
-
-
     root.bind_all('<Key-a>', lambda event: go_left(event, dc))
     root.bind_all('<Key-d>', lambda event: go_right(event, dc))
     root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
@@ -84,10 +82,28 @@ def my_frame(root, dc):
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
 
 
+    waypoints = ttk.Button(main_frame, text='waypoints')
+    waypoints['command'] = lambda event: move_waypoints(event, dc)
+    waypoints.grid()
+    dc.my_entry = ttk.Entry(main_frame)
+    dc.my_entry.grid()
+    dc.points_entry = ttk.Entry(main_frame)
+    dc.points_entry.grid()
+
+
+    wireless_connect_button = ttk.Button(main_frame, text='wireless connect')
+    wireless_connect_button.grid()
+    wireless_connect_button['command'] = lambda: wireless_connect(dc)
 
 
 
 
+
+
+
+def wireless_connect(dc):
+    dc.robot.connector.connect_wireless(9)
+    print('robot wireless connected', dc.robot)
 def connect(dc):
 
     dc.robot.connector.connect(7)
@@ -137,6 +153,12 @@ def go_backward(event, dc):
 
 def stop(event, dc):
     dc.robot.motor_controller.stop()
+def move_waypoints(event, dc):
+    contents = dc.my_entry.get()
+    speed = int(contents)
+#     dc.robot.motor_controller.drive_pwm(speed, speed)
+#     dc.robot.motor_controller.
+
 
 
 
