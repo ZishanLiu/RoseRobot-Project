@@ -44,6 +44,17 @@ def my_frame(root, dc):
     button1['command'] = lambda: songs_playing(dc)
     button1.grid()
 
+
+
+    button2 = ttk.Button(main_frame, text='Compose Music')
+    button2['command'] = lambda: songs_playing(dc)
+    button2.grid()
+
+
+
+
+
+
 def songs_playing(dc):
 
     notes = []
@@ -62,6 +73,8 @@ def songs_playing(dc):
         time.sleep(Time)
         dc.robot.buzzer.stop()
 
+def songs_composing(dc):
+    frequencies = [ ]
 
 
 
