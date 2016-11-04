@@ -37,7 +37,7 @@ def my_frame(root, dc):
     """
 
 
-    main_frame = ttk.Frame(root, padding=20)
+    main_frame = ttk.Frame(root, padding=50)
     main_frame.grid(row=1, column=2)
 
     left_button = ttk.Button(main_frame, text='Spin Left')
@@ -75,24 +75,27 @@ def my_frame(root, dc):
     tracking_button.grid()
 
 
+    main_frame2 = ttk.Frame(root, padding=50)
+    main_frame2.grid(row=1, column=5)
+
     person1 = open('../process/hours-1.txt', 'r').read()
     person2 = open('../process/hours-2.txt', 'r').read()
     person3 = open('../process/hours-3.txt', 'r').read()
     person4 = open('../process/hours-4.txt', 'r').read()
 
-    lable1 = ttk.Label(main_frame)
+    lable1 = ttk.Label(main_frame2)
     lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
     lable1.grid()
 
-    lable2 = ttk.Label(main_frame)
+    lable2 = ttk.Label(main_frame2)
     lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
     lable2.grid()
 
-    lable3 = ttk.Label(main_frame)
+    lable3 = ttk.Label(main_frame2)
     lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
     lable3.grid()
 
-    lable4 = ttk.Label(main_frame)
+    lable4 = ttk.Label(main_frame2)
     lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
     lable4.grid()
 
