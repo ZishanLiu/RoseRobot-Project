@@ -70,8 +70,31 @@ def my_frame(root, dc):
     stop_button['command'] = lambda: stop(dc)
     stop_button.grid()
 
+    tracking_button = ttk.Button(main_frame, text='Track!')
+    tracking_button['command'] = lambda: tracking(dc)
+    tracking_button.grid()
 
 
+    person1 = open('../process/hours-1.txt', 'r').read()
+    person2 = open('../process/hours-2.txt', 'r').read()
+    person3 = open('../process/hours-3.txt', 'r').read()
+    person4 = open('../process/hours-4.txt', 'r').read()
+
+    lable1 = ttk.Label(main_frame)
+    lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
+    lable1.grid()
+
+    lable2 = ttk.Label(main_frame)
+    lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
+    lable2.grid()
+
+    lable3 = ttk.Label(main_frame)
+    lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
+    lable3.grid()
+
+    lable4 = ttk.Label(main_frame)
+    lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
+    lable4.grid()
 
 def move_forward(dc):
     a = dc.entry_box1.get()
@@ -79,10 +102,10 @@ def move_forward(dc):
     dc.robot.motor_controller.drive_pwm(n, n)
 
 def turn_left(dc):
-    dc.robot.motor_controller.drive_pwm(0, 100)
+    dc.robot.motor_controller.drive_pwm(0, 200)
 
 def turn_right(dc):
-    dc.robot.motor_controller.drive_pwm(100, 0)
+    dc.robot.motor_controller.drive_pwm(200, 0)
 
 def move_backward(dc):
     a = dc.entry_box1.get()
@@ -91,6 +114,14 @@ def move_backward(dc):
 
 def stop(dc):
     dc.robot.motor_controller.drive_pwm(0, 0)
+
+def tracking(dc):
+    if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
+        dc.robot.motor_controller.drive_pwm(0, 100)
+
+    else:
+        dc.robot.motor_controller.drive_pwm(0, 0)
+
 
 
 # ----------------------------------------------------------------------
