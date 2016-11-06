@@ -100,18 +100,22 @@ def speed(dc):
     dc.robot.motor_controller.drive_pwm(speed, speed)
 
 def bumpleft(dc):
+    print(dc.robot.sensor_reader.left_bump_sensor.read())
     while True:
         if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 
 def bumpright(dc):
+    print(dc.robot.sensor_reader.right_bump_sensor.read())
     while True:
         if dc.robot.sensor_reader.right_bump_sensor.read() == 0 :
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 
 def bumpboth(dc):
+    print(dc.robot.sensor_reader.left_bump_sensor.read())
+    print(dc.robot.sensor_reader.right_bump_sensor.read())
     while True:
         if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
             dc.robot.motor_controller.drive_pwm(0, 0)
@@ -128,6 +132,7 @@ def reflectanceleft(dc):
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def reflectanceright(dc):
+    print(dc.robot.sensor_reader.right_reflectance_sensor.read())
     dark = dc.darkness.get()
     darknessthreshhold = int(dark)
     while True:
@@ -143,6 +148,7 @@ def reflectancemiddle(dc):
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def proximityleft(dc):
+    print(dc.robot.sensor_reader.left_proximity_sensor.read())
     distance = dc.distanceleft.get()
     d = int(distance)
     while True:
@@ -150,6 +156,7 @@ def proximityleft(dc):
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def proximityright(dc):
+    print(dc.robot.sensor_reader.right_proximity_sensor.read())
     distance1 = dc.distanceright.get()
     d1 = int(distance1)
     while True:
@@ -157,6 +164,7 @@ def proximityright(dc):
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def proximitymiddle(dc):
+    print(dc.robot.sensor_reader.middle_proximity_sensor.read())
     distance2 = dc.distancemiddle.get()
     d2 = int(distance2)
     while True:
