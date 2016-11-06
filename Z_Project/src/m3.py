@@ -55,6 +55,8 @@ def my_frame(root, dc):
 
 
 
+
+
 def songs_playing(dc):
 
     notes = []
@@ -74,7 +76,13 @@ def songs_playing(dc):
         dc.robot.buzzer.stop()
 
 def songs_composing(dc):
-    frequencies = [ ]
+    ryhme1 = [(0.5, 0.25, 0.25, 0.5, 0.5, 1), (0.5, 0.5, 0.5, 0.25, 0.25, 0.5)]
+    ryhme2 = [(0.5, 0.5, 0.5, 0.5, 0.5, 0.5), (0.5, 0.5, 0.5, 0.5, 0.5, 1)]
+    ryhme3 = [(0.5, 0.5, 1, 0.5, 1, 1), (3, 1, 1, 0.5, 1, 1)]
+    list1 = (58, 55, 21, 50, 19, 28, 15, 59, 56, 58, 21, 24, 19)
+    list2 = ()
+    list3 = ()
+
 
 
 
