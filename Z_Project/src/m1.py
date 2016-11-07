@@ -72,8 +72,8 @@ def my_frame(root, dc):
 #     spin_button['command'] = lambda: spin()
 
 
-    root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
-    root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
+#     root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
+#     root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
     root.bind_all('<Key-a>', lambda event: go_left(event, dc))
     root.bind_all('<Key-d>', lambda event: go_right(event, dc))
     root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
@@ -113,13 +113,13 @@ def disconnect(dc):
     dc.robot.connector.disconnect()
     print('robot disconnected', dc.robot)
 
-def pressed_a_key(event):
-
-    print('You pressed the', event.keysym, 'key')
-
-
-def released_a_key(event):
-    print('You released the', event.keysym, 'key')
+# def pressed_a_key(event):
+#
+#     print('You pressed the', event.keysym, 'key')
+#
+#
+# def released_a_key(event):
+#     print('You released the', event.keysym, 'key')
 
 
 def go_left(event, dc):
