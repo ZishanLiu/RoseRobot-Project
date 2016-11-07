@@ -47,7 +47,7 @@ def my_frame(root, dc):
 
 
     button2 = ttk.Button(main_frame, text='Compose Music')
-    button2['command'] = lambda: songs_playing(dc)
+    button2['command'] = lambda: songs_composing(dc)
     button2.grid()
 
 
@@ -76,12 +76,16 @@ def songs_playing(dc):
         dc.robot.buzzer.stop()
 
 def songs_composing(dc):
+    k = random.randrange(0, 3)
     ryhme1 = [(0.5, 0.25, 0.25, 0.5, 0.5, 1), (0.5, 0.5, 0.5, 0.25, 0.25, 0.5)]
     ryhme2 = [(0.5, 0.5, 0.5, 0.5, 0.5, 0.5), (0.5, 0.5, 0.5, 0.5, 0.5, 1)]
     ryhme3 = [(0.5, 0.5, 1, 0.5, 1, 1), (3, 1, 1, 0.5, 1, 1)]
     list1 = (58, 55, 21, 50, 19, 28, 15, 59, 56, 58, 21, 24, 19)
     list2 = ()
     list3 = ()
+    for a in range(12):
+        dc.robot.buzzer.play_tone(random.choice(list1))
+        time.sleep(ryhme1[k][a % len(ryhme1[k])])
 
 
 
