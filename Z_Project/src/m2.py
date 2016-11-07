@@ -62,9 +62,9 @@ def my_frame(root, dc):
     dc.entry_box2 = ttk.Entry(main_frame, text='Distance')
     dc.entry_box2.grid()
 
-    print_entry = ttk.Button(main_frame, text=' Go! ')
-    print_entry['command'] = (lambda: move_forward(dc))
-    print_entry.grid()
+    distance_button = ttk.Button(main_frame, text=' Go! ')
+    distance_button['command'] = lambda: distance_go(dc)
+    distance_button.grid()
 
     stop_button = ttk.Button(main_frame, text='stop')
     stop_button['command'] = lambda: stop(dc)
@@ -74,30 +74,35 @@ def my_frame(root, dc):
     tracking_button['command'] = lambda: tracking(dc)
     tracking_button.grid()
 
-
     main_frame2 = ttk.Frame(root, padding=50)
     main_frame2.grid(row=1, column=5)
 
-    person1 = open('../process/hours-1.txt', 'r').read()
-    person2 = open('../process/hours-2.txt', 'r').read()
-    person3 = open('../process/hours-3.txt', 'r').read()
-    person4 = open('../process/hours-4.txt', 'r').read()
+    time_button = ttk.Button(main_frame2, text='working time')
+    time_button['command'] = lambda: working_time()
+    time_button.grid()
 
-    lable1 = ttk.Label(main_frame2)
-    lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
-    lable1.grid()
+    def working_time():
 
-    lable2 = ttk.Label(main_frame2)
-    lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
-    lable2.grid()
+        person1 = open('../process/hours-1.txt', 'r').read()
+        person2 = open('../process/hours-2.txt', 'r').read()
+        person3 = open('../process/hours-3.txt', 'r').read()
+        person4 = open('../process/hours-4.txt', 'r').read()
 
-    lable3 = ttk.Label(main_frame2)
-    lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
-    lable3.grid()
+        lable1 = ttk.Label(main_frame2)
+        lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
+        lable1.grid()
 
-    lable4 = ttk.Label(main_frame2)
-    lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
-    lable4.grid()
+        lable2 = ttk.Label(main_frame2)
+        lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
+        lable2.grid()
+
+        lable3 = ttk.Label(main_frame2)
+        lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
+        lable3.grid()
+
+        lable4 = ttk.Label(main_frame2)
+        lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
+        lable4.grid()
 
 def move_forward(dc):
     a = dc.entry_box1.get()
@@ -118,13 +123,19 @@ def move_backward(dc):
 def stop(dc):
     dc.robot.motor_controller.drive_pwm(0, 0)
 
+def distance_go(dc):
+    pass
+
 def tracking(dc):
     if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
         dc.robot.motor_controller.drive_pwm(0, 100)
+        if dc.robot.sensor_reader.left_bump_sensor.read() == 1:
+            stop(dc)
 
-    else:
-        dc.robot.motor_controller.drive_pwm(0, 0)
-
+    if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
+        dc.robot.motor_controller.drive_pwm(100, 0)
+        if dc.robot.sensor_reader.right_bump_sensor.read() == 1:
+            stop(dc)
 
 
 # ----------------------------------------------------------------------
