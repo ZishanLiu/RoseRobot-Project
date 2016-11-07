@@ -176,17 +176,24 @@ def BangBangleft(dc):
     error = dc.errorentry.get()
     thresh1 = int(thresh)
     error1 = int(error)
-    dc.robot.motor_controller.drive_pwm(40, 40)
+    dc.robot.motor_controller.drive_pwm(30, 30)
     print(dc.robot.sensor_reader.left_reflectance_sensor.read())
     print(dc.robot.sensor_reader.right_reflectance_sensor.read())
     while True:
         if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
-            dc.robot.motor_controller.drive_pwm(55, 40)
+            dc.robot.motor_controller.drive_pwm(60, 0)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
-            dc.robot.motor_controller.drive_pwm(40, 55)
-        if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1 and dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
+            dc.robot.motor_controller.drive_pwm(0, 60)
+        if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1 and dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
+            dc.robot.motor_controller.drive_pwm(0, 0)
             break
-        dc.robot.motor_controller.drive_pwm(0, 0)
+
+
+
+
+
+
+
 
 
 
