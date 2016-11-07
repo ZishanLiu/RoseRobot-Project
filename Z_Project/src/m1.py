@@ -72,8 +72,8 @@ def my_frame(root, dc):
 #     spin_button['command'] = lambda: spin()
 
 
-    root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
-    root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
+#     root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
+#     root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
     root.bind_all('<Key-a>', lambda event: go_left(event, dc))
     root.bind_all('<Key-d>', lambda event: go_right(event, dc))
     root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
@@ -82,9 +82,9 @@ def my_frame(root, dc):
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
 
 
-    waypoints = ttk.Button(main_frame, text='waypoints')
-    waypoints['command'] = lambda event: move_waypoints(event, dc)
-    waypoints.grid()
+    waypoints_button = ttk.Button(main_frame, text='waypoints')
+    waypoints_button['command'] = lambda event: move_waypoints(dc)
+    waypoints_button.grid()
     dc.my_entry = ttk.Entry(main_frame)
     dc.my_entry.grid()
     dc.points_entry = ttk.Entry(main_frame)
@@ -106,20 +106,20 @@ def wireless_connect(dc):
     print('robot wireless connected', dc.robot)
 def connect(dc):
 
-    dc.robot.connector.connect(7)
+    dc.robot.connector.connect(8)
     print('robot connected', dc.robot)
 def disconnect(dc):
 
     dc.robot.connector.disconnect()
     print('robot disconnected', dc.robot)
 
-def pressed_a_key(event):
-
-    print('You pressed the', event.keysym, 'key')
-
-
-def released_a_key(event):
-    print('You released the', event.keysym, 'key')
+# def pressed_a_key(event):
+#
+#     print('You pressed the', event.keysym, 'key')
+#
+#
+# def released_a_key(event):
+#     print('You released the', event.keysym, 'key')
 
 
 def go_left(event, dc):
@@ -153,11 +153,23 @@ def go_backward(event, dc):
 
 def stop(event, dc):
     dc.robot.motor_controller.stop()
-def move_waypoints(event, dc):
+def move_waypoints(dc):
     contents = dc.my_entry.get()
     speed = int(contents)
 #     dc.robot.motor_controller.drive_pwm(speed, speed)
-#     dc.robot.motor_controller.
+    dc.robot.motor_controller.drive_pwm(speed, speed)
+    content1 = dc.points_entry.get()
+    sequence = content1
+#     for k in range(len(sequence)):
+#         for i in range(len(k)):
+#             if i == 0:
+#                 dc.robot.motor_controller.drive_pwm()
+#                 dc.robot.motor_controller.drive_pwm()
+#             if i == 1:
+#                 dc.robot.motor_controller.drive_pwm()
+#                 dc.robot.motor_controller.drive_pwm()
+
+
 
 
 
