@@ -184,8 +184,7 @@ def BangBangleft(dc):
             dc.robot.motor_controller.drive_pwm(55, 40)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
             dc.robot.motor_controller.drive_pwm(40, 55)
-        if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
-           if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
+        if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1 and dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
             break
         dc.robot.motor_controller.drive_pwm(0, 0)
 
