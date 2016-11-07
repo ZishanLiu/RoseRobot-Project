@@ -82,9 +82,9 @@ def songs_composing(dc):
     ryhme2 = [(0.5, 0.5, 0.5, 0.5, 0.5, 0.5), (0.5, 0.5, 0.5, 0.5, 0.5, 1)]
     ryhme3 = [(0.5, 0.5, 1, 0.5, 1, 1), (3, 1, 1, 0.5, 1, 1)]
     list1 = (58, 55, 21, 50, 19, 28, 15, 59, 56, 58, 21, 24, 19)
-    list2 = ()
+    list2 = (28, 27, 55, 56, 60, 61, 49, 37, 36, 33, 33, 30)
     list3 = ()
-    for a in range(12):
+    for a in range(len(ryhme1[random.randrange(0, 3)])):
         dc.robot.buzzer.play_tone(random.choice(list1))
         time.sleep(ryhme2[k][a % len(ryhme2[k])])
         dc.robot.buzzer.stop()
