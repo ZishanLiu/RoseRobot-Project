@@ -16,7 +16,7 @@ import m4
 
 import tkinter
 from tkinter import ttk
-import rosebot.standard_rosebot as rb
+import rosebot.faux_rosebot as rb
 import time
 
 def my_frame(root, dc):
@@ -52,7 +52,7 @@ def my_frame(root, dc):
     dc.entry_box1.grid()
 
     forward_button = ttk.Button(main_frame, text='move forward')
-    forward_button['command'] = (lambda: move_forward(dc))
+    forward_button['command'] = lambda: move_forward(dc)
     forward_button.grid()
 
     backward_button = ttk.Button(main_frame, text='move backward')
@@ -124,7 +124,10 @@ def stop(dc):
     dc.robot.motor_controller.drive_pwm(0, 0)
 
 def distance_go(dc):
-    pass
+    b = dc.entry_box2.get()
+    d = int(b)
+    dc.robot.motor_controller.drive_pwm(100, 100)
+    time.sleep(d / 100)
 
 def tracking(dc):
     if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
