@@ -85,7 +85,7 @@ def songs_composing(dc):
     list3 = ()
     for a in range(12):
         dc.robot.buzzer.play_tone(random.choice(list1))
-        time.sleep(ryhme1[k][a % len(ryhme1[k])])
+        time.sleep(ryhme2[k][a % len(ryhme2[k])])
 
 
 
