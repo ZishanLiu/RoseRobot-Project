@@ -16,8 +16,8 @@ import m4
 
 import tkinter
 from tkinter import ttk
-import rosebot.standard_rosebot as rb
-# import rosebot.faux_rosebot as rb
+# import rosebot.standard_rosebot as rb
+import rosebot.faux_rosebot as rb
 
 
 
@@ -74,12 +74,21 @@ def my_frame(root, dc):
 
 #     root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
 #     root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
-    root.bind_all('<Key-a>', lambda event: go_left(event, dc))
-    root.bind_all('<Key-d>', lambda event: go_right(event, dc))
-    root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
-    root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
-    root.bind_all('<Key-p>', lambda event: stop(event, dc))
-    root.bind_all('<Key-space>', lambda event: spin(event, dc))
+    slow_speed_button = ttk.Button(main_frame, text='slow_speed')
+    slow_speed_button['command'] = lambda: slow_mode(root, dc)
+    slow_speed_button.grid()
+    medium_speed_button = ttk.Button(main_frame, text='medium_speed')
+    medium_speed_button['command'] = lambda: medium_mode(root, dc)
+    medium_speed_button.grid()
+    fast_speed_button = ttk.Button(main_frame, text='fast_speed')
+    fast_speed_button['command'] = lambda: fast_mode(root, dc)
+    fast_speed_button.grid()
+#     root.bind_all('<Key-a>', lambda event: go_left(event, dc))
+#     root.bind_all('<Key-d>', lambda event: go_right(event, dc))
+#     root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
+#     root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
+#     root.bind_all('<Key-p>', lambda event: stop(event, dc))
+#     root.bind_all('<Key-space>', lambda event: spin(event, dc))
 
 
     waypoints_button = ttk.Button(main_frame, text='waypoints')
@@ -120,38 +129,144 @@ def disconnect(dc):
 #
 # def released_a_key(event):
 #     print('You released the', event.keysym, 'key')
+def slow_mode(root, dc):
+    speed = 20
+    root.bind_all('<Key-a>', lambda event: go_left(event, dc))
+    root.bind_all('<Key-d>', lambda event: go_right(event, dc))
+    root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
+    root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
+    root.bind_all('<Key-p>', lambda event: stop(event, dc))
+    root.bind_all('<Key-space>', lambda event: spin(event, dc))
+    def go_left(event, dc):
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Go left!')
+        dc.robot.motor_controller.drive_pwm(0, speed)
+
+    def go_forward(event, dc):
+        dc.robot.motor_controller.drive_pwm(speed, speed)
 
 
-def go_left(event, dc):
-    print('You pressed the ' + event.keysym + ' key: ', end='')
-    print('Go left!')
-    dc.robot.motor_controller.drive_pwm(0, 50)
-
-def go_forward(entry_box, dc):
-    dc.robot.motor_controller.drive_pwm(50, 50)
+    def go_left_button():
+        print('You clicked the Left button: ', end='')
+        print('Go left!')
 
 
-def go_left_button():
-    print('You clicked the Left button: ', end='')
-    print('Go left!')
-
-
-def go_right(event, dc):
+    def go_right(event, dc):
 #     if event == None:
 #         print('Button press: ', end='')
 #     else:
-    print('You pressed the ' + event.keysym + ' key: ', end='')
-    print('Go right!')
-    dc.robot.motor_controller.drive_pwm(50, 0)
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Go right!')
+        dc.robot.motor_controller.drive_pwm(speed, 0)
 
 
-def spin(event, dc):
-    dc.robot.motor_controller.drive_pwm(30, 50)
-def go_backward(event, dc):
-    dc.robot.motor_controller.drive_pwm(-40, -40)
+    def spin(event, dc):
+        dc.robot.motor_controller.drive_pwm(10, speed)
+    def go_backward(event, dc):
+        dc.robot.motor_controller.drive_pwm(-(speed), -(speed))
 
-def stop(event, dc):
-    dc.robot.motor_controller.stop()
+    def stop(event, dc):
+        dc.robot.motor_controller.stop()
+def medium_mode(root, dc):
+    speed = 30
+    root.bind_all('<Key-a>', lambda event: go_left(event, dc))
+    root.bind_all('<Key-d>', lambda event: go_right(event, dc))
+    root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
+    root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
+    root.bind_all('<Key-p>', lambda event: stop(event, dc))
+    root.bind_all('<Key-space>', lambda event: spin(event, dc))
+    def go_left(event, dc):
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Go left!')
+        dc.robot.motor_controller.drive_pwm(0, speed)
+
+    def go_forward(event, dc):
+        dc.robot.motor_controller.drive_pwm(speed, speed)
+
+
+    def go_left_button():
+        print('You clicked the Left button: ', end='')
+        print('Go left!')
+
+
+    def go_right(event, dc):
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Go right!')
+        dc.robot.motor_controller.drive_pwm(speed, 0)
+
+
+    def spin(event, dc):
+        dc.robot.motor_controller.drive_pwm(10, speed)
+    def go_backward(event, dc):
+        dc.robot.motor_controller.drive_pwm(-(speed), -(speed))
+
+    def stop(event, dc):
+        dc.robot.motor_controller.stop()
+
+def fast_mode(root, dc):
+    speed = 40
+    root.bind_all('<Key-a>', lambda event: go_left(event, dc))
+    root.bind_all('<Key-d>', lambda event: go_right(event, dc))
+    root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
+    root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
+    root.bind_all('<Key-p>', lambda event: stop(event, dc))
+    root.bind_all('<Key-space>', lambda event: spin(event, dc))
+    def go_left(event, dc):
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Go left!')
+        dc.robot.motor_controller.drive_pwm(0, speed)
+
+    def go_forward(event, dc):
+        dc.robot.motor_controller.drive_pwm(speed, speed)
+
+
+    def go_right(event, dc):
+#     if event == None:
+#         print('Button press: ', end='')
+#     else:
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+        print('Go right!')
+        dc.robot.motor_controller.drive_pwm(speed, 0)
+
+
+    def spin(event, dc):
+        dc.robot.motor_controller.drive_pwm(10, speed)
+    def go_backward(event, dc):
+        dc.robot.motor_controller.drive_pwm(-(speed), -(speed))
+
+    def stop(event, dc):
+        dc.robot.motor_controller.stop()
+
+# def go_left(event, dc):
+#     print('You pressed the ' + event.keysym + ' key: ', end='')
+#     print('Go left!')
+#     dc.robot.motor_controller.drive_pwm(speed, speed)
+#
+# def go_forward(entry_box, dc):
+#     dc.robot.motor_controller.drive_pwm(50, 50)
+#
+#
+# def go_left_button():
+#     print('You clicked the Left button: ', end='')
+#     print('Go left!')
+#
+#
+# def go_right(event, dc):
+# #     if event == None:
+# #         print('Button press: ', end='')
+# #     else:
+#     print('You pressed the ' + event.keysym + ' key: ', end='')
+#     print('Go right!')
+#     dc.robot.motor_controller.drive_pwm(50, 0)
+#
+#
+# def spin(event, dc):
+#     dc.robot.motor_controller.drive_pwm(30, 50)
+# def go_backward(event, dc):
+#     dc.robot.motor_controller.drive_pwm(-40, -40)
+#
+# def stop(event, dc):
+#     dc.robot.motor_controller.stop()
 def move_waypoints(dc):
     contents = dc.my_entry.get()
     speed = int(contents)
