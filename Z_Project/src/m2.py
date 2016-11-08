@@ -16,7 +16,7 @@ import m4
 
 import tkinter
 from tkinter import ttk
-import rosebot.faux_rosebot as rb
+import rosebot.standard_rosebot as rb
 import time
 
 def my_frame(root, dc):
@@ -84,8 +84,11 @@ def my_frame(root, dc):
     stop_button['command'] = lambda: stop(dc)
     stop_button.grid()
 
+    entry_box5 = ttk.Entry(main_frame, text='Track')
+    entry_box5.grid()
+
     tracking_button = ttk.Button(main_frame, text='Track!')
-    tracking_button['command'] = lambda: tracking(dc)
+    tracking_button['command'] = lambda: tracking(dc, entry_box5)
     tracking_button.grid()
 
     main_frame2 = ttk.Frame(root, padding=50)
@@ -149,16 +152,36 @@ def distance_go(dc, entry_box3, entry_box4):
     dc.robot.motor_controller.drive_pwm(d, d)
     time.sleep(c / d)
 
-def tracking(dc):
-    if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
-        dc.robot.motor_controller.drive_pwm(0, 100)
-        if dc.robot.sensor_reader.left_bump_sensor.read() == 1:
-            dc.robot.motor_controller.drive_pwm(0, 0)
+def tracking(dc, entry_box5):
 
-    if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
-        dc.robot.motor_controller.drive_pwm(100, 0)
-        if dc.robot.sensor_reader.right_bump_sensor.read() == 1:
-            dc.robot.motor_controller.drive_pwm(0, 0)
+    s1 = int(entry_box5.get())
+    s2 = 0
+    while True:
+        dc.robot.motor_controller.drive_pwm(s1, s1)
+        if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
+            s2 = 1
+            break
+        elif dc.robot.sensor_reader.right_bump_sensor.read() == 0:
+            s2 = 2
+            break
+
+    if s2 == 1:
+        dc.robot.motor_controller.drive_pwm(-s1, -s1)
+        time.sleep(30 / s1)
+        while True:
+            dc.robot.motor_controller.drive_pwm(0, s1)
+            if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
+                break
+
+    if s2 == 2:
+        dc.robot.motor_controller.drive_pwm(-s1, -s1)
+        time.sleep(30 / s1)
+
+        while True:
+            dc.robot.motor_controller.drive_pwm(s1, 0)
+            if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
+                break
+    dc.robot.motor_controller.drive_pwm(0, 0)
 
 
 # ----------------------------------------------------------------------
