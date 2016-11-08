@@ -65,29 +65,40 @@ def songs_playing(dc):
     Time2 = Time1
 
     for k in range(N):
-        randomnumber = int(random.randrange(1, 256))
-        notes = notes + [randomnumber]
-    for k in range(N):
-        print(notes[k])
-        dc.robot.buzzer.play_tone(notes[k])
-        Time = Time1 + (Time2 - Time1) * (random.random())
-        print(Time)
-        time.sleep(Time)
+        randomnumber = int(random.randrange(1, 120))
+        notes = notes + [randomnumber] + [999999]
+    for k in range(N * 2):
+        if notes[k] != 999999:
+            print(notes[k])
+            dc.robot.buzzer.play_tone(notes[k])
+            Time = Time1 + (Time2 - Time1) * (random.random())
+            print(Time)
+            time.sleep(Time)
+        else:
+            dc.robot.buzzer.play_tone(0)
+            time.sleep(0.01)
+
         dc.robot.buzzer.stop()
 
 
 def songs_composing(dc):
-    k = random.randrange(0, 3)
-    ryhme1 = ([0.5, 0.25, 0.25, 0.5, 0.5, 1], [0.5, 0.5, 0.5, 0.25, 0.25, 0.5], [0.5, 0.25, 0.25, 0.5, 0.5, 1], [0.5, 0.5, 0.5, 0.25, 0.25, 0.5])
+    k = random.randrange(0, 2)
+    ryhme1 = ([0.5, 0.25, 0.25, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.25, 0.25, 0.5], [0.5, 0.25, 0.25, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.25, 0.25, 0.5])
     ryhme2 = [(0.5, 0.5, 0.5, 0.5, 0.5, 0.5), (0.5, 0.5, 0.5, 0.5, 0.5, 1)]
     ryhme3 = [(0.5, 0.5, 1, 0.5, 1, 1), (3, 1, 1, 0.5, 1, 1)]
     list1 = (58, 55, 21, 50, 19, 28, 15, 59, 56, 58, 21, 24, 19)
     list2 = (28, 27, 55, 56, 60, 61, 49, 37, 36, 33, 33, 30)
     list3 = ()
-    for a in range(len(ryhme1[random.randrange(0, 3)])):
+    for a in range(len(ryhme1[random.randrange(0, 2)])):
+
         dc.robot.buzzer.play_tone(random.choice(list1))
-        time.sleep(ryhme2[k][a % len(ryhme2[k])])
+        dc.robot.motor_controller.drive_pwm(random.randrange(-100, 100), random.randrange(-100, 100))
+        time.sleep(ryhme1[k][a % len(ryhme1[k])])
         dc.robot.buzzer.stop()
+        dc.robot.led.turn_on()
+    dc.robot.motor_controller.drive_pwm(0, 0)
+    dc.robot.led.turn_off()
+
 
 
 
