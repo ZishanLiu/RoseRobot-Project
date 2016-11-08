@@ -48,6 +48,7 @@ def my_frame(root, dc):
     dc.distancemiddle = ttk.Entry(frame)
     dc.threshholdentry = ttk.Entry(frame)
     dc.errorentry = ttk.Entry(frame)
+    dc.Pcontrolerrorentry = ttk.Entry(frame)
 
 
     bumpleftbutton = ttk.Button(frame, text='bumpleft')
@@ -68,10 +69,12 @@ def my_frame(root, dc):
     proximityrightbutton['command'] = (lambda:proximityright(dc))
     proximitymiddlebutton = ttk.Button(frame, text='proximitymiddle')
     proximitymiddlebutton['command'] = (lambda:proximitymiddle(dc))
-    BangBangleftbutton = ttk.Button(frame, text='BangBang')
-    BangBangleftbutton['command'] = (lambda:BangBangleft(dc))
-    dc.threshholdentry = ttk.Entry(frame)
-    dc.errorentry = ttk.Entry(frame)
+    BangBangbutton = ttk.Button(frame, text='BangBang')
+    BangBangbutton['command'] = (lambda:BangBang(dc))
+    Pcontrolbutton = ttk.Button(frame, text='Pcontrol')
+    Pcontrolbutton['command'] = (lambda:Pcontrol(dc))
+
+
 
 
     speedbutton.grid()
@@ -91,7 +94,9 @@ def my_frame(root, dc):
     proximitymiddlebutton.grid()
     dc.threshholdentry.grid()
     dc.errorentry.grid()
-    BangBangleftbutton.grid()
+    BangBangbutton.grid()
+    dc.Pcontrolerrorentry.grid()
+    Pcontrolbutton.grid()
 
 
 def speed(dc):
@@ -100,6 +105,7 @@ def speed(dc):
     dc.robot.motor_controller.drive_pwm(speed, speed)
 
 def bumpleft(dc):
+    print('The left bumpsensor is on!')
     print(dc.robot.sensor_reader.left_bump_sensor.read())
     while True:
         if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
@@ -107,6 +113,7 @@ def bumpleft(dc):
             break
 
 def bumpright(dc):
+    print('The right bumpsensor is on!')
     print(dc.robot.sensor_reader.right_bump_sensor.read())
     while True:
         if dc.robot.sensor_reader.right_bump_sensor.read() == 0 :
@@ -114,6 +121,7 @@ def bumpright(dc):
             break
 
 def bumpboth(dc):
+    print('Both bumpsensors are on!')
     print(dc.robot.sensor_reader.left_bump_sensor.read())
     print(dc.robot.sensor_reader.right_bump_sensor.read())
     while True:
@@ -124,6 +132,7 @@ def bumpboth(dc):
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def reflectanceleft(dc):
+    print('The left reflectancesensor is on!')
     print(dc.robot.sensor_reader.left_reflectance_sensor.read())
     dark = dc.darkness.get()
     darknessthreshhold = int(dark)
@@ -132,6 +141,7 @@ def reflectanceleft(dc):
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def reflectanceright(dc):
+    print('The right reflectancesensor is on!')
     print(dc.robot.sensor_reader.right_reflectance_sensor.read())
     dark = dc.darkness.get()
     darknessthreshhold = int(dark)
@@ -142,12 +152,14 @@ def reflectanceright(dc):
 def reflectancemiddle(dc):
     dark = dc.darkness.get()
     darknessthreshhold = int(dark)
+    print('The middle reflectancesensor is on!')
     print(dc.robot.sensor_reader.middle_reflectance_sensor.read())
     while True:
         if dc.robot.sensor_reader.middle_reflectance_sensor.read() > darknessthreshhold:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def proximityleft(dc):
+    print('The left proximity sensor is on!')
     print(dc.robot.sensor_reader.left_proximity_sensor.read())
     distance = dc.distanceleft.get()
     d = int(distance)
@@ -156,6 +168,7 @@ def proximityleft(dc):
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def proximityright(dc):
+    print('The right proximity sensor is on!')
     print(dc.robot.sensor_reader.right_proximity_sensor.read())
     distance1 = dc.distanceright.get()
     d1 = int(distance1)
@@ -164,6 +177,7 @@ def proximityright(dc):
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def proximitymiddle(dc):
+    print('The middle proximity sensor is on!')
     print(dc.robot.sensor_reader.middle_proximity_sensor.read())
     distance2 = dc.distancemiddle.get()
     d2 = int(distance2)
@@ -171,22 +185,49 @@ def proximitymiddle(dc):
         if dc.robot.sensor_reader.middle_proximity_sensor.read() > d2:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
-def BangBangleft(dc):
+def BangBang(dc):
+    print('BangBang Going On!')
     thresh = dc.threshholdentry.get()
     error = dc.errorentry.get()
     thresh1 = int(thresh)
     error1 = int(error)
-    dc.robot.motor_controller.drive_pwm(30, 30)
+    dc.robot.motor_controller.drive_pwm(50, 50)
     print(dc.robot.sensor_reader.left_reflectance_sensor.read())
     print(dc.robot.sensor_reader.right_reflectance_sensor.read())
     while True:
         if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
-            dc.robot.motor_controller.drive_pwm(60, 0)
+            dc.robot.motor_controller.drive_pwm(40, 10)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
-            dc.robot.motor_controller.drive_pwm(0, 60)
+            dc.robot.motor_controller.drive_pwm(10, 40)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1 and dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
+def Pcontrol(dc):
+    print('Pcontrol Going On!')
+    myentry = dc.speedentry.get()
+    speed = int(myentry)
+    pcontrolerror = dc.Pcontrolerrorentry.get
+    thresh = dc.threshholdentry.get()
+    error = dc.errorentry.get()
+    perror = int(pcontrolerror)
+    thresh1 = int(thresh)
+    error1 = int(error)
+    dc.robot.motor_controller.drive_pwm(speed, speed)
+    print(dc.robot.sensor_reader.left_reflectance_sensor.read())
+    print(dc.robot.sensor_reader.right_reflectance_sensor.read())
+    while True:
+        if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
+            dc.robot.motor_controller.drive_pwm(speed + 0.05 * perror, speed)
+        if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
+            dc.robot.motor_controller.drive_pwm(10, 40)
+        if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1 and dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+
+
+
+
+
 
 
 
