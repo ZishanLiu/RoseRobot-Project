@@ -40,30 +40,44 @@ def my_frame(root, dc):
     main_frame = ttk.Frame(root, padding=50)
     main_frame.grid(row=1, column=2)
 
-    left_button = ttk.Button(main_frame, text='Spin Left')
+    left_button = ttk.Button(main_frame, text='Turn Left')
     left_button['command'] = lambda: turn_left(dc)
     left_button.grid()
 
-    right_button = ttk.Button(main_frame, text='Spin Right')
+    right_button = ttk.Button(main_frame, text='Turn Right')
     right_button['command'] = lambda: turn_right(dc)
     right_button.grid()
 
-    dc.entry_box1 = ttk.Entry(main_frame, text='Speed')
-    dc.entry_box1.grid()
+    spin_button1 = ttk.Button(main_frame, text='Spin Left')
+    spin_button1['command'] = lambda: spin_left(dc)
+    spin_button1.grid()
+
+    spin_button2 = ttk.Button(main_frame, text='Spin Right')
+    spin_button2['command'] = lambda: spin_right(dc)
+    spin_button2.grid()
+
+    entry_box1 = ttk.Entry(main_frame, text='Speed')
+    entry_box1.grid()
 
     forward_button = ttk.Button(main_frame, text='move forward')
-    forward_button['command'] = lambda: move_forward(dc)
+    forward_button['command'] = lambda: move_forward(dc, entry_box1)
     forward_button.grid()
 
+    entry_box2 = ttk.Entry(main_frame, text='Speed')
+    entry_box2.grid()
+
     backward_button = ttk.Button(main_frame, text='move backward')
-    backward_button['command'] = lambda: move_backward(dc)
+    backward_button['command'] = lambda: move_backward(dc, entry_box2)
     backward_button.grid()
 
-    dc.entry_box2 = ttk.Entry(main_frame, text='Distance')
-    dc.entry_box2.grid()
+    entry_box3 = ttk.Entry(main_frame, text='Distance and speed')
+    entry_box3.grid()
+
+    entry_box4 = ttk.Entry(main_frame, text='Distance')
+    entry_box4.grid()
 
     distance_button = ttk.Button(main_frame, text=' Go! ')
-    distance_button['command'] = lambda: distance_go(dc)
+    distance_button['command'] = lambda: distance_go(dc, entry_box3, entry_box4)
     distance_button.grid()
 
     stop_button = ttk.Button(main_frame, text='stop')
@@ -104,30 +118,36 @@ def my_frame(root, dc):
         lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
         lable4.grid()
 
-def move_forward(dc):
-    a = dc.entry_box1.get()
-    n = int(a)
-    dc.robot.motor_controller.drive_pwm(n, n)
+def spin_left(dc):
+    dc.robot.motor_controller.drive_pwm(0, 150)
+
+def spin_right(dc):
+    dc.robot.motor_controller.drive_pwm(150, 0)
+
+def move_forward(dc, entry_box1):
+    a = int(entry_box1.get())
+    dc.robot.motor_controller.drive_pwm(a, a)
 
 def turn_left(dc):
     dc.robot.motor_controller.drive_pwm(0, 200)
+    time.sleep(1)
 
 def turn_right(dc):
     dc.robot.motor_controller.drive_pwm(200, 0)
+    time.sleep(1)
 
-def move_backward(dc):
-    a = dc.entry_box1.get()
-    m = int(a)
-    dc.robot.motor_controller.drive_pwm(-m, -m)
+def move_backward(dc, entry_box2):
+    a = int(entry_box2.get())
+    dc.robot.motor_controller.drive_pwm(-a, -a)
 
 def stop(dc):
     dc.robot.motor_controller.drive_pwm(0, 0)
 
-def distance_go(dc):
-    b = dc.entry_box2.get()
-    d = int(b)
-    dc.robot.motor_controller.drive_pwm(100, 100)
-    time.sleep(d / 100)
+def distance_go(dc, entry_box3, entry_box4):
+    d = int(entry_box3.get())
+    c = int(entry_box4.get())
+    dc.robot.motor_controller.drive_pwm(d, d)
+    time.sleep(c / d)
 
 def tracking(dc):
     if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
