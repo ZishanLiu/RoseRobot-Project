@@ -16,7 +16,7 @@ import m4
 
 import tkinter
 from tkinter import ttk
-import rosebot.standard_rosebot as rb
+import rosebot.faux_rosebot as rb
 import time
 
 def my_frame(root, dc):
@@ -95,10 +95,10 @@ def my_frame(root, dc):
     main_frame2.grid(row=1, column=5)
 
     time_button = ttk.Button(main_frame2, text='working time')
-    time_button['command'] = lambda: working_time()
+    time_button['command'] = lambda: working_time(dc)
     time_button.grid()
 
-    def working_time():
+    def working_time(dc):
 
         person1 = open('../process/hours-1.txt', 'r').read()
         person2 = open('../process/hours-2.txt', 'r').read()
@@ -120,6 +120,7 @@ def my_frame(root, dc):
         lable4 = ttk.Label(main_frame2)
         lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
         lable4.grid()
+
 
 def spin_left(dc):
     dc.robot.motor_controller.drive_pwm(0, 150)
