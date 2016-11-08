@@ -35,7 +35,7 @@ def my_frame(root, dc):
       :type root: tkinter.Tk
       :type dc:   m0.DataContainer
     """
-    frame = ttk.Frame(root, padding=10)
+    frame = ttk.Frame(root, width=100, height=200)
     frame.grid()
 
     speedbutton = ttk.Button(frame, text='speed')
@@ -77,26 +77,26 @@ def my_frame(root, dc):
 
 
 
-    speedbutton.grid()
-    dc.speedentry.grid()
+    speedbutton.grid(row=0, column=0)
+    dc.speedentry.grid(row=0, column=1)
     bumpbothbutton.grid()
     bumpleftbutton.grid()
     bumprightbutton.grid()
-    dc.darkness.grid()
     reflectanceleftbutton.grid()
     reflectancemiddlebutton.grid()
     reflectancerightbutton.grid()
-    dc.distanceleft.grid()
+    dc.darkness.grid(row=5, column=1)
     proximityleftbutton.grid()
-    dc.distanceright.grid()
+    dc.distanceleft.grid(row=7, column=1)
     proximityrightbutton.grid()
-    dc.distancemiddle.grid()
+    dc.distanceright.grid(row=8, column=1)
     proximitymiddlebutton.grid()
-    dc.threshholdentry.grid()
-    dc.errorentry.grid()
+    dc.distancemiddle.grid(row=9, column=1)
     BangBangbutton.grid()
-    dc.Pcontrolerrorentry.grid()
+    dc.threshholdentry.grid(row=10, column=1)
+    dc.errorentry.grid(row=11, column=1)
     Pcontrolbutton.grid()
+    dc.Pcontrolerrorentry.grid(row=12, column=1)
 
 
 def speed(dc):
@@ -223,6 +223,7 @@ def Pcontrol(dc):
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1 and dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
+
 
 
 
