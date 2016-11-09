@@ -229,9 +229,9 @@ def Pcontrol(dc):
         if dc.robot.sensor_reader.right_reflectance_sensor.read() > thresh1  and dc.robot.sensor_reader.left_reflectance_sensor.read() > thresh1 :
             dc.robot.motor_controller.drive_pwm(speed, speed)
         if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 :
-            dc.robot.motor_controller.drive_pwm(speed + 0.05 * perror, speed)
+            dc.robot.motor_controller.drive_pwm(speed, speed + 1 * perror)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 :
-            dc.robot.motor_controller.drive_pwm(speed + 0.05 * perror, speed)
+            dc.robot.motor_controller.drive_pwm(speed + 1 * perror, speed)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1  and dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 :
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
