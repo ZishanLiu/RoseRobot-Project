@@ -121,23 +121,22 @@ def my_frame(root, dc):
         lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
         lable4.grid()
 
-
 def spin_left(dc):
-    dc.robot.motor_controller.drive_pwm(0, 150)
+    dc.robot.motor_controller.drive_pwm(-150, 150)
 
 def spin_right(dc):
-    dc.robot.motor_controller.drive_pwm(150, 0)
+    dc.robot.motor_controller.drive_pwm(150, -150)
 
 def move_forward(dc, entry_box1):
     a = int(entry_box1.get())
     dc.robot.motor_controller.drive_pwm(a, a)
 
 def turn_left(dc):
-    dc.robot.motor_controller.drive_pwm(0, 200)
+    dc.robot.motor_controller.drive_pwm(0, 100)
     time.sleep(1)
 
 def turn_right(dc):
-    dc.robot.motor_controller.drive_pwm(200, 0)
+    dc.robot.motor_controller.drive_pwm(100, 0)
     time.sleep(1)
 
 def move_backward(dc, entry_box2):
@@ -151,7 +150,7 @@ def distance_go(dc, entry_box3, entry_box4):
     d = int(entry_box3.get())
     c = int(entry_box4.get())
     dc.robot.motor_controller.drive_pwm(d, d)
-    time.sleep(c / d)
+    time.sleep(c * 60 / d)
 
 def tracking(dc, entry_box5):
 
