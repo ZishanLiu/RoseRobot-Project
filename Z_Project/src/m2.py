@@ -133,12 +133,12 @@ def move_forward(dc, entry_box1):
 
 def turn_left(dc):
     dc.robot.motor_controller.drive_pwm(0, 100)
-    time.sleep(1)
+    time.sleep(0.9)
     dc.robot.motor_controller.drive_pwm(0, 0)
 
 def turn_right(dc):
     dc.robot.motor_controller.drive_pwm(100, 0)
-    time.sleep(1)
+    time.sleep(0.9)
     dc.robot.motor_controller.drive_pwm(0, 0)
 
 def move_backward(dc, entry_box2):
