@@ -220,19 +220,17 @@ def Pcontrol(dc):
     speed = int(myentry)
     pcontrolerror = dc.Pcontrolerrorentry.get()
     thresh = dc.threshholdentry.get()
-    error = dc.errorentry.get()
     perror = int(pcontrolerror)
     thresh1 = int(thresh)
-    error1 = int(error)
     dc.robot.motor_controller.drive_pwm(speed, speed)
     print(dc.robot.sensor_reader.left_reflectance_sensor.read())
     print(dc.robot.sensor_reader.right_reflectance_sensor.read())
     while True:
-        if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
+        if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 :
             dc.robot.motor_controller.drive_pwm(speed + 0.005 * perror, speed)
-        if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
+        if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 :
             dc.robot.motor_controller.drive_pwm(speed + 0.005 * perror, speed)
-        if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1 and dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
+        if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1  and dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 :
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
         else:
