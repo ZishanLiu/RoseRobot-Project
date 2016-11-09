@@ -99,27 +99,35 @@ def my_frame(root, dc):
     time_button.grid()
 
     def working_time(dc):
+        dc.time_cliked = dc.time_cliked + 1
 
-        person1 = open('../process/hours-1.txt', 'r').read()
-        person2 = open('../process/hours-2.txt', 'r').read()
-        person3 = open('../process/hours-3.txt', 'r').read()
-        person4 = open('../process/hours-4.txt', 'r').read()
+        if dc.time_cliked % 2 == 1:
+            person1 = open('../process/hours-1.txt', 'r').read()
+            person2 = open('../process/hours-2.txt', 'r').read()
+            person3 = open('../process/hours-3.txt', 'r').read()
+            person4 = open('../process/hours-4.txt', 'r').read()
 
-        lable1 = ttk.Label(main_frame2)
-        lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
-        lable1.grid()
+            lable1 = ttk.Label(main_frame2)
+            lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
+            lable1.grid()
 
-        lable2 = ttk.Label(main_frame2)
-        lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
-        lable2.grid()
+            lable2 = ttk.Label(main_frame2)
+            lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
+            lable2.grid()
 
-        lable3 = ttk.Label(main_frame2)
-        lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
-        lable3.grid()
+            lable3 = ttk.Label(main_frame2)
+            lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
+            lable3.grid()
 
-        lable4 = ttk.Label(main_frame2)
-        lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
-        lable4.grid()
+            lable4 = ttk.Label(main_frame2)
+            lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
+            lable4.grid()
+
+        if dc.time_cliked % 2 == 0 :
+            lable1.grid_forget()
+            lable2.grid_forget()
+            lable3.grid_forget()
+            lable4.grid_forget()
 
 def spin_left(dc):
     dc.robot.motor_controller.drive_pwm(-150, 150)
