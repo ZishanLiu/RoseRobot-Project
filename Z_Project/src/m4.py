@@ -161,6 +161,7 @@ def reflectanceright(dc):
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def reflectancemiddle(dc):
+    print('The middle reflectancesensor is on!')
     dark = dc.darkness.get()
     darknessthreshhold = int(dark)
     print('The middle reflectancesensor is on!')
@@ -189,11 +190,11 @@ def proximityright(dc):
             break
 def proximitymiddle(dc):
     print('The middle proximity sensor is on!')
-    print(dc.robot.sensor_reader.middle_proximity_sensor.read())
+    print(dc.robot.sensor_reader.front_proximity_sensor.read())
     distance2 = dc.distancemiddle.get()
     d2 = int(distance2)
     while True:
-        if dc.robot.sensor_reader.middle_proximity_sensor.read() > d2:
+        if dc.robot.sensor_reader.front_proximity_sensor.read() > d2:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
 def BangBang(dc):
@@ -228,12 +229,14 @@ def Pcontrol(dc):
     print(dc.robot.sensor_reader.right_reflectance_sensor.read())
     while True:
         if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
-            dc.robot.motor_controller.drive_pwm(speed + 0.05 * perror, speed)
+            dc.robot.motor_controller.drive_pwm(speed + 0.005 * perror, speed)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
-            dc.robot.motor_controller.drive_pwm(10, 40)
+            dc.robot.motor_controller.drive_pwm(speed + 0.005 * perror, speed)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1 and dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
+        else:
+            dc.robot.motor_controller.drive_pwm(speed, speed)
 def Polygonleft(dc):
     pointsget = dc.Polygonpointsentry.get()
     points = int(pointsget)
