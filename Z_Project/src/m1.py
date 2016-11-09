@@ -68,6 +68,8 @@ def my_frame(root, dc):
     disconnect_button = ttk.Button(main_frame, text='disconnect')
     disconnect_button.grid()
 
+    connect_entry = ttk.Entry(main_frame)
+    connect_entry.grid()
     connect_button['command'] = lambda: connect(dc)
     disconnect_button['command'] = lambda:disconnect(dc)
 
@@ -115,7 +117,8 @@ def my_frame(root, dc):
 
 
 def wireless_connect(dc):
-    dc.robot.connector.connect_wireless(22)
+    a = dc.connect_entry.get()
+    dc.robot.connector.connect_wireless(a)
     print('robot wireless connected', dc.robot)
 def connect(dc):
 
@@ -269,27 +272,27 @@ def fast_mode(root, dc):
 # def stop(event, dc):
 #     dc.robot.motor_controller.stop()
 def move_waypoints(dc):
-    speed = dc.my_entry.get()
-
+    a = dc.my_entry.get()
+    speed = int(a)
 #     dc.robot.motor_controller.drive_pwm(speed, speed)
 #     dc.robot.motor_controller.drive_pwm(speed, speed)
     content1 = dc.points_entry.get()
     points_fake = str(content1)
     points = points_fake.replace('(', '').replace(')', '').split(',')
 
-    times = (15.7 / int(speed))
+    times = (15.7 / speed)
     for k in range(len(points)):
         if k % 2 == 0:
-            timex = int(points[k]) / int(speed)
-            dc.robot.motor_controller.drive_pwm(int(speed), 0)
+            timex = int(points[k]) / speed
+            dc.robot.motor_controller.drive_pwm(speed, 0)
             time.sleep(times)
-            dc.robot.motor_controller.drive_pwm(int(speed), int(speed))
+            dc.robot.motor_controller.drive_pwm(speed, speed)
             time.sleep(timex)
         if k % 2 != 0:
-            timey = int(points[k]) / int(speed)
-            dc.robot.motor_controller.drive_pwm(0, int(speed))
+            timey = int(points[k]) / speed
+            dc.robot.motor_controller.drive_pwm(0, speed)
             time.sleep(times)
-            dc.robot.motor_controller.drive_pwm(int(speed), int(speed))
+            dc.robot.motor_controller.drive_pwm(speed, speed)
             time.sleep(timey)
 
 
