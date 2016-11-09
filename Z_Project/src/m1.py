@@ -295,7 +295,7 @@ def move_waypoints(dc):
             time.sleep(times)
             dc.robot.motor_controller.drive_pwm(speed, speed)
             time.sleep(timey)
-            dc.robot.motor_controller.drive_pwm(0, 0)
+    dc.robot.motor_controller.drive_pwm(0, 0)
 
 
 
