@@ -3,3 +3,4 @@
 2 hours for feature 6
 4 hours for feature 6
 2 hours for feature 6 and feature 10
+2 hours for parallel parking and upadate PID control
