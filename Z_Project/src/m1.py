@@ -16,8 +16,12 @@ import m4
 
 import tkinter
 from tkinter import ttk
-import rosebot.standard_rosebot as rb
+import rosebot.faux_rosebot as rb
+import time
 # import rosebot.faux_rosebot as rb
+# points = '(10,11),(20,21),(30,31)'
+# point2 = points.replace('(', '').replace(')', '').split(',')
+# print(point2)
 
 
 
@@ -92,7 +96,7 @@ def my_frame(root, dc):
 
 
     waypoints_button = ttk.Button(main_frame, text='waypoints')
-    waypoints_button['command'] = lambda event: move_waypoints(dc)
+    waypoints_button['command'] = lambda: move_waypoints(dc)
     waypoints_button.grid()
     dc.my_entry = ttk.Entry(main_frame)
     dc.my_entry.grid()
@@ -111,7 +115,7 @@ def my_frame(root, dc):
 
 
 def wireless_connect(dc):
-    dc.robot.connector.connect_wireless(9)
+    dc.robot.connector.connect_wireless(22)
     print('robot wireless connected', dc.robot)
 def connect(dc):
 
@@ -139,7 +143,6 @@ def slow_mode(root, dc):
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
     def go_left(event, dc):
         print('You pressed the ' + event.keysym + ' key: ', end='')
-        print('Go left!')
         dc.robot.motor_controller.drive_pwm(0, speed)
 
     def go_forward(event, dc):
@@ -148,7 +151,6 @@ def slow_mode(root, dc):
 
     def go_left_button():
         print('You clicked the Left button: ', end='')
-        print('Go left!')
 
 
     def go_right(event, dc):
@@ -156,7 +158,6 @@ def slow_mode(root, dc):
 #         print('Button press: ', end='')
 #     else:
         print('You pressed the ' + event.keysym + ' key: ', end='')
-        print('Go right!')
         dc.robot.motor_controller.drive_pwm(speed, 0)
 
 
@@ -268,20 +269,28 @@ def fast_mode(root, dc):
 # def stop(event, dc):
 #     dc.robot.motor_controller.stop()
 def move_waypoints(dc):
-    contents = dc.my_entry.get()
-    speed = int(contents)
+    speed = dc.my_entry.get()
+
 #     dc.robot.motor_controller.drive_pwm(speed, speed)
-    dc.robot.motor_controller.drive_pwm(speed, speed)
+#     dc.robot.motor_controller.drive_pwm(speed, speed)
     content1 = dc.points_entry.get()
-    sequence = content1
-#     for k in range(len(sequence)):
-#         for i in range(len(k)):
-#             if i == 0:
-#                 dc.robot.motor_controller.drive_pwm()
-#                 dc.robot.motor_controller.drive_pwm()
-#             if i == 1:
-#                 dc.robot.motor_controller.drive_pwm()
-#                 dc.robot.motor_controller.drive_pwm()
+    points_fake = str(content1)
+    points = points_fake.replace('(', '').replace(')', '').split(',')
+
+    times = (15.7 / int(speed))
+    for k in range(len(points)):
+        if k % 2 == 0:
+            timex = int(points[k]) / int(speed)
+            dc.robot.motor_controller.drive_pwm(int(speed), 0)
+            time.sleep(times)
+            dc.robot.motor_controller.drive_pwm(int(speed), int(speed))
+            time.sleep(timex)
+        if k % 2 != 0:
+            timey = int(points[k]) / int(speed)
+            dc.robot.motor_controller.drive_pwm(0, int(speed))
+            time.sleep(times)
+            dc.robot.motor_controller.drive_pwm(int(speed), int(speed))
+            time.sleep(timey)
 
 
 
