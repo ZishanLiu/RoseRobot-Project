@@ -117,30 +117,23 @@ def my_frame(root, dc):
     time_button['command'] = lambda: working_time(dc, lable1, lable2, lable3, lable4)
     time_button.grid()
 
-    def working_time(dc, lable1, lable2, lable3, lable4):
-        dc.time_cliked = dc.time_cliked + 1
+def working_time(dc, lable1, lable2, lable3, lable4):
+    dc.time_cliked = dc.time_cliked + 1
 
-        if dc.time_cliked % 2 == 1:
+    if dc.time_cliked % 2 == 1:
 
-            person1 = open('../process/hours-1.txt', 'r').read()
-            person2 = open('../process/hours-2.txt', 'r').read()
-            person3 = open('../process/hours-3.txt', 'r').read()
-            person4 = open('../process/hours-4.txt', 'r').read()
-#
-#         lable1 = ttk.Label(main_frame)
-            lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
-#
-#
-#         lable2 = ttk.Label(main_frame)
-            lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
-#
-#
-#         lable3 = ttk.Label(main_frame)
-            lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
-#
-#
-#         lable4 = ttk.Label(main_frame)
-            lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
+        person1 = open('../process/hours-1.txt', 'r').read()
+        person2 = open('../process/hours-2.txt', 'r').read()
+        person3 = open('../process/hours-3.txt', 'r').read()
+        person4 = open('../process/hours-4.txt', 'r').read()
+
+        lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
+
+        lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
+
+        lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
+
+        lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
 
 #             person1 = open('../process/hours-1.txt', 'r').read()
 #             person2 = open('../process/hours-2.txt', 'r').read()
@@ -164,22 +157,21 @@ def my_frame(root, dc):
 #             lable4.grid()
 
 
-        elif dc.time_cliked % 2 == 0 :
+    elif dc.time_cliked % 2 == 0 :
 
-            lable1['text'] = ' '
-
-
-
-            lable2['text'] = ' '
+        lable1['text'] = ' '
 
 
 
-            lable3['text'] = ' '
+        lable2['text'] = ' '
 
 
 
-            lable4['text'] = ' '
+        lable3['text'] = ' '
 
+
+
+        lable4['text'] = ' '
 
 
 def spin_left(dc):
