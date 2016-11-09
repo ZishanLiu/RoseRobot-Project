@@ -94,35 +94,54 @@ def my_frame(root, dc):
     main_frame2 = ttk.Frame(root, padding=50)
     main_frame2.grid(row=1, column=5)
 
+    lable1 = ttk.Label(main_frame2)
+#     lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
+
+
+    lable2 = ttk.Label(main_frame2)
+#     lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
+
+
+    lable3 = ttk.Label(main_frame2)
+#     lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
+
+
+    lable4 = ttk.Label(main_frame2)
+#     lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
+    lable1.grid()
+    lable2.grid()
+    lable3.grid()
+    lable4.grid()
+
     time_button = ttk.Button(main_frame2, text='working time')
-    time_button['command'] = lambda: working_time(dc)
+    time_button['command'] = lambda: working_time(dc, lable1, lable2, lable3, lable4)
     time_button.grid()
 
-    def working_time(dc):
+    def working_time(dc, lable1, lable2, lable3, lable4):
         dc.time_cliked = dc.time_cliked + 1
 
-        person1 = open('../process/hours-1.txt', 'r').read()
-        person2 = open('../process/hours-2.txt', 'r').read()
-        person3 = open('../process/hours-3.txt', 'r').read()
-        person4 = open('../process/hours-4.txt', 'r').read()
-
-        lable1 = ttk.Label(main_frame2)
-        lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
-        lable1.grid()
-
-        lable2 = ttk.Label(main_frame2)
-        lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
-        lable2.grid()
-
-        lable3 = ttk.Label(main_frame2)
-        lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
-        lable3.grid()
-
-        lable4 = ttk.Label(main_frame2)
-        lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
-        lable4.grid()
-
         if dc.time_cliked % 2 == 1:
+
+            person1 = open('../process/hours-1.txt', 'r').read()
+            person2 = open('../process/hours-2.txt', 'r').read()
+            person3 = open('../process/hours-3.txt', 'r').read()
+            person4 = open('../process/hours-4.txt', 'r').read()
+#
+#         lable1 = ttk.Label(main_frame)
+            lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
+#
+#
+#         lable2 = ttk.Label(main_frame)
+            lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
+#
+#
+#         lable3 = ttk.Label(main_frame)
+            lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
+#
+#
+#         lable4 = ttk.Label(main_frame)
+            lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
+
 #             person1 = open('../process/hours-1.txt', 'r').read()
 #             person2 = open('../process/hours-2.txt', 'r').read()
 #             person3 = open('../process/hours-3.txt', 'r').read()
@@ -143,13 +162,25 @@ def my_frame(root, dc):
 # #             lable4 = ttk.Label(main_frame2)
 # #             lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
 #             lable4.grid()
-            pass
 
-        if dc.time_cliked % 2 == 0 :
-            lable1.grid_remove()
-            lable2.grid_remove()
-            lable3.grid_remove()
-            lable4.grid_remove()
+
+        elif dc.time_cliked % 2 == 0 :
+
+            lable1['text'] = ' '
+
+
+
+            lable2['text'] = ' '
+
+
+
+            lable3['text'] = ' '
+
+
+
+            lable4['text'] = ' '
+
+
 
 def spin_left(dc):
     dc.robot.motor_controller.drive_pwm(-150, 150)
