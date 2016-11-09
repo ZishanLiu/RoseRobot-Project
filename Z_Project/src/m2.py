@@ -134,10 +134,12 @@ def move_forward(dc, entry_box1):
 def turn_left(dc):
     dc.robot.motor_controller.drive_pwm(0, 100)
     time.sleep(1)
+    dc.robot.motor_controller.drive_pwm(0, 0)
 
 def turn_right(dc):
     dc.robot.motor_controller.drive_pwm(100, 0)
     time.sleep(1)
+    dc.robot.motor_controller.drive_pwm(0, 0)
 
 def move_backward(dc, entry_box2):
     a = int(entry_box2.get())
@@ -151,6 +153,7 @@ def distance_go(dc, entry_box3, entry_box4):
     c = int(entry_box4.get())
     dc.robot.motor_controller.drive_pwm(d, d)
     time.sleep(c * 60 / d)
+    dc.robot.motor_controller.drive_pwm(0, 0)
 
 def tracking(dc, entry_box5):
 
