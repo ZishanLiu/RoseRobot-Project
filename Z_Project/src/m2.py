@@ -170,7 +170,7 @@ def tracking(dc, entry_box5):
 
     if s2 == 1:
         dc.robot.motor_controller.drive_pwm(-s1, -s1)
-        time.sleep(30 / s1)
+        time.sleep(10 / s1)
         while True:
             dc.robot.motor_controller.drive_pwm(0, s1)
             if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
@@ -178,7 +178,7 @@ def tracking(dc, entry_box5):
 
     if s2 == 2:
         dc.robot.motor_controller.drive_pwm(-s1, -s1)
-        time.sleep(30 / s1)
+        time.sleep(10 / s1)
 
         while True:
             dc.robot.motor_controller.drive_pwm(s1, 0)
