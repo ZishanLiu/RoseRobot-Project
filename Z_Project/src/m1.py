@@ -68,8 +68,8 @@ def my_frame(root, dc):
     disconnect_button = ttk.Button(main_frame, text='disconnect')
     disconnect_button.grid()
 
-    connect_entry = ttk.Entry(main_frame)
-    connect_entry.grid()
+    dc.connect_entry = ttk.Entry(main_frame)
+    dc.connect_entry.grid()
     connect_button['command'] = lambda: connect(dc)
     disconnect_button['command'] = lambda:disconnect(dc)
 
