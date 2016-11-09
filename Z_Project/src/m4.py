@@ -49,6 +49,7 @@ def my_frame(root, dc):
     dc.threshholdentry = ttk.Entry(frame)
     dc.errorentry = ttk.Entry(frame)
     dc.Pcontrolerrorentry = ttk.Entry(frame)
+    dc.Polygonpointsentry = ttk.Entry(frame)
 
 
     bumpleftbutton = ttk.Button(frame, text='bumpleft')
@@ -73,6 +74,10 @@ def my_frame(root, dc):
     BangBangbutton['command'] = (lambda:BangBang(dc))
     Pcontrolbutton = ttk.Button(frame, text='Pcontrol')
     Pcontrolbutton['command'] = (lambda:Pcontrol(dc))
+    Polygonleftbutton = ttk.Button(frame, text='Polygonleft')
+    Polygonleftbutton['command'] = (lambda:Polygonleft(dc))
+    Polygonrightbutton = ttk.Button(frame, text='Polygonright')
+    Polygonrightbutton['command'] = (lambda:Polygonright(dc))
 
 
 
@@ -97,6 +102,9 @@ def my_frame(root, dc):
     dc.errorentry.grid(row=11, column=1)
     Pcontrolbutton.grid()
     dc.Pcontrolerrorentry.grid(row=12, column=1)
+    Polygonleftbutton.grid(row=0, column=3)
+    dc.Polygonpointsentry.grid(row=0, column=4)
+    Polygonrightbutton.grid(row=1, column=3)
 
 
 def speed(dc):
@@ -223,6 +231,33 @@ def Pcontrol(dc):
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1 and dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
             dc.robot.motor_controller.drive_pwm(0, 0)
             break
+def Polygonleft(dc):
+    pointsget = dc.Polygonpointsentry.get()
+    points = int(pointsget)
+    myentry = dc.speedentry.get()
+    speed = int(myentry)
+    print('The perimeter is', points * speed * 2)
+    print('The lines needed are', points)
+    print('The angle is', (points - 2) * 180 / points)
+    for k in range(points):
+        dc.robot.motor_controller.drive_pwm(speed, speed)
+        time.sleep(2)
+        dc.robot.motor_controller.drive_pwm(0, speed)
+        time.sleep(0.5)
+def Polygonright(dc):
+    pointsget = dc.Polygonpointsentry.get()
+    points = int(pointsget)
+    myentry = dc.speedentry.get()
+    speed = int(myentry)
+    print('The perimeter is', points * speed * 2)
+    print('The lines needed are', points)
+    print('The angle is', (points - 2) * 180 / points)
+    for k in range(points):
+        dc.robot.motor_controller.drive_pwm(speed, speed)
+        time.sleep(2)
+        dc.robot.motor_controller.drive_pwm(speed, 0)
+        time.sleep(0.5)
+
 
 
 
