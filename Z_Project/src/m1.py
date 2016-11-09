@@ -68,8 +68,7 @@ def my_frame(root, dc):
     disconnect_button = ttk.Button(main_frame, text='disconnect')
     disconnect_button.grid()
 
-    dc.connect_entry = ttk.Entry(main_frame)
-    dc.connect_entry.grid()
+
     connect_button['command'] = lambda: connect(dc)
     disconnect_button['command'] = lambda:disconnect(dc)
 
@@ -106,6 +105,8 @@ def my_frame(root, dc):
     dc.points_entry.grid()
 
 
+    dc.connect_entry = ttk.Entry(main_frame)
+    dc.connect_entry.grid()
     wireless_connect_button = ttk.Button(main_frame, text='wireless connect')
     wireless_connect_button.grid()
     wireless_connect_button['command'] = lambda: wireless_connect(dc)
@@ -280,7 +281,7 @@ def move_waypoints(dc):
     points_fake = str(content1)
     points = points_fake.replace('(', '').replace(')', '').split(',')
 
-    times = (15.7 / speed)
+    times = (150 / speed)
     for k in range(len(points)):
         if k % 2 == 0:
             timex = int(points[k]) / speed
@@ -294,6 +295,7 @@ def move_waypoints(dc):
             time.sleep(times)
             dc.robot.motor_controller.drive_pwm(speed, speed)
             time.sleep(timey)
+            dc.robot.motor_controller.drive_pwm(0, 0)
 
 
 
