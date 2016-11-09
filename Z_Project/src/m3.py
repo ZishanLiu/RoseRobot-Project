@@ -38,13 +38,13 @@ def my_frame(root, dc):
 
     dc.entry_box1 = ttk.Entry(main_frame, text='Number of Notes')
     dc.entry_box1.grid()
+
     dc.entry_box2 = ttk.Entry(main_frame, text='length of Time')
     dc.entry_box2.grid()
+
     button1 = ttk.Button(main_frame, text='Play randome notes')
     button1['command'] = lambda: songs_playing(dc)
     button1.grid()
-
-
 
     button2 = ttk.Button(main_frame, text='Compose music and dance with light on')
     button2['command'] = lambda: songs_composing(dc)
