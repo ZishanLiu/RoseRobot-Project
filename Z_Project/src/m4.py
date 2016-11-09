@@ -78,6 +78,8 @@ def my_frame(root, dc):
     Polygonleftbutton['command'] = (lambda:Polygonleft(dc))
     Polygonrightbutton = ttk.Button(frame, text='Polygonright')
     Polygonrightbutton['command'] = (lambda:Polygonright(dc))
+    ParallelParkbutton = ttk.Button(frame, text='Parallel Park')
+    ParallelParkbutton['command'] = (lambda:ParallelPark(dc))
 
 
 
@@ -105,6 +107,7 @@ def my_frame(root, dc):
     Polygonleftbutton.grid(row=0, column=3)
     dc.Polygonpointsentry.grid(row=0, column=4)
     Polygonrightbutton.grid(row=1, column=3)
+    ParallelParkbutton.grid(row=2, column=3)
 
 
 def speed(dc):
@@ -236,14 +239,16 @@ def Polygonleft(dc):
     points = int(pointsget)
     myentry = dc.speedentry.get()
     speed = int(myentry)
+    angle = (points - 2) * 180 / points
     print('The perimeter is', points * speed * 2)
     print('The lines needed are', points)
     print('The angle is', (points - 2) * 180 / points)
     for k in range(points):
         dc.robot.motor_controller.drive_pwm(speed, speed)
-        time.sleep(2)
-        dc.robot.motor_controller.drive_pwm(0, speed)
-        time.sleep(0.5)
+        time.sleep(3)
+        dc.robot.motor_controller.drive_pwm(0, 100)
+        time.sleep(0.0006 * angle)
+    dc.robot.motor_controller.drive_pwm(0, 0)
 def Polygonright(dc):
     pointsget = dc.Polygonpointsentry.get()
     points = int(pointsget)
@@ -257,6 +262,22 @@ def Polygonright(dc):
         time.sleep(2)
         dc.robot.motor_controller.drive_pwm(speed, 0)
         time.sleep(0.5)
+    dc.robot.motor_controller.drive_pwm(0, 0)
+def ParallelPark(dc):
+    myentry = dc.speedentry.get()
+    speed = int(myentry)
+    dc.robot.motor_controller.drive_pwm(speed, speed)
+    while True:
+        if dc.robot.left_proximity_sensor.read() > 600:
+            dc.robot.motor_controller.drive_pwm(50, 50)
+            time.sleep(0.05)
+            dc.robot.motor_controller.drive_pwm(0, 100)
+            time.sleep(0.054)
+            dc.robot.motor_controller(30, 30)
+            time.sleep(0.5)
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+
 
 
 
