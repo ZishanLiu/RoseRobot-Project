@@ -268,15 +268,61 @@ def ParallelPark(dc):
     speed = int(myentry)
     dc.robot.motor_controller.drive_pwm(speed, speed)
     while True:
-        if dc.robot.left_proximity_sensor.read() > 600:
-            dc.robot.motor_controller.drive_pwm(50, 50)
-            time.sleep(0.05)
-            dc.robot.motor_controller.drive_pwm(0, 100)
-            time.sleep(0.054)
-            dc.robot.motor_controller(30, 30)
-            time.sleep(0.5)
-            dc.robot.motor_controller.drive_pwm(0, 0)
-            break
+        if speed > 0:
+            if  dc.robot.sensor_reader.left_proximity_sensor.read() > 300:
+                dc.robot.motor_controller.drive_pwm(50, 50)
+                time.sleep(0.5)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.01)
+                dc.robot.motor_controller.drive_pwm(0, 100)
+                time.sleep(0.7)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.01)
+                dc.robot.motor_controller.drive_pwm(50, 50)
+                time.sleep(1.2)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                break
+            if  dc.robot.sensor_reader.right_proximity_sensor.read() > 300:
+                dc.robot.motor_controller.drive_pwm(50, 50)
+                time.sleep(0.4)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.01)
+                dc.robot.motor_controller.drive_pwm(100, 0)
+                time.sleep(0.9)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.01)
+                dc.robot.motor_controller.drive_pwm(50, 50)
+                time.sleep(1.2)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                break
+        if speed < 0:
+            if  dc.robot.sensor_reader.left_proximity_sensor.read() > 300:
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.05)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.01)
+                dc.robot.motor_controller.drive_pwm(0, -100)
+                time.sleep(0.5)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.01)
+                dc.robot.motor_controller.drive_pwm(-50, -50)
+                time.sleep(0.8)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                break
+            if  dc.robot.sensor_reader.right_proximity_sensor.read() > 300:
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.05)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.01)
+                dc.robot.motor_controller.drive_pwm(-105, 0)
+                time.sleep(0.65)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                time.sleep(0.01)
+                dc.robot.motor_controller.drive_pwm(-50, -50)
+                time.sleep(0.8)
+                dc.robot.motor_controller.drive_pwm(0, 0)
+                break
+
 
 
 
