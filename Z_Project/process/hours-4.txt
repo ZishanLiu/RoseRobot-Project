@@ -2,3 +2,4 @@
 2 hours for spring1
 2 hours for feature 6
 4 hours for feature 6
+2 hours for feature 6 and feature 10
