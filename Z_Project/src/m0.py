@@ -34,6 +34,7 @@ class DataContainer(object, metaclass=rb.__FreezeClass__):
         # Choose meaningful names!
         self.demo = 'demo'
         self.robot = rb.RoseBot()
+        self.time_cliked = 0
 
 
 
