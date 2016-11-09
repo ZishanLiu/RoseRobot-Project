@@ -46,7 +46,7 @@ def my_frame(root, dc):
 
 
 
-    button2 = ttk.Button(main_frame, text='Compose Music and dance')
+    button2 = ttk.Button(main_frame, text='Compose Music and dance with light on')
     button2['command'] = lambda: songs_composing(dc)
     button2.grid()
 
