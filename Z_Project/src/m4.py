@@ -218,7 +218,7 @@ def Pcontrol(dc):
     print('Pcontrol Going On!')
     myentry = dc.speedentry.get()
     speed = int(myentry)
-    pcontrolerror = dc.Pcontrolerrorentry.get
+    pcontrolerror = dc.Pcontrolerrorentry.get()
     thresh = dc.threshholdentry.get()
     error = dc.errorentry.get()
     perror = int(pcontrolerror)
