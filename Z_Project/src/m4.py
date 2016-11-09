@@ -80,6 +80,8 @@ def my_frame(root, dc):
     Polygonrightbutton['command'] = (lambda:Polygonright(dc))
     ParallelParkbutton = ttk.Button(frame, text='Parallel Park')
     ParallelParkbutton['command'] = (lambda:ParallelPark(dc))
+    Allsensorsmixbutton = ttk.Button(frame, text='Allsensorsgoing')
+    Allsensorsmixbutton['command'] = (lambda:Allsensors(dc))
 
 
 
@@ -99,15 +101,16 @@ def my_frame(root, dc):
     dc.distanceright.grid(row=8, column=1)
     proximitymiddlebutton.grid()
     dc.distancemiddle.grid(row=9, column=1)
-    BangBangbutton.grid()
-    dc.threshholdentry.grid(row=10, column=1)
-    dc.errorentry.grid(row=11, column=1)
-    Pcontrolbutton.grid()
-    dc.Pcontrolerrorentry.grid(row=12, column=1)
+    BangBangbutton.grid(row=0, column=5)
+    dc.threshholdentry.grid(row=0, column=6)
+    dc.errorentry.grid(row=1, column=6)
+    Pcontrolbutton.grid(row=2, column=5)
+    dc.Pcontrolerrorentry.grid(row=2, column=6)
     Polygonleftbutton.grid(row=0, column=3)
     dc.Polygonpointsentry.grid(row=0, column=4)
     Polygonrightbutton.grid(row=1, column=3)
     ParallelParkbutton.grid(row=2, column=3)
+    Allsensorsmixbutton.grid(row=3, column=3)
 
 
 def speed(dc):
@@ -265,6 +268,7 @@ def Polygonright(dc):
         time.sleep(0.5)
     dc.robot.motor_controller.drive_pwm(0, 0)
 def ParallelPark(dc):
+    print('Parallel Parking')
     myentry = dc.speedentry.get()
     speed = int(myentry)
     dc.robot.motor_controller.drive_pwm(speed, speed)
@@ -323,26 +327,51 @@ def ParallelPark(dc):
                 time.sleep(0.8)
                 dc.robot.motor_controller.drive_pwm(0, 0)
                 break
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def Allsensors(dc):
+    myentry = dc.speedentry.get()
+    speed = int(myentry)
+    dark = dc.darkness.get()
+    darknessthreshhold = int(dark)
+    distance = dc.distanceleft.get()
+    d = int(distance)
+    dc.robot.motor_controller.drive_pwm(speed, speed)
+    while True:
+        if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
+            dc.robot.motor_controller.drive_pwm(-speed, -speed)
+            time.sleep(2)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
+        if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
+            dc.robot.motor_controller.drive_pwm(-speed, -speed)
+            time.sleep(2)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
+        if dc.robot.sensor_reader.left_reflectance_sensor.read() > darknessthreshhold:
+            dc.robot.motor_controller.drive_pwm(-speed, -speed)
+            time.sleep(1)
+            dc.robot.motor_controller.drive_pwm(speed, -speed)
+            time.sleep(1)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
+        if dc.robot.sensor_reader.right_reflectance_sensor.read() > darknessthreshhold:
+            dc.robot.motor_controller.drive_pwm(-speed, -speed)
+            time.sleep(1)
+            dc.robot.motor_controller.drive_pwm(-speed, speed)
+            time.sleep(1)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
+        if dc.robot.sensor_reader.middle_reflectance_sensor.read() > darknessthreshhold:
+            dc.robot.motor_controller.drive_pwm(-speed, -speed)
+            time.sleep(2)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
+        if  dc.robot.sensor_reader.left_proximity_sensor.read() > d:
+            dc.robot.motor_controller.drive_pwm(-speed, -speed)
+            time.sleep(1)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
+        if  dc.robot.sensor_reader.right_proximity_sensor.read() > d:
+            dc.robot.motor_controller.drive_pwm(-speed, -speed)
+            time.sleep(1)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
+        if  dc.robot.sensor_reader.front_proximity_sensor.read() > d:
+            dc.robot.motor_controller.drive_pwm(-speed, -speed)
+            time.sleep(1)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
 
 
 
