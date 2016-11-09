@@ -206,7 +206,7 @@ def distance_go(dc, entry_box3, entry_box4):
     d = int(entry_box3.get())
     c = int(entry_box4.get())
     dc.robot.motor_controller.drive_pwm(d, d)
-    time.sleep(c * 60 / d)
+    time.sleep(c / d)
     dc.robot.motor_controller.drive_pwm(0, 0)
 
 def tracking(dc, entry_box5):
