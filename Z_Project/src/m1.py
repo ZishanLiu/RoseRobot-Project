@@ -138,8 +138,7 @@ def disconnect(dc):
 #     print('You pressed the', event.keysym, 'key')
 #
 #
-# def released_a_key(event):
-#     print('You released the', event.keysym, 'key')
+
 def slow_mode(root, dc):
     speed = 20
     root.bind_all('<Key-a>', lambda event: go_left(event, dc))
@@ -148,6 +147,9 @@ def slow_mode(root, dc):
     root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
     root.bind_all('<Key-p>', lambda event: stop(event, dc))
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
+    root.bind_all('<KeyRelease>', lambda event: release_a_key(dc))
+    def release_a_key(dc):
+        dc.robot.motor_controller.drive_pwm(0, 0)
     def go_left(event, dc):
         print('You pressed the ' + event.keysym + ' key: ', end='')
         dc.robot.motor_controller.drive_pwm(0, speed)
@@ -183,6 +185,9 @@ def medium_mode(root, dc):
     root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
     root.bind_all('<Key-p>', lambda event: stop(event, dc))
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
+    root.bind_all('<KeyRelease>', lambda event: release_a_key(dc))
+    def release_a_key(dc):
+        dc.robot.motor_controller.drive_pwm(0, 0)
     def go_left(event, dc):
         print('You pressed the ' + event.keysym + ' key: ', end='')
         print('Go left!')
@@ -219,6 +224,9 @@ def fast_mode(root, dc):
     root.bind_all('<Key-s>', lambda event: go_backward(event, dc))
     root.bind_all('<Key-p>', lambda event: stop(event, dc))
     root.bind_all('<Key-space>', lambda event: spin(event, dc))
+    root.bind_all('<KeyRelease>', lambda event: release_a_key(dc))
+    def release_a_key(dc):
+        dc.robot.motor_controller.drive_pwm(0, 0)
     def go_left(event, dc):
         print('You pressed the ' + event.keysym + ' key: ', end='')
         print('Go left!')
@@ -278,28 +286,74 @@ def fast_mode(root, dc):
 def sound(root, dc):
     root.bind_all('<Key-q>', lambda event:do(dc))
     def do(dc):
-        dc.robot.buzzer.play_tone(19)
+        dc.robot.buzzer.play_tone(18)
+    root.bind_all('<KeyRelease-q>', lambda event: released_a_keyq(dc))
+    def released_a_keyq(dc):
+        dc.robot.buzzer.stop()
+
     root.bind_all('<Key-w>', lambda event:re(dc))
     def re(dc):
-        dc.robot.buzzer.play_tone(21)
+        dc.robot.buzzer.play_tone(20)
+    root.bind_all('<KeyRelease-w>', lambda event: released_a_keyw(dc))
+    def released_a_keyw(dc):
+        dc.robot.buzzer.stop()
+
     root.bind_all('<Key-e>', lambda event:mi(dc))
     def mi(dc):
-        dc.robot.buzzer.play_tone(23)
+        dc.robot.buzzer.play_tone(22)
+    root.bind_all('<KeyRelease-e>', lambda event: released_a_keye(dc))
+    def released_a_keye(dc):
+        dc.robot.buzzer.stop()
+
     root.bind_all('<Key-r>', lambda event:fa(dc))
     def fa(dc):
-        dc.robot.buzzer.play_tone(24)
+        dc.robot.buzzer.play_tone(23)
+        root.bind_all('<KeyRelease-r>', lambda event: released_a_keyr(dc))
+    def released_a_keyr(dc):
+        dc.robot.buzzer.stop()
+
     root.bind_all('<Key-t>', lambda event:so(dc))
     def so(dc):
-        dc.robot.buzzer.play_tone(26)
+        dc.robot.buzzer.play_tone(25)
+        root.bind_all('<KeyRelease-t>', lambda event: released_a_keyt(dc))
+    def released_a_keyt(dc):
+        dc.robot.buzzer.stop()
+
     root.bind_all('<Key-y>', lambda event:la(dc))
     def la(dc):
         dc.robot.buzzer.play_tone(28)
+        root.bind_all('<KeyRelease-y>', lambda event: released_a_keyy(dc))
+    def released_a_keyy(dc):
+        dc.robot.buzzer.stop()
+
     root.bind_all('<Key-u>', lambda event:si(dc))
     def si(dc):
         dc.robot.buzzer.play_tone(30)
+        root.bind_all('<KeyRelease-u>', lambda event: released_a_keyu(dc))
+    def released_a_keyu(dc):
+        dc.robot.buzzer.stop()
+
     root.bind_all('<Key-i>', lambda event: h_do(dc))
     def h_do(dc):
         dc.robot.buzzer.play_tone(31)
+        root.bind_all('<KeyRelease-i>', lambda event: released_a_keyi(dc))
+    def released_a_keyi(dc):
+        dc.robot.buzzer.stop()
+
+    root.bind_all('<Key-o>', lambda event: h_re(dc))
+    def h_re(dc):
+        dc.robot.buzzer.play_tone(33)
+        root.bind_all('<KeyRelease-o>', lambda event: released_a_keyo(dc))
+    def released_a_keyo(dc):
+        dc.robot.buzzer.stop()
+
+    root.bind_all('<Key-p>', lambda event: h_mi(dc))
+    def h_mi(dc):
+        dc.robot.buzzer.play_tone(55)
+        root.bind_all('<KeyRelease-p>', lambda event: released_a_keyp(dc))
+    def released_a_keyp(dc):
+        dc.robot.buzzer.stop()
+
 
 
 def move_waypoints(dc):
