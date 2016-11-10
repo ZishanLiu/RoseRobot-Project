@@ -84,11 +84,11 @@ def songs_playing(dc):
 def songs_composing(dc):
     k = random.randrange(0, 2)
     ryhme1 = ([0.5, 0.25, 0.25, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.25, 0.25, 0.5], [0.5, 0.25, 0.25, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.25, 0.25, 0.5])
-    ryhme2 = [(0.5, 0.5, 0.5, 0.5, 0.5, 0.5), (0.5, 0.5, 0.5, 0.5, 0.5, 1)]
-    ryhme3 = [(0.5, 0.5, 1, 0.5, 1, 1), (3, 1, 1, 0.5, 1, 1)]
+    # ryhme2 = [(0.5, 0.5, 0.5, 0.5, 0.5, 0.5), (0.5, 0.5, 0.5, 0.5, 0.5, 1)]
+    # ryhme3 = [(0.5, 0.5, 1, 0.5, 1, 1), (3, 1, 1, 0.5, 1, 1)]
     list1 = (58, 55, 21, 50, 19, 28, 15, 59, 56, 58, 21, 24, 19)
-    list2 = (28, 27, 55, 56, 60, 61, 49, 37, 36, 33, 33, 30)
-    list3 = ()
+    # list2 = (28, 27, 55, 56, 60, 61, 49, 37, 36, 33, 33, 30)
+    # list3 = ()
     for a in range(len(ryhme1[random.randrange(0, 2)])):
 
         dc.robot.buzzer.play_tone(random.choice(list1))
@@ -98,6 +98,14 @@ def songs_composing(dc):
         dc.robot.led.turn_on()
     dc.robot.motor_controller.drive_pwm(0, 0)
     dc.robot.led.turn_off()
+
+def say_sorry_when_strike_others(dc):
+    if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
+        dc.robot.buzzer.play_tone()
+    elif dc.robot.sensor_reader.right_bump_sensor() == 0:
+        dc.robot.buzzer.play_tone()
+
+
 
 
 
