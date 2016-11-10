@@ -88,6 +88,9 @@ def my_frame(root, dc):
     fast_speed_button = ttk.Radiobutton(main_frame, text='fast_speed')
     fast_speed_button['command'] = lambda: fast_mode(root, dc)
     fast_speed_button.grid()
+    sound_mode_button = ttk.Button(main_frame, text='sound mode')
+    sound_mode_button['command'] = lambda: sound(root, dc)
+    sound_mode_button.grid()
 #     root.bind_all('<Key-a>', lambda event: go_left(event, dc))
 #     root.bind_all('<Key-d>', lambda event: go_right(event, dc))
 #     root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
@@ -272,6 +275,33 @@ def fast_mode(root, dc):
 #
 # def stop(event, dc):
 #     dc.robot.motor_controller.stop()
+def sound(root, dc):
+    root.bind_all('<Key-q>', lambda event:do(dc))
+    def do(dc):
+        dc.robot.buzzer.play_tone(19)
+    root.bind_all('<Key-w>', lambda event:re(dc))
+    def re(dc):
+        dc.robot.buzzer.play_tone(21)
+    root.bind_all('<Key-e>', lambda event:mi(dc))
+    def mi(dc):
+        dc.robot.buzzer.play_tone(23)
+    root.bind_all('<Key-r>', lambda event:fa(dc))
+    def fa(dc):
+        dc.robot.buzzer.play_tone(24)
+    root.bind_all('<Key-t>', lambda event:so(dc))
+    def so(dc):
+        dc.robot.buzzer.play_tone(26)
+    root.bind_all('<Key-y>', lambda event:la(dc))
+    def la(dc):
+        dc.robot.buzzer.play_tone(28)
+    root.bind_all('<Key-u>', lambda event:si(dc))
+    def si(dc):
+        dc.robot.buzzer.play_tone(30)
+    root.bind_all('<Key-i>', lambda event: h_do(dc))
+    def h_do(dc):
+        dc.robot.buzzer.play_tone(31)
+
+
 def move_waypoints(dc):
     a = dc.my_entry.get()
     speed = int(a)
@@ -281,7 +311,7 @@ def move_waypoints(dc):
     points_fake = str(content1)
     points = points_fake.replace('(', '').replace(')', '').split(',')
 
-    times = (150 / speed)
+    times = (100 / speed)
     for k in range(len(points)):
         if k % 2 == 0:
             timex = int(points[k]) / speed
