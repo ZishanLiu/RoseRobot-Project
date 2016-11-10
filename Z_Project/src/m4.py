@@ -210,6 +210,8 @@ def BangBang(dc):
     print(dc.robot.sensor_reader.left_reflectance_sensor.read())
     print(dc.robot.sensor_reader.right_reflectance_sensor.read())
     while True:
+        if dc.robot.sensor_reader.right_reflectance_sensor.read() > thresh1 - error1 and dc.robot.sensor_reader.left_reflectance_sensor.read() > thresh1 - error1:
+            dc.robot.motor_controller.drive_pwm(50, 50)
         if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
             dc.robot.motor_controller.drive_pwm(40, 10)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
@@ -225,7 +227,7 @@ def Pcontrol(dc):
     thresh = dc.threshholdentry.get()
     perror = int(pcontrolerror)
     thresh1 = int(thresh)
-    perror1 = 0.005 * perror
+    perror1 = 0.2 * perror
     perror2 = int(perror1)
     dc.robot.motor_controller.drive_pwm(speed, speed)
     print(dc.robot.sensor_reader.left_reflectance_sensor.read())
