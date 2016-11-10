@@ -126,7 +126,7 @@ def wireless_connect(dc):
     print('robot wireless connected', dc.robot)
 def connect(dc):
 
-    dc.robot.connector.connect(8)
+    dc.robot.connector.connect(9)
     print('robot connected', dc.robot)
 def disconnect(dc):
 
