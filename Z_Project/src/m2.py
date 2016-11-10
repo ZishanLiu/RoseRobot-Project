@@ -20,6 +20,7 @@ import rosebot.standard_rosebot as rb
 import time
 
 
+
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
@@ -91,6 +92,10 @@ def my_frame(root, dc):
     tracking_button = ttk.Button(main_frame, text='Track!')
     tracking_button['command'] = lambda: tracking(dc, entry_box5)
     tracking_button.grid()
+
+    camera_button = ttk.Button(main_frame, text='Camera')
+    camera_button['command'] = lambda: camera(dc)
+    camera_button.grid()
 
     main_frame2 = ttk.Frame(root, padding=50)
     main_frame2.grid(row=1, column=5)
@@ -246,7 +251,8 @@ def tracking(dc, entry_box5):
                 break
     dc.robot.motor_controller.drive_pwm(0, 0)
 
-
+def camera(dc):
+    dc.robot.get_block()
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
