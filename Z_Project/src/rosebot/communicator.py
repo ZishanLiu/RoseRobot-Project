@@ -114,13 +114,29 @@ class Communicator(abc.ABC):
         Returns the received data in whatever form the Command expects.
           :type data: CommandData
         """
-        num_bytes = command.number_of_bytes_to_receive
-        bytes_received = self.receive_message(num_bytes)
+        if command.number_of_bytes_to_receive_varies:
+            bytes_received = self._receive_variable_bytes(command)
+        else:
+            num_bytes = command.number_of_bytes_to_receive
+            bytes_received = self.receive_message(num_bytes)
 
         if self.should_send_acknowledgement:
             self.send_acknowledgement()
 
         return command.value_of(bytes_received)
+
+    def _receive_variable_bytes(self, command):
+        beginning = self.receive_message(1)
+        print('Beginning:', beginning)
+        if command.indicates_end_of_message(beginning):
+            return beginning
+        else:
+            rest = self.receive_message(command.
+                                        number_of_bytes_to_receive - 1)
+            if type(rest) is bytearray:
+                return bytearray([beginning]) + rest
+            else:
+                return bytearray([beginning]) + bytearray([rest])
 
     def wait_for_acknowledgement(self, expected_acknowledgement):
         # TODO Encapsulate this into a class that allows different

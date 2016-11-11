@@ -7,6 +7,19 @@ modules that this library uses.  Nor should they use "private"
 attributes (those that begin with an underscore) in any module.
 """
 
+g = '\nhello\nthere\nhow are you today?\n fine and how about you'
+h = g.split()
+print(h)
+print(g)
+mmmm = g.split('\n')
+print()
+print(mmmm)
+for k in range(len(mmmm)):
+    thisline = mmmm[k]
+    words = thisline.split()
+    print(words)
+    print(k, '  ', mmmm[k])
+
 import rosebot.serial_communicator
 import rosebot.socket_communicator
 # The next is just for an Enum. TODO All enums to a module.
@@ -14,7 +27,6 @@ from rosebot.command import SIGNAL
 
 import sys
 from enum import Enum, unique
-import abc
 
 # TODO Maybe just use Position for this:
 @unique
@@ -43,6 +55,15 @@ class Status(Enum):
     on = 1
     maximum_value = 255
 
+@unique
+class PixySignature(Enum):
+    Red = 1
+    Orange = 2
+    Yellow = 3
+    Green = 4
+    Cyan = 5  # A light blue
+    Blue = 6
+    Violet = 7
 
 @unique
 class SensorType(Enum):
@@ -95,7 +116,7 @@ class RoseBot(object):
         self.buzzer = Buzzer(self.connector)
         self.led = LED(self.connector)
         self.sensor_reader = SensorReader(self.connector)
-#         self.camera = Camera(self.connector)
+        self.camera = PixyCamera(self.connector)
 
 
 class Connector(object):
@@ -212,9 +233,9 @@ class Connector(object):
         """ Private method to send commands to the robot. """
         self._communicator.send_command(command, data)
 
-    def _get_result(self):
+    def _get_result(self, command):
         # TODO Deal with messages that are more than a single byte.
-        return self._communicator.receive_message()
+        return self._communicator.receive_command_data(command)
 
 
 class RobotComponent(object):
@@ -244,9 +265,9 @@ class RobotComponent(object):
 
         return is_failure
 
-    def _get_result(self):
+    def _get_result(self, command):
         # TODO Add error-handling.
-        return self.connector._get_result()
+        return self.connector._get_result(command)
 
 
 class LED(RobotComponent):
@@ -401,9 +422,9 @@ class Sensor(RobotComponent):
         # to make the 10-bit result fit in an 8-bit byte.
         # So multiply the result by 4 for analog.
         if self.is_analog:
-            return 4 * self._get_result()
+            return 4 * self._get_result(command)
         else:
-            return self._get_result()
+            return self._get_result(command)
 
 
 class BumpOrButtonSensor(Sensor):
@@ -503,21 +524,22 @@ class Encoder(object):
         return self.get_ticks()
 
 
-
-
-
-class Camera(object):
+class PixyCamera(RobotComponent):
     """
     Methods include:  get_block() and get_blocks().
     They return a PixyBlock and list of PixyBlocks, respectively.
     A PixyBlock has instance variables:  x, y, width, height,
     plus a method  size().
     """
-    def __init__(self):
-        # TODO
-        pass
+    def __init__(self, connector):
+        super().__init__(connector)
 
-
+    def get_block(self, signature=PixySignature.Red):
+        """ Turns the LED fully ON. """
+        command = rosebot.command.PixyCameraCommand()
+        self._send_command(command, signature,
+                           source='"get_block" method of the "PixyCamera"')
+        return self._get_result(command)
 
 
 class RobotError(Exception):

@@ -27,6 +27,7 @@ class SIGNAL(Enum):
     right_motor_control_1 = 16
     right_motor_control_2 = 17
     right_motor_pwm = 18
+    pixy_camera = 19
 
 
 class COMMAND_NUMBER(Enum):
@@ -37,6 +38,7 @@ class COMMAND_NUMBER(Enum):
     pin_mode = 4
     tone = 5
     no_tone = 6  # Not used, implemented as a tone of 0 on Arduino
+    pixy_camera = 7
 
 
 class Command(object):
@@ -45,9 +47,13 @@ class Command(object):
     for execution.
     """
 
-    def __init__(self, command_number, pin_number=None):
+    def __init__(self, command_number, pin_number=None,
+                 number_of_bytes_to_receive=1,
+                 number_received_varies=False):
         self.command_number = command_number
         self.pin_number = pin_number
+        self.number_of_bytes_to_receive = number_of_bytes_to_receive
+        self.number_of_bytes_to_receive_varies = number_received_varies
 
     # TODO: implement a __repr__ and/or __str__
 
@@ -102,7 +108,6 @@ class BuzzerCommand(Command):
     def __init__(self):
         super().__init__(COMMAND_NUMBER.tone, 0)
 
-
 class MotorControlCommand(Command):
     def __init__(self, signal):
         super().__init__(COMMAND_NUMBER.digital_write, signal)
@@ -111,11 +116,18 @@ class MotorPWMCommand(Command):
     def __init__(self, signal):
         super().__init__(COMMAND_NUMBER.analog_write, signal)
 
+class LeftMotorCommand(Command):
+    pass
+
+class RightMotorCommand(Command):
+    pass
+
+
 class SensorCommand(Command):
 
     # Eventually add:     self.number_of_bytes_to_receive = 1
 
-    def value_of(self, byte_received):
+    def value_of(self, bytes_received):
         """
         Returns the CommandData that the given bytes object encodes.
         """
@@ -124,7 +136,7 @@ class SensorCommand(Command):
         # TODO: Different Commands may return different types
         #       of CommandData, I think.
         #       For now, just pass along whatever the message contains.
-        return byte_received
+        return bytes_received
 
 
 class AnalogReadSensorCommand(SensorCommand):
@@ -135,12 +147,44 @@ class DigitalReadSensorCommand(SensorCommand):
     def __init__(self, signal):
         super().__init__(COMMAND_NUMBER.digital_read, signal)
 
-class LeftMotorCommand(Command):
-    pass
+class VariableBytesCommand(Command):
+    def indicates_end_of_message(self, byte_received):
+        # TODO Don't bury this rule here
+        return byte_received == 0xff
+
+class PixyBlock:
+    """ An object that the Pixy Camera sees. """
+
+    def __init__(self, x, y, width, height):
+        # TODO Incorporate the signature and angle (and maybe ???)
+        # self.signature = pixy_block_dictionary["signature"]
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        # self.angle = pixy_block_dictionary["angle"]
+
+    def size(self):
+        return self.width * self.height
+
+class PixyCameraCommand(SensorCommand, VariableBytesCommand):
+    def __init__(self):
+        # TODO Verify that super is OK with this multiple inheritance
+        super().__init__(COMMAND_NUMBER.pixy_camera, 0,
+                         6, True)
 
 
-class RightMotorCommand(Command):
-    pass
+    def value_of(self, bytes_received):
+        if type(bytes_received) is int and bytes_received == 255:
+            return None
+        else:
+            x = ((bytes_received[0] << 8)  # high bit for x
+                 + bytes_received[1])  # low 8 bits for x
+            y = bytes_received[2]
+            width = ((bytes_received[3] << 8)  # high bit for width
+                     + bytes_received[4])  # low 8 bits for width
+            height = bytes_received[5]
+            return PixyBlock(x, y, width, height)
 
 # The current implementation of the Arduino code does not
 #   support these 4 commands.
