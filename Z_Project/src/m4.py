@@ -51,33 +51,7 @@ def my_frame(root, dc):
     dc.Pcontrolerrorentry = ttk.Entry(frame)
     dc.Polygonpointsentry = ttk.Entry(frame)
 
-    # left bumple sensor
-    bumpleftbutton = ttk.Button(frame, text='bumpleft')
-    bumpleftbutton['command'] = (lambda:bumpleft(dc))
-    # right bumple sensor
-    bumprightbutton = ttk.Button(frame, text='bumpright')
-    bumprightbutton['command'] = (lambda:bumpright(dc))
-    # both bumple sensors
-    bumpbothbutton = ttk.Button(frame, text='bumpboth')
-    bumpbothbutton['command'] = (lambda:bumpboth(dc))
-    # left reflectance sensor
-    reflectanceleftbutton = ttk.Button(frame, text='reflectanceleft')
-    reflectanceleftbutton['command'] = (lambda:reflectanceleft(dc))
-    # right reflectance sensor
-    reflectancerightbutton = ttk.Button(frame, text='reflectanceright')
-    reflectancerightbutton['command'] = (lambda:reflectanceright(dc))
-    # middle reflectance sensor
-    reflectancemiddlebutton = ttk.Button(frame, text='reflectancemiddle')
-    reflectancemiddlebutton['command'] = (lambda:reflectancemiddle(dc))
-    # left proximity sensor
-    proximityleftbutton = ttk.Button(frame, text='proximityleft')
-    proximityleftbutton['command'] = (lambda:proximityleft(dc))
-    # right proximity sensor
-    proximityrightbutton = ttk.Button(frame, text='proximityright')
-    proximityrightbutton['command'] = (lambda:proximityright(dc))
-    # middle proximity sensor
-    proximitymiddlebutton = ttk.Button(frame, text='proximitymiddle')
-    proximitymiddlebutton['command'] = (lambda:proximitymiddle(dc))
+
     # BangBang control
     BangBangbutton = ttk.Button(frame, text='BangBang')
     BangBangbutton['command'] = (lambda:BangBang(dc))
@@ -95,25 +69,15 @@ def my_frame(root, dc):
     # All sensor mixed1
     Allsensorsmixbutton = ttk.Button(frame, text='Allsensorsgoing')
     Allsensorsmixbutton['command'] = (lambda:Allsensors(dc))
+    sensorbutton = ttk.Button(frame, text='sensor')
+    sensorbutton['command'] = (lambda:sensor(dc))
 
 
 
 
     speedbutton.grid(row=0, column=0)
     dc.speedentry.grid(row=0, column=1)
-    bumpbothbutton.grid()
-    bumpleftbutton.grid()
-    bumprightbutton.grid()
-    reflectanceleftbutton.grid()
-    reflectancemiddlebutton.grid()
-    reflectancerightbutton.grid()
-    dc.darkness.grid(row=5, column=1)
-    proximityleftbutton.grid()
-    dc.distanceleft.grid(row=7, column=1)
-    proximityrightbutton.grid()
-    dc.distanceright.grid(row=8, column=1)
-    proximitymiddlebutton.grid()
-    dc.distancemiddle.grid(row=9, column=1)
+    sensorbutton.grid()
     BangBangbutton.grid(row=0, column=5)
     dc.threshholdentry.grid(row=0, column=6)
     dc.errorentry.grid(row=1, column=6)
@@ -400,8 +364,58 @@ def Allsensors(dc):
             dc.robot.motor_controller.drive_pwm(-speed, -speed)
             time.sleep(1)
             dc.robot.motor_controller.drive_pwm(speed, speed)
+def sensor(dc):
+    root1 = tkinter.Toplevel()
+    frame1 = ttk.Frame(root1, width=30, height=200)
+    frame1.grid()
 
+    dc.darkness = ttk.Entry(frame1)
+    dc.distanceleft = ttk.Entry(frame1)
+    dc.distanceright = ttk.Entry(frame1)
+    dc.distancemiddle = ttk.Entry(frame1)
+    dc.threshholdentry = ttk.Entry(frame1)
 
+    # left bumple sensor
+    bumpleftbutton = ttk.Button(frame1, text='bumpleft')
+    bumpleftbutton['command'] = (lambda:bumpleft(dc))
+    # right bumple sensor
+    bumprightbutton = ttk.Button(frame1, text='bumpright')
+    bumprightbutton['command'] = (lambda:bumpright(dc))
+    # both bumple sensors
+    bumpbothbutton = ttk.Button(frame1, text='bumpboth')
+    bumpbothbutton['command'] = (lambda:bumpboth(dc))
+    # left reflectance sensor
+    reflectanceleftbutton = ttk.Button(frame1, text='reflectanceleft')
+    reflectanceleftbutton['command'] = (lambda:reflectanceleft(dc))
+    # right reflectance sensor
+    reflectancerightbutton = ttk.Button(frame1, text='reflectanceright')
+    reflectancerightbutton['command'] = (lambda:reflectanceright(dc))
+    # middle reflectance sensor
+    reflectancemiddlebutton = ttk.Button(frame1, text='reflectancemiddle')
+    reflectancemiddlebutton['command'] = (lambda:reflectancemiddle(dc))
+    # left proximity sensor
+    proximityleftbutton = ttk.Button(frame1, text='proximityleft')
+    proximityleftbutton['command'] = (lambda:proximityleft(dc))
+    # right proximity sensor
+    proximityrightbutton = ttk.Button(frame1, text='proximityright')
+    proximityrightbutton['command'] = (lambda:proximityright(dc))
+    # middle proximity sensor
+    proximitymiddlebutton = ttk.Button(frame1, text='proximitymiddle')
+    proximitymiddlebutton['command'] = (lambda:proximitymiddle(dc))
+
+    bumpbothbutton.grid()
+    bumpleftbutton.grid()
+    bumprightbutton.grid()
+    reflectanceleftbutton.grid()
+    reflectancemiddlebutton.grid()
+    reflectancerightbutton.grid()
+    dc.darkness.grid(row=4, column=1)
+    proximityleftbutton.grid()
+    dc.distanceleft.grid(row=6, column=1)
+    proximityrightbutton.grid()
+    dc.distanceright.grid(row=7, column=1)
+    proximitymiddlebutton.grid()
+    dc.distancemiddle.grid(row=8, column=1)
 
 
 
