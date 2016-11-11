@@ -36,19 +36,28 @@ def my_frame(root, dc):
     main_frame.grid(row=1, column=0)
 
 
+
     dc.entry_box1 = ttk.Entry(main_frame, text='Number of Notes')
     dc.entry_box1.grid()
 
+
     dc.entry_box2 = ttk.Entry(main_frame, text='length of Time')
     dc.entry_box2.grid()
+
 
     button1 = ttk.Button(main_frame, text='Play randome notes')
     button1['command'] = lambda: songs_playing(dc)
     button1.grid()
 
+
     button2 = ttk.Button(main_frame, text='Compose music and dance with light on')
     button2['command'] = lambda: songs_composing(dc)
     button2.grid()
+
+
+    button3 = ttk.Button(main_frame, text='Compose music and dance with light on')
+    button3['command'] = lambda: songs_composing(dc)
+    button3.grid()
 
 
 
@@ -65,7 +74,7 @@ def songs_playing(dc):
     Time2 = Time1
 
     for k in range(N):
-        randomnumber = int(random.randrange(1, 120))
+        randomnumber = int(random.randrange(1, 120))  # play randomly from 1 to 120, because the sounds below 120 is more ''hearable''
         notes = notes + [randomnumber] + [999999]
     for k in range(N * 2):
         if notes[k] != 999999:
@@ -76,7 +85,7 @@ def songs_playing(dc):
             time.sleep(Time)
         else:
             dc.robot.buzzer.play_tone(0)
-            time.sleep(0.01)
+            time.sleep(0.01)  # prevent clipp
 
         dc.robot.buzzer.stop()
 
@@ -91,11 +100,11 @@ def songs_composing(dc):
     # list3 = ()
     for a in range(len(ryhme1[random.randrange(0, 2)])):
 
-        dc.robot.buzzer.play_tone(random.choice(list1))
-        dc.robot.motor_controller.drive_pwm(random.randrange(-100, 100), random.randrange(-100, 100))
+        dc.robot.buzzer.play_tone(random.choice(list1))  # compose music by ramdomly choose ryhme and sounds
+        dc.robot.motor_controller.drive_pwm(random.randrange(-100, 100), random.randrange(-100, 100))  # dancing while composing music
         time.sleep(ryhme1[k][a % len(ryhme1[k])])
         dc.robot.buzzer.stop()
-        dc.robot.led.turn_on()
+        dc.robot.led.turn_on()  # shinning while composing music
     dc.robot.motor_controller.drive_pwm(0, 0)
     dc.robot.led.turn_off()
 
@@ -104,6 +113,15 @@ def say_sorry_when_strike_others(dc):
         dc.robot.buzzer.play_tone()
     elif dc.robot.sensor_reader.right_bump_sensor() == 0:
         dc.robot.buzzer.play_tone()
+# If robot strike someone, it will make some sounds
+'''
+def go_to_the_colored_block(dc):
+    x=dc.robot.camera.get_block()
+    while True:
+   '''
+
+
+
 
 
 
