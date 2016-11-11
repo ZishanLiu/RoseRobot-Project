@@ -51,35 +51,48 @@ def my_frame(root, dc):
     dc.Pcontrolerrorentry = ttk.Entry(frame)
     dc.Polygonpointsentry = ttk.Entry(frame)
 
-
+    # left bumple sensor
     bumpleftbutton = ttk.Button(frame, text='bumpleft')
     bumpleftbutton['command'] = (lambda:bumpleft(dc))
+    # right bumple sensor
     bumprightbutton = ttk.Button(frame, text='bumpright')
     bumprightbutton['command'] = (lambda:bumpright(dc))
+    # both bumple sensors
     bumpbothbutton = ttk.Button(frame, text='bumpboth')
     bumpbothbutton['command'] = (lambda:bumpboth(dc))
+    # left reflectance sensor
     reflectanceleftbutton = ttk.Button(frame, text='reflectanceleft')
     reflectanceleftbutton['command'] = (lambda:reflectanceleft(dc))
+    # right reflectance sensor
     reflectancerightbutton = ttk.Button(frame, text='reflectanceright')
     reflectancerightbutton['command'] = (lambda:reflectanceright(dc))
+    # middle reflectance sensor
     reflectancemiddlebutton = ttk.Button(frame, text='reflectancemiddle')
     reflectancemiddlebutton['command'] = (lambda:reflectancemiddle(dc))
+    # left proximity sensor
     proximityleftbutton = ttk.Button(frame, text='proximityleft')
     proximityleftbutton['command'] = (lambda:proximityleft(dc))
+    # right proximity sensor
     proximityrightbutton = ttk.Button(frame, text='proximityright')
     proximityrightbutton['command'] = (lambda:proximityright(dc))
+    # middle proximity sensor
     proximitymiddlebutton = ttk.Button(frame, text='proximitymiddle')
     proximitymiddlebutton['command'] = (lambda:proximitymiddle(dc))
+    # BangBang control
     BangBangbutton = ttk.Button(frame, text='BangBang')
     BangBangbutton['command'] = (lambda:BangBang(dc))
+    # Pcontrol
     Pcontrolbutton = ttk.Button(frame, text='Pcontrol')
     Pcontrolbutton['command'] = (lambda:Pcontrol(dc))
+    # Polygon run
     Polygonleftbutton = ttk.Button(frame, text='Polygonleft')
     Polygonleftbutton['command'] = (lambda:Polygonleft(dc))
     Polygonrightbutton = ttk.Button(frame, text='Polygonright')
     Polygonrightbutton['command'] = (lambda:Polygonright(dc))
+    # Parallel Park
     ParallelParkbutton = ttk.Button(frame, text='Parallel Park')
     ParallelParkbutton['command'] = (lambda:ParallelPark(dc))
+    # All sensor mixed1
     Allsensorsmixbutton = ttk.Button(frame, text='Allsensorsgoing')
     Allsensorsmixbutton['command'] = (lambda:Allsensors(dc))
 
