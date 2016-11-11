@@ -55,8 +55,8 @@ def my_frame(root, dc):
     button2.grid()
 
 
-    button3 = ttk.Button(main_frame, text='Compose music and dance with light on')
-    button3['command'] = lambda: songs_composing(dc)
+    button3 = ttk.Button(main_frame, text='camera')
+    button3['command'] = lambda: camera(dc)
     button3.grid()
 
 
@@ -119,6 +119,21 @@ def go_to_the_colored_block(dc):
     x=dc.robot.camera.get_block()
     while True:
    '''
+def camera(dc):
+    block = dc.robot.camera.get_block()
+    while block is None:
+        block = dc.robot.camera.get_block()
+        dc.robot.motor_controller.drive_pwm(60, -60)
+        time.sleep(0.1)
+        dc.robot.motor_controller.drive_pwm(0, 0)
+        time.sleep(0.1)
+    print(block.x, block.y, block.width, block.height)
+    dc.robot.motor_controller.drive_pwm(100, 100)
+    time.sleep(5)
+    dc.robot.motor_controller.drive_pwm(0, 0)
+
+
+
 
 
 
