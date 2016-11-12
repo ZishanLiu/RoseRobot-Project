@@ -102,12 +102,17 @@ def my_frame(root, dc):
     waypoints_button = ttk.Button(main_frame, text='waypoints')
     waypoints_button['command'] = lambda: move_waypoints(dc)
     waypoints_button.grid()
+    label1 = ttk.Label(main_frame, text='Speed for wayoints')
+    label1.grid()
     dc.my_entry = ttk.Entry(main_frame)
     dc.my_entry.grid()
+    label2 = ttk.Label(main_frame, text='coordinates for waypoints')
+    label2.grid()
     dc.points_entry = ttk.Entry(main_frame)
     dc.points_entry.grid()
 
-
+    label3 = ttk.Label(main_frame, text='port for connection')
+    label3.grid()
     dc.connect_entry = ttk.Entry(main_frame)
     dc.connect_entry.grid()
     wireless_connect_button = ttk.Button(main_frame, text='wireless connect')
