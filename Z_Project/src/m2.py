@@ -19,8 +19,6 @@ from tkinter import ttk
 import rosebot.standard_rosebot as rb
 import time
 
-
-
 def my_frame(root, dc):
     """
     Constructs and returns a   ttk.Frame   on the given root window.
@@ -58,6 +56,10 @@ def my_frame(root, dc):
     spin_button2['command'] = lambda: spin_right(dc)
     spin_button2.grid()
 
+    label_move = ttk.Label(main_frame)
+    label_move['text'] = 'Enter a speed:'
+    label_move.grid()
+
     entry_box1 = ttk.Entry(main_frame, text='Speed')
     entry_box1.grid()
 
@@ -72,8 +74,16 @@ def my_frame(root, dc):
     backward_button['command'] = lambda: move_backward(dc, entry_box2)
     backward_button.grid()
 
+    label_speed = ttk.Label(main_frame)
+    label_speed['text'] = 'Enter a speed:'
+    label_speed.grid()
+
     entry_box3 = ttk.Entry(main_frame, text='Distance and speed')
     entry_box3.grid()
+
+    label_distance = ttk.Label(main_frame)
+    label_distance['text'] = 'Enter a distance:'
+    label_distance.grid()
 
     entry_box4 = ttk.Entry(main_frame, text='Distance')
     entry_box4.grid()
@@ -86,6 +96,10 @@ def my_frame(root, dc):
     stop_button['command'] = lambda: stop(dc)
     stop_button.grid()
 
+    label_speed2 = ttk.Label(main_frame)
+    label_speed2['text'] = 'Enter a speed:'
+    label_speed2.grid()
+
     entry_box5 = ttk.Entry(main_frame, text='Track')
     entry_box5.grid()
 
@@ -93,9 +107,9 @@ def my_frame(root, dc):
     tracking_button['command'] = lambda: tracking(dc, entry_box5)
     tracking_button.grid()
 
-    camera_button = ttk.Button(main_frame, text='Camera')
-    camera_button['command'] = lambda: camera(dc)
-    camera_button.grid()
+#     camera_button = ttk.Button(main_frame, text='Camera')
+#     camera_button['command'] = lambda: camera(dc)
+#     camera_button.grid()
 
     main_frame2 = ttk.Frame(root, padding=50)
     main_frame2.grid(row=1, column=5)
@@ -251,8 +265,7 @@ def tracking(dc, entry_box5):
                 break
     dc.robot.motor_controller.drive_pwm(0, 0)
 
-def camera(dc):
-    dc.robot.get_block()
+
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
