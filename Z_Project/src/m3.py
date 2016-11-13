@@ -57,7 +57,7 @@ def my_frame(root, dc):
     button2.grid()
 
 
-    button3 = ttk.Button(main_frame, text='camera')
+    button3 = ttk.Button(main_frame, text='usingcameratohit')
     button3['command'] = lambda: usingcameratohit(dc)
     button3.grid()
 
