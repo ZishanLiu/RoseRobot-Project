@@ -103,13 +103,24 @@ def my_frame(root, dc):
     entry_box5 = ttk.Entry(main_frame, text='Track')
     entry_box5.grid()
 
-    tracking_button = ttk.Button(main_frame, text='Track!')
+    label_following = ttk.Label(main_frame)
+    label_following['text'] = 'Enter a distance:'
+    label_following.grid()
+
+    tracking_button = ttk.Button(main_frame, text='Hit wall!')
     tracking_button['command'] = lambda: tracking(dc, entry_box5)
     tracking_button.grid()
 
 #     camera_button = ttk.Button(main_frame, text='Camera')
 #     camera_button['command'] = lambda: camera(dc)
 #     camera_button.grid()
+
+    entry_box6 = ttk.Entry(main_frame, text='Track')
+    entry_box6.grid()
+
+    follow_button = ttk.Button(main_frame, text='follow')
+    follow_button['command'] = lambda: proximitymiddle(dc, entry_box6)
+    follow_button.grid()
 
     main_frame2 = ttk.Frame(root, padding=50)
     main_frame2.grid(row=1, column=5)
@@ -264,6 +275,19 @@ def tracking(dc, entry_box5):
             if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
                 break
     dc.robot.motor_controller.drive_pwm(0, 0)
+
+def proximitymiddle(dc, entry_box6):
+    print('The middle proximity sensor is on!')
+    print(dc.robot.sensor_reader.front_proximity_sensor.read())
+    distance = int(entry_box6.get())
+
+    dc.robot.motor_controller.drive_pwm(70, 70)
+
+    if dc.robot.sensor_reader.front_proximity_sensor.read() > distance:
+        dc.robot.motor_controller.drive_pwm(0, 0)
+
+    if dc.robot.sensor_reader.front_proximity_sensor.read() < distance:
+        dc.robot.motor_controller.drive_pwm(70, 70)
 
 
 
