@@ -36,11 +36,13 @@ def my_frame(root, dc):
     main_frame.grid(row=1, column=0)
 
 
-
+    label1 = ttk.Label(main_frame, text='Number of Notes')
+    label1.grid()
     dc.entry_box1 = ttk.Entry(main_frame, text='Number of Notes')
     dc.entry_box1.grid()
 
-
+    label2 = ttk.Label(main_frame, text='length of Time')
+    label2.grid()
     dc.entry_box2 = ttk.Entry(main_frame, text='length of Time')
     dc.entry_box2.grid()
 
@@ -56,7 +58,7 @@ def my_frame(root, dc):
 
 
     button3 = ttk.Button(main_frame, text='camera')
-    button3['command'] = lambda: camera(dc)
+    button3['command'] = lambda: usingcameratohit(dc)
     button3.grid()
 
 
@@ -119,7 +121,7 @@ def go_to_the_colored_block(dc):
     x=dc.robot.camera.get_block()
     while True:
    '''
-def camera(dc):
+def usingcameratohit(dc):
     block = dc.robot.camera.get_block()
     while block is None:
         block = dc.robot.camera.get_block()
