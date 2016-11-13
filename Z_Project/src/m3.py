@@ -60,19 +60,32 @@ def my_frame(root, dc):
     dc.entry_box2.grid()
 
 
-    button1 = ttk.Button(main_frame, text='Play randome notes')
+    label3 = ttk.Label(main_frame, text='Range of Time')
+    label3.grid()
+    dc.entry_box3 = ttk.Entry(main_frame, text='Range of Time')
+    dc.entry_box3.grid()
+
+
+    button1 = ttk.Button(main_frame, text='Play random notes')
     button1['command'] = lambda: songs_playing(dc)
     button1.grid()
 
 
-    button2 = ttk.Button(main_frame, text='Compose music and dance with light on')
-    button2['command'] = lambda: songs_composing(dc)
+    button2 = ttk.Button(main_frame, text='Play random notes for random time')
+    button2['command'] = lambda: songs_playing_randomly(dc)
     button2.grid()
 
 
-    button3 = ttk.Button(main_frame, text='usingcameratohit')
-    button3['command'] = lambda: usingcameratohit(dc)
+
+
+    button3 = ttk.Button(main_frame, text='Compose music and dance with light on')
+    button3['command'] = lambda: songs_composing(dc)
     button3.grid()
+
+
+    button4 = ttk.Button(main_frame, text='usingcameratohit')
+    button4['command'] = lambda: usingcameratohit(dc)
+    button4.grid()
 
 
 
@@ -105,6 +118,29 @@ def songs_playing(dc):
         dc.robot.buzzer.stop()
 
 
+def songs_playing_randomly(dc):
+    notes = []
+    N = int(dc.entry_box1.get())
+    Time1 = int(dc.entry_box3.get())
+
+
+    for k in range(N):
+        randomnumber = int(random.randrange(1, 120))  # play randomly from 1 to 120, because the sounds below 120 is more ''hearable''
+        notes = notes + [randomnumber] + [999999]
+    for k in range(N * 2):
+        if notes[k] != 999999:
+            print(notes[k])
+            dc.robot.buzzer.play_tone(notes[k])
+            Time = random.randrange(Time1 * 60)
+            print(Time)
+            time.sleep(Time)
+        else:
+            dc.robot.buzzer.play_tone(0)
+            time.sleep(0.01)  # prevent clipp
+
+        dc.robot.buzzer.stop()
+
+
 def songs_composing(dc):
     k = random.randrange(0, 2)
     ryhme1 = ([0.5, 0.25, 0.25, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.25, 0.25, 0.5], [0.5, 0.25, 0.25, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.25, 0.25, 0.5])
@@ -123,6 +159,8 @@ def songs_composing(dc):
     dc.robot.motor_controller.drive_pwm(0, 0)
     dc.robot.led.turn_off()
 
+
+
 def say_sorry_when_strike_others(dc):
     if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
         dc.robot.buzzer.play_tone()
@@ -134,6 +172,8 @@ def go_to_the_colored_block(dc):
     x=dc.robot.camera.get_block()
     while True:
    '''
+
+
 def usingcameratohit(dc):
     block = dc.robot.camera.get_block()
     while block is None:
