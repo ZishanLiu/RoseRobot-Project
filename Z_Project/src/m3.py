@@ -131,7 +131,11 @@ def songs_playing_randomly(dc):
         if notes[k] != 999999:
             print(notes[k])
             dc.robot.buzzer.play_tone(notes[k])
-            Time = random.randrange(Time1 * 60)
+            if k == (N * 2) - 2:
+                Time = Time1
+            else:
+                Time = Time1 * (random.random())
+                Time1 = Time1 - Time
             print(Time)
             time.sleep(Time)
         else:
