@@ -66,26 +66,24 @@ def my_frame(root, dc):
     dc.entry_box3.grid()
 
 
-    button1 = ttk.Button(main_frame, text='Play random notes')
-    button1['command'] = lambda: songs_playing(dc)
-    button1.grid()
+    button_play_random_notes = ttk.Button(main_frame, text='Play random notes')
+    button_play_random_notes['command'] = lambda: songs_playing(dc)
+    button_play_random_notes.grid()
 
 
-    button2 = ttk.Button(main_frame, text='Play random notes for random time')
-    button2['command'] = lambda: songs_playing_randomly(dc)
-    button2.grid()
+    button_play_random_notes_for_random_time = ttk.Button(main_frame, text='Play random notes for random time')
+    button_play_random_notes_for_random_time['command'] = lambda: songs_playing_randomly(dc)
+    button_play_random_notes_for_random_time.grid()
 
 
+    button_Compose_music = ttk.Button(main_frame, text='Compose music and dance with light on')
+    button_Compose_music ['command'] = lambda: songs_composing(dc)
+    button_Compose_music .grid()
 
 
-    button3 = ttk.Button(main_frame, text='Compose music and dance with light on')
-    button3['command'] = lambda: songs_composing(dc)
-    button3.grid()
-
-
-    button4 = ttk.Button(main_frame, text='usingcameratohitobject')
-    button4['command'] = lambda: usingcameratohitobject(dc)
-    button4.grid()
+    button_using_camera = ttk.Button(main_frame, text='usingcameratohitobject')
+    button_using_camera['command'] = lambda: usingcameratohitobject(dc)
+    button_using_camera.grid()
 
 
 
