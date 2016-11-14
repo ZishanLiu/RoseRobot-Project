@@ -83,8 +83,8 @@ def my_frame(root, dc):
     button3.grid()
 
 
-    button4 = ttk.Button(main_frame, text='usingcameratohit')
-    button4['command'] = lambda: usingcameratohit(dc)
+    button4 = ttk.Button(main_frame, text='usingcameratohitobject')
+    button4['command'] = lambda: usingcameratohitobject(dc)
     button4.grid()
 
 
@@ -178,7 +178,7 @@ def go_to_the_colored_block(dc):
    '''
 
 
-def usingcameratohit(dc):
+def usingcameratohitobject(dc):
     block = dc.robot.camera.get_block()
     while block is None:
         block = dc.robot.camera.get_block()
