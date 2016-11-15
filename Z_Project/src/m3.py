@@ -387,10 +387,6 @@ def writing(root, dc, NameOfFile):
         dc.robot.buzzer.play_tone(57)
         f.write(']')
 
-    def save_exit():
-        f.close()
-        root.bind('')
-
     root.bind_all('<KeyRelease>', lambda _: dc.robot.buzzer.stop())
     root.bind_all('<Key-r>', lambda _:do(dc))
     root.bind_all('<Key-t>', lambda _:re(dc))
@@ -401,35 +397,12 @@ def writing(root, dc, NameOfFile):
     root.bind_all('<Key-p>', lambda _:xi(dc))
     root.bind_all('<Key-[>', lambda _:h_do(dc))
     root.bind_all('<Key-]>', lambda _:h_re(dc))
-    root.bind_all('<Key-space>', lambda _:save_exit())
+    root.bind_all('<Key-space>', lambda _:f.close())
     root.bind_all('<Key-a>', lambda _:go_left(dc))
     root.bind_all('<Key-w>', lambda _:go_forward(dc))
     root.bind_all('<Key-s>', lambda _:go_backward(dc))
     root.bind_all('<Key-d>', lambda _:go_right(dc))
     root.bind_all('<Key-z>', lambda _:go_stop(dc))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # ----------------------------------------------------------------------
