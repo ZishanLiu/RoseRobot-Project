@@ -5,3 +5,5 @@
 2 hours for feature 6 and feature 10
 2 hours for parallel parking and upadate PID control
 2 hours for PID control
+2 hours for group meeting
+2 hours for final step
