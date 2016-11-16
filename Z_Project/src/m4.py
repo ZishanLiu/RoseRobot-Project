@@ -317,7 +317,7 @@ def ParallelPark(dc):
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.01)
                     dc.robot.motor_controller.drive_pwm(-105, 0)
-                    time.sleep(0.4)
+                    time.sleep(0.35)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.01)
                     dc.robot.motor_controller.drive_pwm(-50, -50)
