@@ -148,7 +148,7 @@ def disconnect(dc):
 #
 
 def slow_mode(root, dc):
-    speed = 20
+    speed = 40
     root.bind_all('<Key-a>', lambda event: go_left(event, dc))
     root.bind_all('<Key-d>', lambda event: go_right(event, dc))
     root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
@@ -186,7 +186,7 @@ def slow_mode(root, dc):
     def stop(event, dc):
         dc.robot.motor_controller.stop()
 def medium_mode(root, dc):
-    speed = 30
+    speed = 60
     root.bind_all('<Key-a>', lambda event: go_left(event, dc))
     root.bind_all('<Key-d>', lambda event: go_right(event, dc))
     root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
@@ -225,7 +225,7 @@ def medium_mode(root, dc):
         dc.robot.motor_controller.stop()
 
 def fast_mode(root, dc):
-    speed = 40
+    speed = 80
     root.bind_all('<Key-a>', lambda event: go_left(event, dc))
     root.bind_all('<Key-d>', lambda event: go_right(event, dc))
     root.bind_all('<Key-w>', lambda event: go_forward(event, dc))
@@ -468,7 +468,7 @@ def move_waypoints(dc):
     points_fake = str(content1)
     points = points_fake.replace('(', '').replace(')', '').split(',')
 
-    times = (120 / speed)
+    times = (110 / speed)
     for k in range(len(points)):
         if k % 2 == 0:
             timex = int(points[k]) / speed
@@ -483,24 +483,30 @@ def move_waypoints(dc):
             dc.robot.motor_controller.drive_pwm(speed, speed)
             time.sleep(timey)
     dc.robot.motor_controller.drive_pwm(0, 0)
-    def goback(dc):
-        timea = (240 / speed)
-        dc.robot.motor_controller.drive_pwm(speed, 0)
-        time.sleep(timea)
-        for k in range(len(points)):
-            if k % 2 == 0:
-                timex = int(points[k]) / speed
-                dc.robot.motor_controller.drive_pwm(speed, 0)
-                time.sleep(times)
-                dc.robot.motor_controller.drive_pwm(speed, speed)
-                time.sleep(timex)
-            if k % 2 != 0:
-                timey = int(points[k]) / speed
-                dc.robot.motor_controller.drive_pwm(0, speed)
-                time.sleep(times)
-                dc.robot.motor_controller.drive_pwm(speed, speed)
-                time.sleep(timey)
-        dc.robot.motor_controller.drive_pwm(0, 0)
+def goback(dc):
+    a = dc.my_entry.get()
+    speed = int(a)
+    content1 = dc.points_entry.get()
+    points_fake = str(content1)
+    points = points_fake.replace('(', '').replace(')', '').split(',')
+    times = (110 / speed)
+    timea = (200 / speed)
+    dc.robot.motor_controller.drive_pwm(speed, 0)
+    time.sleep(timea)
+    for k in range(len(points)):
+        if k % 2 == 0:
+            timex = int(points[k]) / speed
+#             dc.robot.motor_controller.drive_pwm(speed, 0)
+#             time.sleep(times)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
+            time.sleep(timex)
+        if k % 2 != 0:
+            timey = int(points[k]) / speed
+            dc.robot.motor_controller.drive_pwm(speed, 0)
+            time.sleep(times)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
+            time.sleep(timey)
+    dc.robot.motor_controller.drive_pwm(0, 0)
 
 
 
