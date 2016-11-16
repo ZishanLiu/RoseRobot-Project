@@ -265,11 +265,6 @@ def tracking(dc, entry_box5):
             if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
                 break
 
-#         while True:
-#             dc.robot.motor_controller.drive_pwm(0, s1)
-#             if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
-#                 break
-
     if s2 == 2:
         dc.robot.motor_controller.drive_pwm(0, 0)
         time.sleep(0.01)
@@ -281,17 +276,32 @@ def tracking(dc, entry_box5):
     dc.robot.motor_controller.drive_pwm(0, 0)
 
 def proximitymiddle(dc, entry_box6):
+
     print('The middle proximity sensor is on!')
     print(dc.robot.sensor_reader.front_proximity_sensor.read())
     distance = int(entry_box6.get())
 
-    dc.robot.motor_controller.drive_pwm(70, 70)
-
-    if dc.robot.sensor_reader.front_proximity_sensor.read() > distance:
-        dc.robot.motor_controller.drive_pwm(0, 0)
-
-    if dc.robot.sensor_reader.front_proximity_sensor.read() < distance:
+    while True:
         dc.robot.motor_controller.drive_pwm(70, 70)
+
+        if dc.robot.sensor_reader.front_proximity_sensor.read() > distance:
+            dc.robot.motor_controller.drive_pwm(-70, -70)
+
+        if dc.robot.sensor_reader.front_proximity_sensor.read() < distance:
+            dc.robot.motor_controller.drive_pwm(70, 70)
+
+        if dc.robot.sensor_reader.front_proximity_sensor.read() == distance:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+
+        if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+
+        if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
+            dc.robot.motor_controller.drive_pwm(0, 0)
+            break
+
+    dc.robot.motor_controller.drive_pwm(0, 0)
 
 
 
