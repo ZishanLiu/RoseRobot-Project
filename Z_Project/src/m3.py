@@ -53,51 +53,72 @@ def my_frame(root, dc):
     label1.grid()
     dc.entry_box1 = ttk.Entry(main_frame, text='Number of Notes')
     dc.entry_box1.grid()
+# You will need a integer for this entry box for how many notes you wanna play.
+
 
     label2 = ttk.Label(main_frame, text='length of Time')
     label2.grid()
     dc.entry_box2 = ttk.Entry(main_frame, text='length of Time')
     dc.entry_box2.grid()
-
+# You will need a integer for this entry box for how long each notes you wanna play.
 
     label3 = ttk.Label(main_frame, text='Range of Time')
     label3.grid()
     dc.entry_box3 = ttk.Entry(main_frame, text='Range of Time')
     dc.entry_box3.grid()
+# You will need a integer for this entry box for how long you wanna play for total.
 
 
     label4 = ttk.Label(main_frame, text='Name of File')
     label4.grid()
     dc.entry_box4 = ttk.Entry(main_frame, text='Name of File')
     dc.entry_box4.grid()
+# You will name whatever you want to a file, but remember you need add".txt" at the end.
 
 
     button_play_random_notes = ttk.Button(main_frame, text='Play random notes')
     button_play_random_notes['command'] = lambda: songs_playing(dc)
     button_play_random_notes.grid()
+# Button that uses the function"songs_playing", which play radom notes.
 
 
     button_play_random_notes_for_random_time = ttk.Button(main_frame, text='Play random notes for random time')
     button_play_random_notes_for_random_time['command'] = lambda: songs_playing_randomly(dc)
     button_play_random_notes_for_random_time.grid()
+# Button that uses the function "songs_playing" for random time on each note.
 
 
     button_Compose_music = ttk.Button(main_frame, text='Compose music and dance with light on')
     button_Compose_music ['command'] = lambda: songs_composing(dc)
     button_Compose_music .grid()
+# Button that uses "songs_composing", which makes robots to compose its own music.
 
 
     button_using_camera = ttk.Button(main_frame, text='usingcameratohitobject')
     button_using_camera['command'] = lambda: usingcameratohitobject(dc)
     button_using_camera.grid()
+# Button that uses"usingcameratohitobject", which makes robot to find object and hit it.
+
 
     button_read_file = ttk.Button(main_frame, text='Read File')
     button_read_file['command'] = lambda: reading(dc, dc.entry_box4.get())
     button_read_file.grid()
 
+# Button that uses"reading", which means reading the file.
+# When you finish the requirements below, you can do it.
+# Make sure your file is not blank.
+
+
+
     button_record_file = ttk.Button(main_frame, text='Record File')
     button_record_file['command'] = lambda: writing(root, dc, dc.entry_box4.get())
     button_record_file.grid()
+# Button that uses "writing", which means record the movements.
+# Remember to press space to stop your song.
+# Remember to press Z and then space to stop your movements
+
+
+
 
 
 
