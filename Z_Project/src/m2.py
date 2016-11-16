@@ -174,10 +174,6 @@ def working_time(dc, lable1, lable2, lable3, lable4):
 
         lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4)
 
-#             person1 = open('../process/hours-1.txt', 'r').read()
-#             person2 = open('../process/hours-2.txt', 'r').read()
-#             person3 = open('../process/hours-3.txt', 'r').read()
-#             person4 = open('../process/hours-4.txt', 'r').read()
 #
 #             lable1 = ttk.Label(main_frame2)
 #             lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
