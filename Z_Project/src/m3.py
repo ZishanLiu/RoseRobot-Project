@@ -172,7 +172,7 @@ def songs_composing(dc):
     # list3 = ()
 
 
-    dc.robot.motor_controller(0, 50)
+
 
     for a in range(len(ryhme1[random.randrange(0, 2)])):
 
@@ -249,47 +249,47 @@ def reading(dc, NameOfFile):
 
     def do(dc):
         dc.robot.buzzer.play_tone(43)
-        time.sleep(1)
+        time.sleep(0.8)
         dc.robot.buzzer.stop()
 
     def re(dc):
         dc.robot.buzzer.play_tone(45)
-        time.sleep(1)
+        time.sleep(0.8)
         dc.robot.buzzer.stop()
 
     def mi(dc):
         dc.robot.buzzer.play_tone(47)
-        time.sleep(1)
+        time.sleep(0.8)
         dc.robot.buzzer.stop()
 
     def fa(dc):
         dc.robot.buzzer.play_tone(48)
-        time.sleep(1)
+        time.sleep(0.8)
         dc.robot.buzzer.stop()
 
     def so(dc):
         dc.robot.buzzer.play_tone(50)
-        time.sleep(1)
+        time.sleep(0.8)
         dc.robot.buzzer.stop()
 
     def la(dc):
         dc.robot.buzzer.play_tone(52)
-        time.sleep(1)
+        time.sleep(0.8)
         dc.robot.buzzer.stop()
 
     def xi(dc):
         dc.robot.buzzer.play_tone(54)
-        time.sleep(1)
+        time.sleep(0.8)
         dc.robot.buzzer.stop()
 
     def h_do(dc):
         dc.robot.buzzer.play_tone(55)
-        time.sleep(1)
+        time.sleep(0.8)
         dc.robot.buzzer.stop()
 
     def h_re(dc):
         dc.robot.buzzer.play_tone(57)
-        time.sleep(1)
+        time.sleep(0.8)
         dc.robot.buzzer.stop()
 
     for k in range(len(s)):
