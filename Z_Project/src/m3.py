@@ -221,6 +221,8 @@ def usingcameratohitobject(dc):
 
 def reading(dc, NameOfFile):
     f = open(NameOfFile, 'r')
+# open or make a file that can record my movements
+
     s = f.read()
     f.close()
     for k in range(len(s)):
@@ -291,6 +293,8 @@ def reading(dc, NameOfFile):
         dc.robot.buzzer.play_tone(57)
         time.sleep(0.8)
         dc.robot.buzzer.stop()
+# Read file by playing 0.8s for each notes and moving 1.0s for each movements.
+
 
     for k in range(len(s)):
         if s[k] == 'w':
@@ -321,6 +325,7 @@ def reading(dc, NameOfFile):
             h_do(dc)
         elif s[k] == ']':
             h_re(dc)
+# When read the file, the robot will make response basic on the movements above.
 
 def writing(root, dc, NameOfFile):
     f = open(NameOfFile, 'w')
@@ -387,6 +392,10 @@ def writing(root, dc, NameOfFile):
         dc.robot.buzzer.play_tone(57)
         f.write(']')
 
+
+# If the operator presses the key, the movements will be recorded by the opened file.
+
+
     root.bind_all('<KeyRelease>', lambda _: dc.robot.buzzer.stop())
     root.bind_all('<Key-r>', lambda _:do(dc))
     root.bind_all('<Key-t>', lambda _:re(dc))
@@ -403,6 +412,8 @@ def writing(root, dc, NameOfFile):
     root.bind_all('<Key-s>', lambda _:go_backward(dc))
     root.bind_all('<Key-d>', lambda _:go_right(dc))
     root.bind_all('<Key-z>', lambda _:go_stop(dc))
+# bind all the movements to the corresponding key
+# When release the key, stop
 
 
 # ----------------------------------------------------------------------
