@@ -465,7 +465,7 @@ def move_waypoints(dc):
     points_fake = str(content1)
     points = points_fake.replace('(', '').replace(')', '').split(',')
 
-    times = (100 / speed)
+    times = (120 / speed)
     for k in range(len(points)):
         if k % 2 == 0:
             timex = int(points[k]) / speed
