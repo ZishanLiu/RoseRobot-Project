@@ -7,3 +7,4 @@
 2 hours for PID control
 2 hours for group meeting
 2 hours for final step
+20 hours total
