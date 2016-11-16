@@ -188,12 +188,12 @@ def BangBang(dc):
     error = dc.errorentry.get()
     thresh1 = int(thresh)
     error1 = int(error)
-    dc.robot.motor_controller.drive_pwm(50, 50)
+    dc.robot.motor_controller.drive_pwm(40, 40)
     print(dc.robot.sensor_reader.left_reflectance_sensor.read())
     print(dc.robot.sensor_reader.right_reflectance_sensor.read())
     while True:
         if dc.robot.sensor_reader.right_reflectance_sensor.read() > thresh1 - error1 and dc.robot.sensor_reader.left_reflectance_sensor.read() > thresh1 - error1:
-            dc.robot.motor_controller.drive_pwm(50, 50)
+            dc.robot.motor_controller.drive_pwm(40, 40)
         if dc.robot.sensor_reader.left_reflectance_sensor.read() < thresh1 - error1:
             dc.robot.motor_controller.drive_pwm(40, 10)
         if dc.robot.sensor_reader.right_reflectance_sensor.read() < thresh1 - error1:
