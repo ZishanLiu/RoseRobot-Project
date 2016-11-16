@@ -102,6 +102,9 @@ def my_frame(root, dc):
     waypoints_button = ttk.Button(main_frame, text='waypoints')
     waypoints_button['command'] = lambda: move_waypoints(dc)
     waypoints_button.grid()
+    goback_button = ttk.Button(main_frame, text='goback')
+    goback_button['command'] = lambda: goback(dc)
+    goback_button.grid()
     label1 = ttk.Label(main_frame, text='Speed for wayoints')
     label1.grid()
     dc.my_entry = ttk.Entry(main_frame)
@@ -480,6 +483,28 @@ def move_waypoints(dc):
             dc.robot.motor_controller.drive_pwm(speed, speed)
             time.sleep(timey)
     dc.robot.motor_controller.drive_pwm(0, 0)
+    def goback(dc):
+        timea = (240 / speed)
+        dc.robot.motor_controller.drive_pwm(speed, 0)
+        time.sleep(timea)
+        for k in range(len(points)):
+            if k % 2 == 0:
+                timex = int(points[k]) / speed
+                dc.robot.motor_controller.drive_pwm(speed, 0)
+                time.sleep(times)
+                dc.robot.motor_controller.drive_pwm(speed, speed)
+                time.sleep(timex)
+            if k % 2 != 0:
+                timey = int(points[k]) / speed
+                dc.robot.motor_controller.drive_pwm(0, speed)
+                time.sleep(times)
+                dc.robot.motor_controller.drive_pwm(speed, speed)
+                time.sleep(timey)
+        dc.robot.motor_controller.drive_pwm(0, 0)
+
+
+
+
 
 
 
