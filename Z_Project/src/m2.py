@@ -122,30 +122,34 @@ def my_frame(root, dc):
     entry_box6 = ttk.Entry(main_frame, text='Track')
     entry_box6.grid()
 
-    follow_button = ttk.Button(main_frame, text='follow')
-    follow_button['command'] = lambda: proximitymiddle(dc, entry_box6)
+    label_following_distance = ttk.Label(main_frame)
+    label_following_distance['text'] = 'Enter a speed:'
+    label_following_distance.grid()
+
+    entry_box7 = ttk.Entry(main_frame, text='Track distance')
+    entry_box7.grid()
+
+    follow_button = ttk.Button(main_frame, text='keep distance')
+    follow_button['command'] = lambda: keep_distance(dc, entry_box6, entry_box7)
     follow_button.grid()
 
     main_frame2 = ttk.Frame(root, padding=50)
     main_frame2.grid(row=1, column=5)
 
     lable1 = ttk.Label(main_frame2)
-#     lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
-
 
     lable2 = ttk.Label(main_frame2)
-#     lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
-
 
     lable3 = ttk.Label(main_frame2)
-#     lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
-
 
     lable4 = ttk.Label(main_frame2)
-#     lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
+
     lable1.grid()
+
     lable2.grid()
+
     lable3.grid()
+
     lable4.grid()
 
     time_button = ttk.Button(main_frame2, text='working time')
@@ -197,13 +201,10 @@ def working_time(dc, lable1, lable2, lable3, lable4):
         lable1['text'] = ' '
 
 
-
         lable2['text'] = ' '
 
 
-
         lable3['text'] = ' '
-
 
 
         lable4['text'] = ' '
@@ -211,9 +212,11 @@ def working_time(dc, lable1, lable2, lable3, lable4):
 
 def spin_left(dc):
     dc.robot.motor_controller.drive_pwm(-150, 150)
+    print('It is spinning!')
 
 def spin_right(dc):
     dc.robot.motor_controller.drive_pwm(150, -150)
+    print('It is spinning!')
 
 def move_forward(dc, entry_box1):
     a = int(entry_box1.get())
@@ -232,14 +235,16 @@ def turn_right(dc):
 def move_backward(dc, entry_box2):
     a = int(entry_box2.get())
     dc.robot.motor_controller.drive_pwm(-a, -a)
+    print('It is moving backward')
 
 def stop(dc):
     dc.robot.motor_controller.drive_pwm(0, 0)
+    print('Stop!')
 
 def distance_go(dc, entry_box3, entry_box4):
 
-    d = 3 * int(entry_box3.get())
-    c = 2 * int(entry_box4.get())
+    d = 9 * int(entry_box3.get())
+    c = 9 * int(entry_box4.get())
 
     dc.robot.motor_controller.drive_pwm(d, d)
     time.sleep(c / d)
@@ -253,9 +258,11 @@ def tracking(dc, entry_box5):
 
     while True:
         dc.robot.motor_controller.drive_pwm(s1, s1)
+
         if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
             s2 = 1
             break
+
         elif dc.robot.sensor_reader.right_bump_sensor.read() == 0:
             s2 = 2
             break
@@ -266,6 +273,7 @@ def tracking(dc, entry_box5):
 
         while True:
             dc.robot.motor_controller.drive_pwm(0, s1)
+
             if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
                 break
 
@@ -275,24 +283,28 @@ def tracking(dc, entry_box5):
 
         while True:
             dc.robot.motor_controller.drive_pwm(s1, 0)
+
             if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
                 break
+
     dc.robot.motor_controller.drive_pwm(0, 0)
 
-def proximitymiddle(dc, entry_box6):
+def keep_distance(dc, entry_box6, entry_box7):
 
     print('The middle proximity sensor is on!')
-    print(dc.robot.sensor_reader.front_proximity_sensor.read())
+
+    speed = int(entry_box7.get())
+
     distance = int(entry_box6.get())
 
     while True:
-        dc.robot.motor_controller.drive_pwm(70, 70)
+        dc.robot.motor_controller.drive_pwm(speed, speed)
 
         if dc.robot.sensor_reader.front_proximity_sensor.read() > distance:
-            dc.robot.motor_controller.drive_pwm(-70, -70)
+            dc.robot.motor_controller.drive_pwm(-speed, -speed)
 
         if dc.robot.sensor_reader.front_proximity_sensor.read() < distance:
-            dc.robot.motor_controller.drive_pwm(70, 70)
+            dc.robot.motor_controller.drive_pwm(speed, speed)
 
         if dc.robot.sensor_reader.front_proximity_sensor.read() == distance:
             dc.robot.motor_controller.drive_pwm(0, 0)
