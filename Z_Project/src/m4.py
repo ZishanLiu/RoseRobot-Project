@@ -71,23 +71,28 @@ def my_frame(root, dc):
     Allsensorsmixbutton['command'] = (lambda:Allsensors(dc))
     sensorbutton = ttk.Button(frame, text='sensor')
     sensorbutton['command'] = (lambda:sensor(dc))
+    enteraspeedlabel = ttk.Label(frame, text='Enter a speed:')
+    enterapointslabel = ttk.Label(frame, text='Enter points for the polygon:')
 
 
 
 
-    speedbutton.grid(row=0, column=0)
-    dc.speedentry.grid(row=0, column=1)
+
+    speedbutton.grid(row=1, column=0)
+    dc.speedentry.grid(row=1, column=1)
     sensorbutton.grid()
     BangBangbutton.grid(row=0, column=5)
     dc.threshholdentry.grid(row=0, column=6)
     dc.errorentry.grid(row=1, column=6)
     Pcontrolbutton.grid(row=2, column=5)
     dc.Pcontrolerrorentry.grid(row=2, column=6)
-    Polygonleftbutton.grid(row=0, column=3)
-    dc.Polygonpointsentry.grid(row=0, column=4)
-    Polygonrightbutton.grid(row=1, column=3)
-    ParallelParkbutton.grid(row=2, column=3)
-    Allsensorsmixbutton.grid(row=3, column=3)
+    Polygonleftbutton.grid(row=1, column=3)
+    dc.Polygonpointsentry.grid(row=1, column=4)
+    Polygonrightbutton.grid(row=2, column=3)
+    ParallelParkbutton.grid(row=3, column=3)
+    Allsensorsmixbutton.grid(row=4, column=3)
+    enteraspeedlabel.grid(row=0, column=1)
+    enterapointslabel.grid(row=0, column=4)
 
 
 def speed(dc):
@@ -259,20 +264,20 @@ def ParallelPark(dc):
                 dc.robot.motor_controller.drive_pwm(speed, speed)
                 if dc.robot.sensor_reader.left_proximity_sensor.read() < 300:
                     dc.robot.motor_controller.drive_pwm(50, 50)
-                    time.sleep(1.2)
+                    time.sleep(0.3)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.01)
                     dc.robot.motor_controller.drive_pwm(0, 100)
-                    time.sleep(0.6)
+                    time.sleep(0.5)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.01)
                     dc.robot.motor_controller.drive_pwm(50, 50)
-                    time.sleep(1.2)
+                    time.sleep(0.7)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     break
             if  dc.robot.sensor_reader.right_proximity_sensor.read() > 300:
                 dc.robot.motor_controller.drive_pwm(speed, speed)
-                if  dc.robot.sensor_reader.left_proximity_sensor.read() > 300:
+                if  dc.robot.sensor_reader.right_proximity_sensor.read() < 300:
                     dc.robot.motor_controller.drive_pwm(speed, speed)
                     dc.robot.motor_controller.drive_pwm(50, 50)
                     time.sleep(0.4)
@@ -289,14 +294,14 @@ def ParallelPark(dc):
         if speed < 0:
             if  dc.robot.sensor_reader.left_proximity_sensor.read() > 300:
                 dc.robot.motor_controller.drive_pwm(speed, speed)
-                if  dc.robot.sensor_reader.left_proximity_sensor.read() > 300:
+                if  dc.robot.sensor_reader.left_proximity_sensor.read() < 300:
                     dc.robot.motor_controller.drive_pwm(speed, speed)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.05)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.01)
                     dc.robot.motor_controller.drive_pwm(0, -100)
-                    time.sleep(0.5)
+                    time.sleep(0.3)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.01)
                     dc.robot.motor_controller.drive_pwm(-50, -50)
@@ -305,14 +310,14 @@ def ParallelPark(dc):
                     break
             if  dc.robot.sensor_reader.right_proximity_sensor.read() > 300:
                 dc.robot.motor_controller.drive_pwm(speed, speed)
-                if  dc.robot.sensor_reader.left_proximity_sensor.read() > 300:
+                if  dc.robot.sensor_reader.right_proximity_sensor.read() < 300:
                     dc.robot.motor_controller.drive_pwm(speed, speed)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.05)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.01)
                     dc.robot.motor_controller.drive_pwm(-105, 0)
-                    time.sleep(0.65)
+                    time.sleep(0.4)
                     dc.robot.motor_controller.drive_pwm(0, 0)
                     time.sleep(0.01)
                     dc.robot.motor_controller.drive_pwm(-50, -50)
