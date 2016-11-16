@@ -237,16 +237,20 @@ def stop(dc):
     dc.robot.motor_controller.drive_pwm(0, 0)
 
 def distance_go(dc, entry_box3, entry_box4):
+
     d = 3 * int(entry_box3.get())
     c = 2 * int(entry_box4.get())
+
     dc.robot.motor_controller.drive_pwm(d, d)
     time.sleep(c / d)
+
     dc.robot.motor_controller.drive_pwm(0, 0)
 
 def tracking(dc, entry_box5):
 
     s1 = int(entry_box5.get())
     s2 = 0
+
     while True:
         dc.robot.motor_controller.drive_pwm(s1, s1)
         if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
@@ -257,7 +261,7 @@ def tracking(dc, entry_box5):
             break
 
     if s2 == 1:
-        dc.robot.motor_controller.drive_pwm(0, 0)
+        dc.robot.motor_controller.drive_pwm(-s1, 0)
         time.sleep(0.01)
 
         while True:
@@ -266,7 +270,7 @@ def tracking(dc, entry_box5):
                 break
 
     if s2 == 2:
-        dc.robot.motor_controller.drive_pwm(0, 0)
+        dc.robot.motor_controller.drive_pwm(0, -s1)
         time.sleep(0.01)
 
         while True:
