@@ -275,7 +275,11 @@ def tracking(dc, entry_box5):
             dc.robot.motor_controller.drive_pwm(0, s1)
 
             if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
-                break
+                dc.robot.motor_controller.drive_pwm(s1, 0)
+
+                if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
+                    dc.robot.motor_controller.drive_pwm(0, 0)
+                    break
 
     if s2 == 2:
         dc.robot.motor_controller.drive_pwm(0, -s1)
@@ -285,7 +289,11 @@ def tracking(dc, entry_box5):
             dc.robot.motor_controller.drive_pwm(s1, 0)
 
             if dc.robot.sensor_reader.left_bump_sensor.read() == 0:
-                break
+                dc.robot.motor_controller.drive_pwm(0, s1)
+
+                if dc.robot.sensor_reader.right_bump_sensor.read() == 0:
+                    dc.robot.motor_controller.drive_pwm(0, 0)
+                    break
 
     dc.robot.motor_controller.drive_pwm(0, 0)
 
