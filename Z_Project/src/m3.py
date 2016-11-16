@@ -236,6 +236,7 @@ def usingcameratohitobject(dc):
 
     print(block.x, block.y, block.width, block.height)
     dc.robot.buzzer.play_tone(50)
+    time.sleep(2)
     dc.robot.motor_controller.drive_pwm(100, 100)
     time.sleep(5)
     dc.robot.motor_controller.drive_pwm(0, 0)
