@@ -249,6 +249,7 @@ def reading(dc, NameOfFile):
     f.close()
     for k in range(len(s)):
         print(s[k], end='')
+
     print()
     speed = 40
     def go_left(dc):
