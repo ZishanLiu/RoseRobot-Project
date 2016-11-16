@@ -108,7 +108,7 @@ def my_frame(root, dc):
 #     label_following.grid()
 
     tracking_button = ttk.Button(main_frame, text='Hit wall!')
-    tracking_button['command'] = lambda: tracking(dc, entry_box5)
+    tracking_button['command'] = lambda: hit_wall(dc, entry_box5)
     tracking_button.grid()
 
 #     camera_button = ttk.Button(main_frame, text='Camera')
@@ -166,13 +166,13 @@ def working_time(dc, lable1, lable2, lable3, lable4):
         person3 = open('../process/hours-3.txt', 'r').read()
         person4 = open('../process/hours-4.txt', 'r').read()
 
-        lable1['text'] = 'Wit Li has worked' + ' ' + str(person1) + ' hours.'
+        lable1['text'] = 'Wit Li has worked' + ' ' + str(person1)
 
-        lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2) + ' hours.'
+        lable2['text'] = 'Zishan Liu has worked' + ' ' + str(person2)
 
-        lable3['text'] = 'Song Luo has worked' + ' ' + str(person3) + ' hours.'
+        lable3['text'] = 'Song Luo has worked' + ' ' + str(person3)
 
-        lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4) + ' hours.'
+        lable4['text'] = 'Ming Lyu has worked' + ' ' + str(person4)
 
 #             person1 = open('../process/hours-1.txt', 'r').read()
 #             person2 = open('../process/hours-2.txt', 'r').read()
@@ -251,7 +251,7 @@ def distance_go(dc, entry_box3, entry_box4):
 
     dc.robot.motor_controller.drive_pwm(0, 0)
 
-def tracking(dc, entry_box5):
+def hit_wall(dc, entry_box5):
 
     s1 = int(entry_box5.get())
     s2 = 0
